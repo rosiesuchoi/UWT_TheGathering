@@ -1,0 +1,66 @@
+/* Hero: the Top Deck frame, full screen.
+
+   Children of .hero-in are sized in cqw. The container query lives on
+   .hero-in, not .hero, because containment creates a stacking context and
+   would trap the hero background above the WebGL canvas.
+
+   Who moves what, so nothing fights:
+   - CSS `rotate` / `translate` properties hold each piece's resting pose,
+     run the entrance keyframes, and add parallax from three variables that
+     src/sections/hero.ts sets: --px / --py (pointer, -0.5 to 0.5) on .fan
+     and --sp (scrolled away, 0 to 1) on .hero.
+   - Do not hand these elements to GSAP: it bakes the resting pose into an
+     inline transform and the entrance breaks.
+   - The card face has its own transform for tilt and idle rock (card.css). */
+.hero { position: relative; overflow: hidden; width: 100%; aspect-ratio: 16 / 10; max-height: calc(100svh - var(--navh)); min-height: 520px; }
+.hero::after { content: ""; position: absolute; z-index: var(--z-bg); inset: 0 0 0 52%; background: var(--purple); clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); }
+.hero-in { position: absolute; inset: 0; container-type: inline-size; }
+
+.hero-copy { position: absolute; left: 5.5cqw; bottom: 6cqw; width: 42cqw; display: flex; flex-direction: column; gap: 1.4cqw; translate: 0 calc(var(--sp, 0) * 22%); }
+.hero-copy .label { color: var(--purple); font-size: clamp(11px, 1.3cqw, 16px); }
+.hero h1 { font-size: clamp(44px, 6.7cqw, 128px); line-height: 1; }
+.hero .sub { font-size: clamp(16px, 1.9cqw, 26px); line-height: 1.4; max-width: 24ch; }
+
+/* The fan: two card backs and the foil card. */
+/* Scroll: the fan drifts up faster than the page and leans a little.
+   Pointer: pieces further back shift more, which reads as depth. */
+.fan { position: absolute; right: 11cqw; top: 51%; translate: 0 calc(-50% - var(--sp, 0) * 16%); rotate: calc(var(--sp, 0) * -3deg); width: min(27cqw, 44svh); aspect-ratio: 5 / 7; }
+.fan .cardback { position: absolute; inset: 0; aspect-ratio: auto; box-shadow: 0 12px 28px rgba(0, 0, 0, .35); }
+.fan .b1 { rotate: -16deg; translate: calc(-33% - var(--px, 0) * 34px) calc(3% - var(--py, 0) * 34px); }
+.fan .b2 { rotate: -7deg; translate: calc(-16% - var(--px, 0) * 20px) calc(1% - var(--py, 0) * 20px); }
+.herocard { position: absolute; inset: 0; width: auto; rotate: 5deg; translate: calc(var(--px, 0) * -8px) calc(var(--py, 0) * -8px); }
+/* A soft ring that pulses out from the card: "this is clickable". */
+.herocard::after { content: ""; position: absolute; inset: -3%; border-radius: 7% / 5%; border: 2px solid var(--gold-pale); opacity: 0; animation: hero-ring 2.8s ease-out 1.6s infinite; pointer-events: none; }
+.deal-hint { position: absolute; right: 11cqw; width: min(27cqw, 44svh); bottom: 3.2cqw; text-align: center; color: var(--paper); font-size: clamp(11px, 1.2cqw, 15px); }
+
+/* Entrance. With JS on, pieces wait hidden until src/sections/hero.ts adds
+   .is-ready, then play once. Without JS nothing is hidden. */
+.js .hero:not(.is-ready) .fan > *,
+.js .hero:not(.is-ready) .hero-copy > *,
+.js .hero:not(.is-ready) .deal-hint { opacity: 0; animation: hero-failsafe 0s 4s forwards; }
+/* If the script never arrives, show everything anyway after a few seconds. */
+@keyframes hero-failsafe { to { opacity: 1; } }
+.hero.is-ready .hero-copy > * { animation: hero-rise .7s cubic-bezier(.2, .7, .2, 1) backwards; }
+.hero.is-ready .hero-copy > :nth-child(2) { animation-delay: .08s; }
+.hero.is-ready .hero-copy > :nth-child(3) { animation-delay: .16s; }
+.hero.is-ready .herocard { animation: hero-drop .8s cubic-bezier(.2, .8, .2, 1) .15s backwards; }
+.hero.is-ready .fan .b2 { animation: hero-fan .7s cubic-bezier(.2, .8, .2, 1) .6s backwards; }
+.hero.is-ready .fan .b1 { animation: hero-fan .85s cubic-bezier(.2, .8, .2, 1) .7s backwards; }
+.hero.is-ready .deal-hint { animation: hero-rise .6s ease-out 1.3s backwards; }
+@keyframes hero-rise { from { opacity: 0; translate: 0 24px; } }
+@keyframes hero-drop { from { opacity: 0; translate: 0 -12%; scale: .9; rotate: -5deg; } }
+/* The backs start stacked behind the front card, then fan out to their pose. */
+@keyframes hero-fan { 0% { opacity: 0; rotate: 5deg; translate: 0 0; } 12% { opacity: 1; } }
+@keyframes hero-ring { 0% { opacity: .9; transform: scale(.98); } 70%, 100% { opacity: 0; transform: scale(1.1); } }
+
+@media (max-width: 700px) {
+  .hero { aspect-ratio: auto; max-height: none; min-height: 0; padding: 36px var(--gut) 0; }
+  .hero::after { inset: 44% 0 0 0; clip-path: polygon(0 14%, 100% 0, 100% 100%, 0 100%); }
+  .hero-in { position: relative; inset: auto; display: flex; flex-direction: column; }
+  .hero-copy { position: relative; left: auto; bottom: auto; width: auto; gap: 14px; translate: none; }
+  .fan { position: relative; right: auto; top: auto; translate: none; rotate: none; width: 54%; margin: 44px 9% 0 auto; }
+  .deal-hint { position: relative; right: auto; bottom: auto; width: auto; padding: 30px 0 72px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .herocard::after { animation: none; }
+}

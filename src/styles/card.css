@@ -1,0 +1,49 @@
+/* The card. One anatomy for every card on the site: name bar, art box, type
+   bar, text box, collector number. Real 5:7 card ratio. Everything inside is
+   sized in cqw of the card, so a card scales as one object at any width. */
+.card { position: relative; display: block; width: 100%; aspect-ratio: 5 / 7; container-type: inline-size; text-decoration: none; color: var(--ink); }
+button.card { appearance: none; border: 0; padding: 0; background: none; font: inherit; text-align: left; cursor: pointer; }
+
+.face { position: absolute; inset: 0; border-radius: 5cqw; background: var(--frame, var(--ink)); padding: 4cqw; display: grid; grid-template-rows: auto 1fr auto auto auto; gap: 2.4cqw; overflow: hidden; box-shadow: 0 5cqw 11cqw rgba(15, 6, 36, .32); transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .18s ease-out; }
+.c-name, .c-type { background: var(--paper); border-radius: 2cqw; display: flex; align-items: center; justify-content: space-between; gap: 2cqw; padding: 1.6cqw 3cqw; line-height: 1.2; min-width: 0; }
+.c-name { font-weight: 700; font-size: 6.4cqw; }
+.c-name > span, .c-type > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.c-pip { flex: none; width: 5cqw; height: 5cqw; border-radius: 50%; background: var(--pip, var(--gold)); border: 1px solid rgba(27, 16, 51, .35); }
+.c-type { font-weight: 500; font-size: 4.5cqw; }
+.c-art { border-radius: 2cqw; background: var(--art); color: var(--glyph, #fff); display: grid; place-items: center; min-height: 0; }
+.c-art > svg, .c-art > .mark { width: 46%; height: auto; }
+.c-text { display: block; background: var(--paper); border-radius: 2cqw; padding: 3cqw; font-size: 4.8cqw; line-height: 1.35; min-height: 23cqw; }
+.c-num { display: flex; justify-content: space-between; font-family: var(--f-m); font-size: 3.8cqw; letter-spacing: .08em; color: var(--gold-pale); }
+
+/* Tones: which colors a card takes. */
+.tone-gold { --pip: var(--gold); --art: linear-gradient(160deg, #6a3fc0, #2a0f5c); --glyph: #fff; }
+.tone-chalk { --pip: var(--chalk); --art: linear-gradient(160deg, #fffdf3, #e6d7a8); --glyph: var(--ink); }
+.tone-tide { --pip: var(--tide); --art: linear-gradient(160deg, #7dbbff, #1b4fa8); --glyph: #fff; }
+.tone-dusk { --pip: var(--dusk); --art: linear-gradient(160deg, #5b4690, #1b1033); --glyph: var(--gold-pale); }
+.tone-ember { --pip: var(--ember); --art: linear-gradient(160deg, #ff8a5c, #b3261a); --glyph: #fff; }
+.tone-grove { --pip: var(--grove); --art: linear-gradient(160deg, #74d79d, #1c6b3d); --glyph: #fff; }
+.tone-foil { --pip: conic-gradient(#ff5050, #ffe15a, #50ffaa, #50aaff, #c86eff, #ff5050); --art: linear-gradient(135deg, #ffd1d1, #fff3b8, #c9ffdf, #c5e2ff, #e6ccff); --glyph: var(--ink); }
+
+/* Rare: gold frame. */
+.card.rare { --frame: var(--gold-foil); }
+.card.rare .c-num { color: var(--ink); }
+
+/* Foil and glare. Both follow the pointer through --fx/--fy and --gx/--gy,
+   which src/ui/tilt.ts sets. */
+.c-foil { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: color-dodge; opacity: .8; background: linear-gradient(115deg, transparent 15%, rgba(255, 80, 80, .5) 30%, rgba(255, 225, 90, .5) 40%, rgba(80, 255, 170, .5) 50%, rgba(80, 170, 255, .5) 60%, rgba(200, 110, 255, .5) 70%, transparent 85%) var(--fx, 35%) var(--fy, 40%) / 250% 250%; }
+.c-glare { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: overlay; background: radial-gradient(circle at var(--gx, 60%) var(--gy, 25%), rgba(255, 255, 255, .6), transparent 45%); }
+
+/* Idle: a card that rocks and shimmers by itself until the pointer takes over. */
+.card.idle .face { animation: card-rock 6s ease-in-out infinite; }
+.card.idle .c-foil { animation: card-foil 6s ease-in-out infinite; }
+@keyframes card-rock { 0%, 100% { transform: perspective(900px) rotateX(6deg) rotateY(-14deg); } 50% { transform: perspective(900px) rotateX(-5deg) rotateY(14deg); } }
+@keyframes card-foil { 0%, 100% { background-position: 15% 30%; } 50% { background-position: 85% 70%; } }
+
+/* Card back: ink, gold border, the club mark. Our own design. */
+.cardback { aspect-ratio: 5 / 7; border-radius: 6% / 4.3%; background: var(--ink); border: 3px solid var(--gold); display: grid; place-items: center; }
+.cardback .mark { width: 46%; --mark: var(--gold); }
+
+@media (prefers-reduced-motion: reduce) {
+  .face { transition: none; }
+  .card.idle .face, .card.idle .c-foil { animation: none; }
+}

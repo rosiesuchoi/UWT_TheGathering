@@ -6,13 +6,17 @@ import '@fontsource/caveat/600.css';
 import './styles/tokens.css';
 import './styles/base.css';
 import './styles/layout.css';
+import './styles/card.css';
+import './styles/hero.css';
 
 import { initScroll } from './core/scroll';
+import { initHero } from './sections/hero';
 import { applyClubContent, initNav } from './ui/chrome';
 
 applyClubContent();
 initNav();
 initScroll();
+initHero();
 
 // three.js is the heaviest part of the site, so it loads after the page is
 // readable instead of blocking it.

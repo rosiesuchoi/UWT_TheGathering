@@ -7,6 +7,8 @@
   <meta name="description" content="A new Magic: The Gathering club at the University of Washington Tacoma. Commander every Thursday and Friday at 6 PM.">
   <meta name="theme-color" content="#32096b">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <!-- Marks that scripts run, so entrance animations may hide their start state. -->
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <a class="skip" href="#top">Skip to content</a>
@@ -36,7 +38,12 @@
           <h1>Shuffle up. <em>Draw seven.</em></h1>
           <p class="sub">Commander every Thursday and Friday, 6 PM.</p>
         </div>
-        <p class="stub stub-hero">Hero cards and the shuffle: Phase 5</p>
+        <div class="fan" id="heroFan">
+          <div class="cardback b1"><span class="mark"></span></div>
+          <div class="cardback b2"><span class="mark"></span></div>
+          <!-- The foil card is added here by src/sections/hero.ts -->
+        </div>
+        <p class="deal-hint label">Click the card to shuffle up</p>
       </div>
     </section>
 

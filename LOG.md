@@ -65,17 +65,38 @@ decided, what is next.
   canvas (containment makes a stacking context). Moved it to an inner wrapper
   and wrote the rule into CLAUDE.md.
 
+- Club approved the foundation. Built the first Phase 5 section, the hero:
+  - The shared card component (card.ts, card.css, glyphs.ts) and pointer
+    tilt (tilt.ts). Every later section reuses these.
+  - The fan: two card backs and the foil "Your name here" card, built from
+    club.json. The card rocks and shimmers when idle and follows the pointer.
+  - Entrance: headline rises, the card drops in, the two backs fan out from
+    behind it, then the hint appears.
+  - Parallax: the three cards shift by different amounts with the pointer,
+    and the fan drifts up and leans as the hero scrolls away.
+  - Clicking the card goes to the table for now. The shuffle cutscene comes
+    with the table section.
+- Hero check, in a real browser: build and type-check pass, no console
+  errors, no sideways scroll at 1280 or 375 wide, entrance mid-frame and end
+  state both look right, pointer parallax and scroll progress variables
+  update, phone layout matches the mockup. Not confirmed: the exact stopping
+  point after clicking the card, and real-time feel, because the pane was
+  hidden and frames only advanced on capture.
+- Lesson: GSAP baked the cards' CSS resting pose into an inline transform,
+  which broke the fan-out entrance. Switched parallax to CSS variables and
+  wrote the rule into CLAUDE.md.
+
 **Decided**
 - Stack: Vite + TypeScript, three.js, GSAP ScrollTrigger, Lenis, no framework.
 - Hosting: GitHub Pages with "mtguwt" in the URL.
 - Members content comes last; use marked placeholders until then.
 
 **Open**
-- Approve the foundation.
+- Approve the hero.
 - Confirm the official club name and the two venue addresses.
 - Owed content marked in the mockup: club blurb, raffle prizes and how to
   enter, giveaway date, member list.
 
 **Next**
-- Phase 5: build sections one at a time, starting with the hero (the card
-  fan and the shared card component), then the table.
+- Phase 5, second section: the table, its seven cards, and the shuffle
+  cutscene in three.js.

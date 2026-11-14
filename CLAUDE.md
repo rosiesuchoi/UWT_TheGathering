@@ -102,6 +102,12 @@ Bright and collectible. The card is the interface.
   elements from getBoundingClientRect().
 - src/core/deck.ts - the corner deck (the persistent 3D object).
 - src/ui/chrome.ts - nav, footer, club name and Discord links from club.json.
+- src/ui/card.ts + src/styles/card.css - the one card component used by
+  every section. Tones (gold, chalk, tide, dusk, ember, grove, foil), rare
+  frame, foil layer. src/ui/glyphs.ts holds the art-box pictures.
+- src/ui/tilt.ts - pointer tilt and foil tracking for any card.
+- src/sections/*.ts + src/styles/<section>.css - one pair per section.
+  hero.ts is the pattern to follow.
 - design/ - concept board, approved mockup, logo sources. Reference only.
 
 ## Rules the code depends on
@@ -109,6 +115,14 @@ Bright and collectible. The card is the interface.
   z-index -2, the canvas is at -1, text is above. A section must never create
   a stacking context (no transform, opacity, filter, z-index or
   container-type on .sec or .hero), or its background will cover the canvas.
+- Do not let GSAP transform an element whose pose is set with the CSS
+  `rotate` / `translate` properties. GSAP bakes those into an inline
+  transform and CSS keyframes on them stop working. Instead have JS set a
+  CSS variable and let the stylesheet use it (see --px, --py, --sp in
+  hero.css).
+- Entrance animations hide their start state only under `.js` and only
+  until the section gets `.is-ready`, with a CSS failsafe that reveals
+  everything after 4 seconds if the script never runs.
 - three.js is loaded with a dynamic import so the text shows first. Keep
   three imports out of main.ts and anything main.ts imports statically.
 - The mockup is the visual spec. When building a section, port its markup
@@ -124,8 +138,10 @@ session.
 1. Discovery - done 2026-11-14
 2. Creative direction - done 2026-11-14. Picked C, "Top Deck" (see below)
 3. Design - done 2026-11-14. Approved mockup: design/mockup.html
-4. Foundation - built 2026-11-14, awaiting approval
-5. Sections - one at a time: hero, about, members, events, join
+4. Foundation - done 2026-11-14
+5. Sections - one at a time, each approved before the next:
+   hero (built 2026-11-14, awaiting approval), table + shuffle cutscene,
+   club, nights, members, events, join
 6. Motion and 3D polish
 7. QA - real browser at desktop, tablet, phone; report what was measured
 8. Deploy

@@ -21,6 +21,7 @@ export interface Club {
   name: string;
   nameConfirmed: boolean;
   school: string;
+  city: string;
   format: string;
   discord: string;
   /** Officer-written intro. Null until provided. */
