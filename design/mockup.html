@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MTG at UWT - page design (Top Deck)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Phase 3 static mockup. Shows every section at rest. Motion is described in
+   the dashed "Motion" notes, which exist only in this mockup. */
+:root {
+  --paper: #f1edf9; --paper-2: #e4dcf4; --white: #fffdf8;
+  --ink: #1b1033; --ink-2: #2a1b4d;
+  --purple: #4b2e83; --purple-deep: #32096b;
+  --gold: #c9a23f; --gold-pale: #f0dc9c;
+  --chalk: #fff8e1; --tide: #2f7de1; --dusk: #3a2a5c; --ember: #e2472f; --grove: #2f9e5b;
+  --gold-foil: linear-gradient(135deg, #b08a34, #f4e3ad 42%, #d9b863 60%, #9c7626);
+  --f-d: "Anton", Impact, "Arial Narrow", sans-serif;
+  --f-t: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-m: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --max: 1200px; --gut: clamp(20px, 5vw, 56px);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--f-t); font-size: 17px; line-height: 1.6; }
+h1, h2, h3, p, ul, dl, dd { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--tide); outline-offset: 3px; border-radius: 4px; }
+section { scroll-margin-top: 64px; }
+
+.label { font-family: var(--f-m); font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
+.tbd { display: inline-block; font-family: var(--f-m); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; border: 1px dashed currentColor; border-radius: 4px; padding: 1px 6px; opacity: .8; vertical-align: middle; }
+h1, h2 { font-family: var(--f-d); font-weight: 400; text-transform: uppercase; line-height: .96; letter-spacing: .005em; text-wrap: balance; }
+h1 { font-size: clamp(52px, 7.4vw, 104px); }
+h2 { font-size: clamp(40px, 5.6vw, 76px); }
+h1 em, h2 em { font-style: normal; color: var(--purple); }
+.btn { display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; line-height: 1.2; padding: 14px 22px; border-radius: 10px; text-decoration: none; border: 2px solid transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); }
+.btn-line { border-color: currentColor; }
+.btn-gold { background: var(--gold); color: var(--ink); }
+.btn:hover { filter: brightness(1.12); }
+
+.mark { display: block; aspect-ratio: 720 / 910; background: var(--mark, var(--gold-foil)); -webkit-mask: url(assets/logo-mark.svg) center / contain no-repeat; mask: url(assets/logo-mark.svg) center / contain no-repeat; }
+
+/* Nav */
+.nav { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 20px; padding: 10px var(--gut); background: rgba(241, 237, 249, .9); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(27, 16, 51, .12); }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--f-d); font-size: 20px; text-transform: uppercase; letter-spacing: .02em; margin-right: auto; }
+.badge { width: 40px; height: 40px; border-radius: 8px; background: var(--purple-deep); display: grid; place-items: center; flex: none; }
+.badge .mark { width: 56%; }
+.links { display: flex; gap: 26px; }
+.links a { text-decoration: none; font-weight: 500; font-size: 15px; }
+.links a:hover { color: var(--purple); }
+.nav .btn { padding: 10px 16px; font-size: 15px; }
+.menu { display: none; font: 500 15px var(--f-t); background: none; border: 2px solid var(--ink); color: var(--ink); border-radius: 10px; padding: 8px 14px; }
+
+/* Sections */
+.sec { position: relative; overflow: hidden; padding: clamp(72px, 10vw, 136px) var(--gut); }
+.in { position: relative; z-index: 2; max-width: var(--max); margin: 0 auto; }
+.dots { background-image: radial-gradient(rgba(27, 16, 51, .13) 1px, transparent 1.3px); background-size: 22px 22px; }
+.dark { background: var(--ink); color: var(--paper); }
+.dark h2 em { color: var(--gold); }
+.violet { background: var(--purple); color: var(--paper); }
+.violet h2 em { color: var(--gold-pale); }
+.tint { background: var(--paper-2); }
+.head { display: flex; flex-direction: column; gap: 16px; }
+.head h2 { max-width: 17ch; }
+.head p:not(.label) { max-width: 46ch; }
+.note { margin-top: clamp(40px, 6vw, 72px); background: var(--white); color: var(--ink); border: 1px dashed var(--ink); border-radius: 8px; padding: 12px 16px; font-family: var(--f-m); font-size: 12.5px; line-height: 1.55; max-width: 86ch; }
+.note b { letter-spacing: .1em; text-transform: uppercase; margin-right: 8px; }
+.no-notes .note { display: none; }
+
+/* Card: real 5:7 ratio. Everything inside is sized in cqw so a card scales as one object. */
+.card { position: relative; display: block; width: 100%; aspect-ratio: 5 / 7; container-type: inline-size; text-decoration: none; color: var(--ink); }
+.face { position: absolute; inset: 0; border-radius: 5cqw; background: var(--frame, var(--ink)); padding: 4cqw; display: grid; grid-template-rows: auto 1fr auto auto auto; gap: 2.4cqw; overflow: hidden; box-shadow: 0 5cqw 11cqw rgba(15, 6, 36, .32); transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .18s ease-out; }
+.rare { --frame: var(--gold-foil); }
+.c-name, .c-type { background: var(--paper); border-radius: 2cqw; display: flex; align-items: center; justify-content: space-between; gap: 2cqw; padding: 1.6cqw 3cqw; line-height: 1.2; min-width: 0; }
+.c-name { font-weight: 700; font-size: 6.4cqw; }
+.c-name span, .c-type span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.c-name .idx { font-family: var(--f-m); font-weight: 500; font-size: 5.4cqw; margin-right: 2.4cqw; color: var(--purple); }
+.c-name i { flex: none; width: 5cqw; height: 5cqw; border-radius: 50%; background: var(--pip, var(--gold)); border: 1px solid rgba(27, 16, 51, .35); }
+.c-type { font-weight: 500; font-size: 4.5cqw; }
+.c-art { border-radius: 2cqw; background: var(--art, linear-gradient(160deg, #6a3fc0, #2a0f5c)); color: var(--glyph, #fff); display: grid; place-items: center; min-height: 0; }
+.c-art > svg, .c-art > .mark { width: 46%; height: auto; }
+.c-text { background: var(--paper); border-radius: 2cqw; padding: 3cqw; font-size: 4.8cqw; line-height: 1.35; min-height: 23cqw; }
+.c-num { display: flex; justify-content: space-between; font-family: var(--f-m); font-size: 3.8cqw; letter-spacing: .08em; color: var(--gold-pale); }
+.rare .c-num { color: var(--ink); }
+.foil { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: color-dodge; opacity: .8; background: linear-gradient(115deg, transparent 15%, rgba(255, 80, 80, .5) 30%, rgba(255, 225, 90, .5) 40%, rgba(80, 255, 170, .5) 50%, rgba(80, 170, 255, .5) 60%, rgba(200, 110, 255, .5) 70%, transparent 85%) var(--fx, 35%) var(--fy, 40%) / 250% 250%; }
+.glare { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: overlay; background: radial-gradient(circle at var(--gx, 60%) var(--gy, 25%), rgba(255, 255, 255, .6), transparent 45%); }
+.cardback { aspect-ratio: 5 / 7; border-radius: 6%/4.3%; background: var(--ink); border: 3px solid var(--gold); display: grid; place-items: center; }
+.cardback .mark { width: 46%; --mark: var(--gold); }
+
+/* Hero */
+.hero { padding-block: clamp(48px, 7vw, 96px) clamp(64px, 8vw, 112px); }
+.hero::before { content: ""; position: absolute; z-index: 1; inset: 0 0 0 50%; background: var(--purple); clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 32px; align-items: center; }
+.hero-copy { display: flex; flex-direction: column; gap: 22px; }
+.hero-copy .label { color: var(--purple); }
+.lede { font-size: 19px; max-width: 40ch; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.hand { position: relative; --cw: clamp(150px, 15vw, 200px); --step: 7deg; height: calc(var(--cw) * 1.8 + 30px); }
+.hand .card { position: absolute; left: calc(50% - var(--cw) / 2); bottom: calc(var(--cw) * .4); width: var(--cw); transform-origin: 50% 220%; rotate: calc((var(--i) - 3) * var(--step)); transition: translate .2s ease-out; }
+.hand .card:hover, .hand .card:focus-visible { translate: 0 -26px; z-index: 10; }
+.hand-cap { position: relative; z-index: 2; text-align: center; color: var(--paper); margin-top: 6px; }
+
+/* Club */
+.split { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
+.played { width: min(320px, 72vw); rotate: -4deg; justify-self: center; }
+.played.r { rotate: 4deg; }
+.body { display: flex; flex-direction: column; gap: 20px; }
+.body > p:not(.label) { max-width: 56ch; }
+.owed { border: 1px dashed rgba(27, 16, 51, .5); border-radius: 8px; padding: 12px 16px; font-size: 15px; max-width: 56ch; }
+.glance { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 24px; border-top: 2px solid var(--ink); padding-top: 18px; margin-top: 8px; }
+.glance div { display: flex; flex-direction: column; gap: 2px; }
+.glance b { font-family: var(--f-d); font-weight: 400; font-size: clamp(40px, 5vw, 64px); line-height: 1; color: var(--purple); }
+.glance span { font-size: 14.5px; line-height: 1.3; }
+
+/* Nights */
+.nights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 5vw, 64px); margin-top: clamp(36px, 5vw, 64px); }
+.night { display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 1fr); gap: clamp(18px, 3vw, 32px); align-items: center; }
+.night .card { rotate: -3deg; }
+.night:nth-child(2) .card { rotate: 3deg; }
+.night-info { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.day { font-family: var(--f-d); text-transform: uppercase; font-size: clamp(34px, 4.2vw, 56px); line-height: 1; color: var(--accent); }
+.time { font-family: var(--f-m); font-size: 15px; letter-spacing: .08em; }
+.night-info h3 { font-size: 22px; line-height: 1.2; margin-top: 6px; }
+.addr { font-size: 15.5px; opacity: .85; }
+.night-info a { font-weight: 700; font-size: 15.5px; color: var(--accent); width: fit-content; }
+
+/* Members */
+.members { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.binder { position: relative; background: var(--white); border: 1px solid #d5cbe9; border-radius: 16px; padding: clamp(12px, 2vw, 24px); padding-left: clamp(34px, 4.6vw, 60px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(8px, 1.6vw, 18px); box-shadow: 0 24px 48px rgba(27, 16, 51, .14); }
+.binder::before { content: ""; position: absolute; left: clamp(11px, 1.5vw, 20px); top: 0; bottom: 0; width: 16px; background: radial-gradient(circle, var(--paper-2) 0 6px, #b9add6 6.5px 7.5px, transparent 8px) center / 16px 33.33% repeat-y; }
+.pocket { background: var(--paper-2); border-radius: 10px; padding: 7%; min-width: 0; }
+.pocket .foil { opacity: .2; transition: opacity .2s; }
+.pocket .glare { opacity: .35; transition: opacity .2s; }
+.pocket .card:hover .foil { opacity: .8; }
+.pocket .card:hover .glare { opacity: 1; }
+.slot { border: 2px dashed var(--purple); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; color: var(--purple); }
+.slot b { font-family: var(--f-d); font-weight: 400; text-transform: uppercase; font-size: clamp(18px, 2.2vw, 28px); line-height: 1; }
+.slot span { font-size: 14px; line-height: 1.3; }
+
+/* Events */
+.events { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
+.pile { position: relative; width: min(100%, 440px); aspect-ratio: 1 / 1.02; justify-self: center; }
+.pile .card { position: absolute; width: 56%; }
+.pile .card:nth-child(1) { left: 2%; top: 14%; rotate: -9deg; }
+.pile .card:nth-child(2) { right: 2%; top: 3%; rotate: 6deg; }
+.event-list { display: flex; flex-direction: column; gap: 28px; margin-top: 32px; }
+.event { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid rgba(241, 237, 249, .3); padding-top: 18px; max-width: 54ch; }
+.event .label { color: var(--gold-pale); }
+.event h3 { font-size: 24px; line-height: 1.2; }
+
+/* Join */
+.join::before { content: ""; position: absolute; z-index: 1; inset: 0 62% 0 0; background: var(--gold); clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%); }
+.join .lede { max-width: 44ch; }
+.recap { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 6px 32px; font-size: 15.5px; }
+.recap dt { font-family: var(--f-m); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--purple); }
+
+/* Footer */
+.foot { background: var(--ink); color: var(--paper); padding: 56px var(--gut) 96px; }
+.foot .in { display: flex; flex-direction: column; gap: 28px; }
+.foot-top { display: flex; flex-wrap: wrap; gap: 24px 56px; align-items: flex-start; justify-content: space-between; }
+.foot .brand { margin: 0; color: var(--paper); }
+.foot ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 15.5px; }
+.foot .label { color: var(--gold-pale); margin-bottom: 4px; display: block; }
+.legal { font-size: 13px; line-height: 1.55; opacity: .75; max-width: 80ch; border-top: 1px solid rgba(241, 237, 249, .2); padding-top: 20px; }
+
+/* Fixed helpers */
+.tracker { position: fixed; z-index: 40; right: 16px; bottom: 16px; display: flex; align-items: flex-end; gap: 8px; pointer-events: none; }
+.tracker .cardback { width: 46px; border-width: 2px; box-shadow: 2px 2px 0 #0d0620, 4px 4px 0 var(--gold), 6px 6px 0 #0d0620; }
+.tracker > span { font-family: var(--f-m); font-size: 12px; background: var(--ink); color: var(--paper); border-radius: 6px; padding: 3px 8px; }
+.notes-toggle { position: fixed; z-index: 40; left: 16px; bottom: 16px; font: 500 12px var(--f-m); background: var(--white); color: var(--ink); border: 1px dashed var(--ink); border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+
+@media (max-width: 900px) {
+  .links { display: none; }
+  .links.open { display: flex; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid rgba(27, 16, 51, .15); padding: 6px var(--gut) 14px; }
+  .links.open a { padding: 12px 0; font-size: 17px; border-bottom: 1px solid rgba(27, 16, 51, .1); }
+  .menu { display: block; }
+  .hero::before { inset: 56% 0 0 0; clip-path: polygon(0 16%, 100% 0, 100% 100%, 0 100%); }
+  .hero-grid, .split, .members, .events { grid-template-columns: minmax(0, 1fr); }
+  .hero-grid { gap: 40px; }
+  .nights { grid-template-columns: minmax(0, 1fr); }
+  .join::before { inset: 0 0 68% 0; clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%); }
+  .glance { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .nav { gap: 10px; }
+  .brand > span:last-child { display: none; }
+  .hand { --cw: 112px; --step: 5.6deg; }
+  .binder { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .slot { grid-column: span 2; padding: 22px 16px; }
+  .recap { grid-template-columns: minmax(0, 1fr); }
+  .recap dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .face, .hand .card { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#top"><span class="badge"><span class="mark"></span></span><span>MTG at UWT</span></a>
+  <nav class="links" id="links" aria-label="Sections">
+    <a href="#club">Club</a><a href="#nights">Nights</a><a href="#members">Members</a><a href="#events">Events</a>
+  </nav>
+  <a class="btn btn-ink" href="https://discord.gg/VwcpCWfbz">Join the Discord</a>
+  <button class="menu" type="button" id="menuBtn" aria-expanded="false" aria-controls="links">Menu</button>
+</header>
+
+<main>
+  <section class="sec hero dots" id="top">
+    <div class="in hero-grid">
+      <div class="hero-copy">
+        <p class="label">University of Washington Tacoma · Commander</p>
+        <h1>Shuffle up. <em>Draw seven.</em></h1>
+        <p class="lede">A new Magic: The Gathering club. We play Commander every Thursday and Friday at 6 PM in Tacoma.</p>
+        <div class="cta">
+          <a class="btn btn-ink" href="https://discord.gg/VwcpCWfbz">Join the Discord</a>
+          <a class="btn btn-line" href="#nights">See the two nights</a>
+        </div>
+      </div>
+      <div>
+        <div class="hand" data-cards="hand" aria-label="Your opening hand: seven cards, one for each part of this page"></div>
+        <p class="hand-cap label">Your opening hand. Pick a card.</p>
+      </div>
+    </div>
+    <div class="in"><aside class="note"><b>Motion</b>On load a 3D deck of 100 cards shuffles and deals these seven into the hand. Cards lift on hover and jump to their section on click. The deck then shrinks into the corner tracker and counts cards as you scroll.</aside></div>
+  </section>
+
+  <section class="sec dots" id="club">
+    <div class="in split">
+      <div class="played" data-cards="club"></div>
+      <div class="body">
+        <p class="label">Card 1 of 7</p>
+        <h2>A new Commander club <em>at UW Tacoma.</em></h2>
+        <p>We are a brand new club at the University of Washington Tacoma. We play Commander twice a week, run a raffle every week, and give away a deck at the end of the quarter.</p>
+        <p class="owed"><span class="tbd">Owed</span> Two or three sentences from the officers, in your own words: why the club started and who it is for.</p>
+        <div>
+          <p class="label">Commander at a glance</p>
+          <div class="glance">
+            <div><b>100</b><span>cards in a deck</span></div>
+            <div><b>1</b><span>commander leads it</span></div>
+            <div><b>4</b><span>players in a pod</span></div>
+            <div><b>40</b><span>starting life</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="in"><aside class="note"><b>Motion</b>Card 1 leaves the hand, flips in 3D and lands here. The text rises in behind it. The dotted background moves slower than the page for depth.</aside></div>
+  </section>
+
+  <section class="sec dark" id="nights">
+    <div class="in">
+      <div class="head">
+        <p class="label">Cards 2 and 3 of 7</p>
+        <h2>Two nights a week. <em>Both at 6 PM.</em></h2>
+      </div>
+      <div class="nights">
+        <div class="night" style="--accent:#ff8a66">
+          <div data-cards="thu"></div>
+          <div class="night-info">
+            <p class="day">Thursday</p>
+            <p class="time">6:00 PM</p>
+            <h3>Iruda Cafe</h3>
+            <p class="addr">4916 Center St, Tacoma <span class="tbd">confirm</span></p>
+            <a href="#nights">Open in Maps</a>
+          </div>
+        </div>
+        <div class="night" style="--accent:#7dbbff">
+          <div data-cards="fri"></div>
+          <div class="night-info">
+            <p class="day">Friday</p>
+            <p class="time">6:00 PM</p>
+            <h3>Silver King Games &amp; Hobby</h3>
+            <p class="addr">5442 S Tacoma Way, Tacoma <span class="tbd">confirm</span></p>
+            <a href="#nights">Open in Maps</a>
+          </div>
+        </div>
+      </div>
+      <aside class="note"><b>Motion</b>The page turns dark as cards 2 and 3 are played side by side. Each card leans toward the pointer. On phones they stack and slide in from opposite sides.</aside>
+    </div>
+  </section>
+
+  <section class="sec tint" id="members">
+    <div class="in">
+      <div class="members">
+        <div class="head">
+          <p class="label">Card 4 of 7</p>
+          <h2>Who is <em>at the table.</em></h2>
+          <p>Every member gets a card in the binder. Each card takes the colors of that member's favorite commander.</p>
+          <p><span class="tbd">Placeholder cards</span> The member list comes later.</p>
+        </div>
+        <div class="binder" data-cards="members"></div>
+      </div>
+      <aside class="note"><b>Motion</b>The binder page slides up and cards slot into the nine pockets one at a time. Foil follows the pointer (try it on any card). A click flips a card to show more about that member.</aside>
+    </div>
+  </section>
+
+  <section class="sec violet" id="events">
+    <div class="in">
+      <div class="events">
+        <div class="pile" data-cards="events"></div>
+        <div>
+          <div class="head">
+            <p class="label">Cards 5 and 6 of 7</p>
+            <h2>Two ways <em>to win.</em></h2>
+          </div>
+          <div class="event-list">
+            <div class="event">
+              <p class="label">Every week</p>
+              <h3>The weekly raffle</h3>
+              <p>A raffle every week, with prizes to win. <span class="tbd">prizes and how to enter: owed</span></p>
+            </div>
+            <div class="event">
+              <p class="label">End of the quarter</p>
+              <h3>Mutant Menace deck giveaway</h3>
+              <p>At the end of the quarter we give away a Mutant Menace Commander deck. <span class="tbd">date: owed</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="note"><b>Motion</b>The raffle card lands first. The giveaway card drops on top with a gold flash, since it is the rare. Both keep their foil shine as the pointer moves.</aside>
+    </div>
+  </section>
+
+  <section class="sec join dots" id="join">
+    <div class="in split">
+      <div class="played r" data-cards="you"></div>
+      <div class="body">
+        <p class="label">Card 7 of 7</p>
+        <h2>The last card <em>is you.</em></h2>
+        <p class="lede">Come to a Thursday or Friday night, or say hello on Discord first.</p>
+        <div class="cta"><a class="btn btn-ink" href="https://discord.gg/VwcpCWfbz">Join the Discord</a></div>
+        <dl class="recap">
+          <div><dt>Thursday, 6 PM</dt><dd>Iruda Cafe</dd></div>
+          <div><dt>Friday, 6 PM</dt><dd>Silver King Games &amp; Hobby</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="in"><aside class="note"><b>Motion</b>The last card in the hand flips over. It is blank with your name on it, and its foil follows the pointer. The deck in the corner squares up: all seven drawn.</aside></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="in">
+    <div class="foot-top">
+      <a class="brand" href="#top"><span class="badge"><span class="mark"></span></span><span>MTG at UWT</span></a>
+      <div><span class="label">Play</span><ul><li>Thursday, 6 PM, Iruda Cafe</li><li>Friday, 6 PM, Silver King Games &amp; Hobby</li></ul></div>
+      <div><span class="label">Find us</span><ul><li><a href="https://discord.gg/VwcpCWfbz">Discord</a></li><li><a href="#members">Members</a></li><li><a href="#events">Events</a></li></ul></div>
+    </div>
+    <p class="legal">MTG at UWT is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &copy;Wizards of the Coast LLC. <span class="tbd">check wording and club name before launch</span></p>
+  </div>
+</footer>
+
+<div class="tracker" aria-hidden="true"><span>0 / 7 drawn</span><div class="cardback"><span class="mark"></span></div></div>
+<button class="notes-toggle" type="button" id="notesBtn" aria-pressed="true">Motion notes: on</button>
+
+<script>
+(function () {
+  var G = {
+    mark: '<span class="mark"></span>',
+    cup: '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 40h48v18a24 24 0 0 1-48 0z" fill="currentColor" stroke="none"/><path d="M70 44h6a9 9 0 0 1 0 18h-8"/><path d="M16 90h60"/><path d="M36 28c-4-6 4-8 0-14M54 28c-4-6 4-8 0-14"/></svg>',
+    d20: '<svg viewBox="0 0 100 100"><polygon points="50,4 90,27 90,73 50,96 10,73 10,27" fill="currentColor"/><path d="M50 24 77 68H23ZM50 4v20M90 27 77 68M10 27l13 41M50 96 23 68M50 96l27-28M10 73l13-5M90 73l-13-5M10 27l40-3M90 27l-40-3" fill="none" stroke="rgba(0,0,0,.45)" stroke-width="2.5" stroke-linejoin="round"/></svg>',
+    people: '<svg viewBox="0 0 100 100" fill="currentColor"><circle cx="68" cy="42" r="10" opacity=".65"/><path d="M50 84a19 19 0 0 1 38 0z" opacity=".65"/><circle cx="38" cy="36" r="13"/><path d="M12 84a26 26 0 0 1 52 0z"/></svg>',
+    person: '<svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="38" r="16"/><path d="M18 92a32 32 0 0 1 64 0z"/></svg>',
+    ticket: '<svg viewBox="0 0 100 100"><path d="M10 30h80v13a8 8 0 0 0 0 16v13H10V59a8 8 0 0 0 0-16z" fill="currentColor"/><path d="M64 35v32" stroke="rgba(255,255,255,.75)" stroke-width="3" stroke-dasharray="5 5"/></svg>',
+    deck: '<svg viewBox="0 0 100 100" fill="currentColor"><rect x="20" y="12" width="46" height="64" rx="6" opacity=".4"/><rect x="27" y="19" width="46" height="64" rx="6" opacity=".7"/><rect x="34" y="26" width="46" height="64" rx="6"/></svg>',
+    plus: '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"><rect x="16" y="16" width="68" height="68" rx="12" stroke-dasharray="10 10"/><path d="M50 34v32M34 50h32"/></svg>'
+  };
+  var C = {
+    gold:  { pip: '#c9a23f', art: 'linear-gradient(160deg,#6a3fc0,#2a0f5c)', glyph: '#fff' },
+    chalk: { pip: '#fff8e1', art: 'linear-gradient(160deg,#fffdf3,#e6d7a8)', glyph: '#1b1033' },
+    tide:  { pip: '#2f7de1', art: 'linear-gradient(160deg,#7dbbff,#1b4fa8)', glyph: '#fff' },
+    dusk:  { pip: '#3a2a5c', art: 'linear-gradient(160deg,#5b4690,#1b1033)', glyph: '#f0dc9c' },
+    ember: { pip: '#e2472f', art: 'linear-gradient(160deg,#ff8a5c,#b3261a)', glyph: '#fff' },
+    grove: { pip: '#2f9e5b', art: 'linear-gradient(160deg,#74d79d,#1c6b3d)', glyph: '#fff' },
+    foil:  { pip: 'conic-gradient(#ff5050,#ffe15a,#50ffaa,#50aaff,#c86eff,#ff5050)', art: 'linear-gradient(135deg,#ffd1d1,#fff3b8,#c9ffdf,#c5e2ff,#e6ccff)', glyph: '#1b1033' }
+  };
+  // The opening hand. In the build this comes from the content JSON files.
+  var HAND = [
+    { key: 'club', name: 'The Club', c: 'gold', g: 'mark', type: 'Club · Tacoma', text: 'A new Commander club at UW Tacoma.', href: '#club' },
+    { key: 'thu', name: 'Thursday', c: 'ember', g: 'cup', type: 'Night · Iruda Cafe', text: 'Thursdays, 6 PM.', href: '#nights' },
+    { key: 'fri', name: 'Friday', c: 'tide', g: 'd20', type: 'Night · Silver King', text: 'Fridays, 6 PM.', href: '#nights' },
+    { key: 'mem', name: 'Members', c: 'grove', g: 'people', type: 'People · UW Tacoma', text: 'Who is at the table.', href: '#members' },
+    { key: 'raf', name: 'Raffle', c: 'chalk', g: 'ticket', type: 'Event · Weekly', text: 'A raffle every week, with prizes.', href: '#events' },
+    { key: 'give', name: 'Giveaway', c: 'dusk', g: 'deck', type: 'Event · End of quarter', text: 'Mutant Menace deck giveaway.', href: '#events', rare: true, foil: true },
+    { key: 'you', name: 'Your name here', c: 'foil', g: 'plus', type: 'Member · Commander', text: 'This card is yours.', href: '#join', foil: true }
+  ];
+  HAND.forEach(function (h, i) { h.idx = i + 1; h.num = (i + 1) + '/7'; });
+
+  function card(o, extra) {
+    var col = C[o.c], tag = (extra && extra.link) ? 'a' : 'div';
+    var cls = 'card' + (o.rare ? ' rare' : '') + ((extra && extra.tilt) ? ' tilt' : '');
+    var style = '--pip:' + col.pip + ';--art:' + col.art + ';--glyph:' + col.glyph + ';' + ((extra && extra.style) || '');
+    return '<' + tag + (tag === 'a' ? ' href="' + o.href + '"' : '') + ' class="' + cls + '" style="' + style + '">' +
+      '<div class="face"><div class="c-name"><span>' + (extra && extra.index ? '<b class="idx">' + o.idx + '</b>' : '') + o.name + '</span><i></i></div>' +
+      '<div class="c-art">' + G[o.g] + '</div><div class="c-type"><span>' + o.type + '</span></div>' +
+      '<div class="c-text">' + o.text + '</div><div class="c-num"><span>UWT</span><span>' + o.num + '</span></div>' +
+      (o.foil ? '<div class="foil"></div><div class="glare"></div>' : '') + '</div></' + tag + '>';
+  }
+  function byKey(k) { return HAND.filter(function (h) { return h.key === k; })[0]; }
+  function mount(name, html) { var el = document.querySelector('[data-cards="' + name + '"]'); if (el) el.innerHTML = html; }
+
+  mount('hand', HAND.map(function (h, i) { return card(h, { link: true, index: true, style: '--i:' + i }); }).join(''));
+  mount('club', card(byKey('club'), { tilt: true }));
+  mount('thu', card(byKey('thu'), { tilt: true }));
+  mount('fri', card(byKey('fri'), { tilt: true }));
+  mount('events', card(byKey('raf'), { tilt: true }) + card(byKey('give'), { tilt: true }));
+  mount('you', card(byKey('you'), { tilt: true }));
+
+  var cycle = ['chalk', 'tide', 'dusk', 'ember', 'grove'];
+  var members = [];
+  for (var i = 0; i < 8; i++) {
+    members.push('<div class="pocket">' + card({ name: 'Member name', c: cycle[i % 5], g: 'person', type: 'Role', text: 'Favorite commander goes here.', num: '#' + ('0' + (i + 1)).slice(-2), foil: true }, { tilt: true }) + '</div>');
+  }
+  members.push('<a class="pocket slot" href="#join"><b>Open pocket</b><span>Your card goes here.</span></a>');
+  mount('members', members.join(''));
+
+  // Pointer tilt and foil
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var props = ['--rx', '--ry', '--fx', '--fy', '--gx', '--gy'];
+  if (!reduce) {
+    document.querySelectorAll('.card.tilt').forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect();
+        var x = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+        var y = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+        el.style.setProperty('--ry', ((x - 0.5) * 26).toFixed(1) + 'deg');
+        el.style.setProperty('--rx', ((0.5 - y) * 20).toFixed(1) + 'deg');
+        el.style.setProperty('--fx', (x * 100).toFixed(0) + '%');
+        el.style.setProperty('--fy', (y * 100).toFixed(0) + '%');
+        el.style.setProperty('--gx', (x * 100).toFixed(0) + '%');
+        el.style.setProperty('--gy', (y * 100).toFixed(0) + '%');
+      });
+      el.addEventListener('pointerleave', function () { props.forEach(function (p) { el.style.removeProperty(p); }); });
+    });
+  }
+
+  // Phone menu and notes toggle
+  var menuBtn = document.getElementById('menuBtn'), links = document.getElementById('links');
+  menuBtn.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
+  links.addEventListener('click', function () { links.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); });
+  var notesBtn = document.getElementById('notesBtn');
+  notesBtn.addEventListener('click', function () {
+    var off = document.body.classList.toggle('no-notes');
+    notesBtn.setAttribute('aria-pressed', String(!off));
+    notesBtn.textContent = 'Motion notes: ' + (off ? 'off' : 'on');
+  });
+})();
+</script>
+</body>
+</html>

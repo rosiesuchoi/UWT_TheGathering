@@ -57,6 +57,20 @@ obvious placeholders and list them under "Content still owed" below.
 - Fully responsive, keyboard navigable, readable contrast.
 - Deploy: GitHub Pages. The URL should read "mtguwt" (repo or org name).
 
+## Creative direction: Top Deck
+Bright and collectible. The card is the interface.
+- The opening hand of seven cards is the table of contents: Club, Thursday,
+  Friday, Members, Raffle, Giveaway, You. Scrolling plays each card.
+- Every card uses the real 5:7 card ratio and one shared anatomy: name bar,
+  art box, type bar, text box, collector number.
+- Palette: paper #f1edf9, ink #1b1033, purple #4b2e83, gold #c9a23f, plus five
+  accents in the game's order (chalk, tide, dusk, ember, grove) and holo foil.
+- Type: Anton for display, Hanken Grotesk for text, JetBrains Mono for
+  collector numbers and labels.
+- 3D: a 100-card deck that shuffles and deals the hand, then stays on screen
+  as a scroll tracker. Member cards have foil and pointer tilt.
+- The other two concepts are in design/concepts.html for reference only.
+
 ## How we work
 Work in phases. At the end of each phase: stop, show the result (with
 screenshots), and wait for approval before starting the next. Do not jump
@@ -64,8 +78,8 @@ ahead. Commit at the end of every phase and add an entry to LOG.md every
 session.
 
 1. Discovery - done 2026-11-14
-2. Creative direction - concepts in design/concepts.html, awaiting a pick
-3. Design - page design for desktop and mobile before building
+2. Creative direction - done 2026-11-14. Picked C, "Top Deck" (see below)
+3. Design - page mockup in design/mockup.html, awaiting approval
 4. Foundation - scaffold, design tokens, layout, smooth scroll
 5. Sections - one at a time: hero, about, members, events, join
 6. Motion and 3D polish
