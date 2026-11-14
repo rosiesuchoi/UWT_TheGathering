@@ -31,6 +31,15 @@ decided, what is next.
   scroll at any width, all three fonts load, phone menu opens. Fixed along the
   way: heading wrapped too narrow in Nights, fan overlapped its caption, logo
   missing from the phone nav and the corner deck, foil too loud on member cards.
+- Mockup revision 2, from club feedback: the hero is now the Top Deck concept
+  frame exactly; clicking its card plays a shuffle-and-deal cutscene that
+  lands on a new Pod Night table scene; the earlier sections stay below. The
+  seven-card hand moved from the hero onto the table, where each card links to
+  its section and the open seat carries the Discord button.
+- Cutscene check: clicking the hero card runs every step, all seven cards
+  land on their spots, the overlay clears and no errors are logged. The
+  browser pane was hidden while testing, so animations only advanced when a
+  frame was captured. Real-time speed and feel have NOT been watched yet.
 - Preview: `python -m http.server 4173 --directory design`, then open
   http://localhost:4173/mockup.html
 

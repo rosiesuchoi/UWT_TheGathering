@@ -5,21 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MTG at UWT - page design (Top Deck)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Phase 3 static mockup. Shows every section at rest. Motion is described in
-   the dashed "Motion" notes, which exist only in this mockup. */
+/* Phase 3 mockup, revision 2.
+   Flow: Top Deck hero -> click the card -> shuffle cutscene -> Pod Night table
+   -> the content sections. The cutscene here is a 2D stand-in for the three.js
+   version. Dashed "Motion" notes exist only in this mockup. */
 :root {
   --paper: #f1edf9; --paper-2: #e4dcf4; --white: #fffdf8;
   --ink: #1b1033; --ink-2: #2a1b4d;
   --purple: #4b2e83; --purple-deep: #32096b;
   --gold: #c9a23f; --gold-pale: #f0dc9c;
   --chalk: #fff8e1; --tide: #2f7de1; --dusk: #3a2a5c; --ember: #e2472f; --grove: #2f9e5b;
+  --espresso: #17100c; --felt: #3d1d7a; --lamp: #ffb84d; --cream: #f3e7d3;
   --gold-foil: linear-gradient(135deg, #b08a34, #f4e3ad 42%, #d9b863 60%, #9c7626);
   --f-d: "Anton", Impact, "Arial Narrow", sans-serif;
   --f-t: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-m: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
-  --max: 1200px; --gut: clamp(20px, 5vw, 56px);
+  --f-h: "Caveat", "Segoe Print", cursive;
+  --max: 1200px; --gut: clamp(20px, 5vw, 56px); --navh: 61px;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -32,12 +36,11 @@ section { scroll-margin-top: 64px; }
 .label { font-family: var(--f-m); font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
 .tbd { display: inline-block; font-family: var(--f-m); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; border: 1px dashed currentColor; border-radius: 4px; padding: 1px 6px; opacity: .8; vertical-align: middle; }
 h1, h2 { font-family: var(--f-d); font-weight: 400; text-transform: uppercase; line-height: .96; letter-spacing: .005em; text-wrap: balance; }
-h1 { font-size: clamp(52px, 7.4vw, 104px); }
 h2 { font-size: clamp(40px, 5.6vw, 76px); }
 h1 em, h2 em { font-style: normal; color: var(--purple); }
-.btn { display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; line-height: 1.2; padding: 14px 22px; border-radius: 10px; text-decoration: none; border: 2px solid transparent; }
+.btn { display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; line-height: 1.2; padding: 14px 22px; border-radius: 10px; text-decoration: none; border: 2px solid transparent; cursor: pointer; font-family: var(--f-t); }
 .btn-ink { background: var(--ink); color: var(--paper); }
-.btn-line { border-color: currentColor; }
+.btn-line { border-color: currentColor; background: none; color: inherit; }
 .btn-gold { background: var(--gold); color: var(--ink); }
 .btn:hover { filter: brightness(1.12); }
 
@@ -72,17 +75,17 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
 
 /* Card: real 5:7 ratio. Everything inside is sized in cqw so a card scales as one object. */
 .card { position: relative; display: block; width: 100%; aspect-ratio: 5 / 7; container-type: inline-size; text-decoration: none; color: var(--ink); }
+button.card { appearance: none; border: 0; padding: 0; background: none; font: inherit; text-align: left; cursor: pointer; }
 .face { position: absolute; inset: 0; border-radius: 5cqw; background: var(--frame, var(--ink)); padding: 4cqw; display: grid; grid-template-rows: auto 1fr auto auto auto; gap: 2.4cqw; overflow: hidden; box-shadow: 0 5cqw 11cqw rgba(15, 6, 36, .32); transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .18s ease-out; }
 .rare { --frame: var(--gold-foil); }
 .c-name, .c-type { background: var(--paper); border-radius: 2cqw; display: flex; align-items: center; justify-content: space-between; gap: 2cqw; padding: 1.6cqw 3cqw; line-height: 1.2; min-width: 0; }
 .c-name { font-weight: 700; font-size: 6.4cqw; }
 .c-name span, .c-type span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.c-name .idx { font-family: var(--f-m); font-weight: 500; font-size: 5.4cqw; margin-right: 2.4cqw; color: var(--purple); }
 .c-name i { flex: none; width: 5cqw; height: 5cqw; border-radius: 50%; background: var(--pip, var(--gold)); border: 1px solid rgba(27, 16, 51, .35); }
 .c-type { font-weight: 500; font-size: 4.5cqw; }
 .c-art { border-radius: 2cqw; background: var(--art, linear-gradient(160deg, #6a3fc0, #2a0f5c)); color: var(--glyph, #fff); display: grid; place-items: center; min-height: 0; }
 .c-art > svg, .c-art > .mark { width: 46%; height: auto; }
-.c-text { background: var(--paper); border-radius: 2cqw; padding: 3cqw; font-size: 4.8cqw; line-height: 1.35; min-height: 23cqw; }
+.c-text { display: block; background: var(--paper); border-radius: 2cqw; padding: 3cqw; font-size: 4.8cqw; line-height: 1.35; min-height: 23cqw; }
 .c-num { display: flex; justify-content: space-between; font-family: var(--f-m); font-size: 3.8cqw; letter-spacing: .08em; color: var(--gold-pale); }
 .rare .c-num { color: var(--ink); }
 .foil { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: color-dodge; opacity: .8; background: linear-gradient(115deg, transparent 15%, rgba(255, 80, 80, .5) 30%, rgba(255, 225, 90, .5) 40%, rgba(80, 255, 170, .5) 50%, rgba(80, 170, 255, .5) 60%, rgba(200, 110, 255, .5) 70%, transparent 85%) var(--fx, 35%) var(--fy, 40%) / 250% 250%; }
@@ -90,18 +93,70 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
 .cardback { aspect-ratio: 5 / 7; border-radius: 6%/4.3%; background: var(--ink); border: 3px solid var(--gold); display: grid; place-items: center; }
 .cardback .mark { width: 46%; --mark: var(--gold); }
 
-/* Hero */
-.hero { padding-block: clamp(48px, 7vw, 96px) clamp(64px, 8vw, 112px); }
-.hero::before { content: ""; position: absolute; z-index: 1; inset: 0 0 0 50%; background: var(--purple); clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%); }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 32px; align-items: center; }
-.hero-copy { display: flex; flex-direction: column; gap: 22px; }
-.hero-copy .label { color: var(--purple); }
-.lede { font-size: 19px; max-width: 40ch; }
-.cta { display: flex; flex-wrap: wrap; gap: 12px; }
-.hand { position: relative; --cw: clamp(150px, 15vw, 200px); --step: 7deg; height: calc(var(--cw) * 1.8 + 30px); }
-.hand .card { position: absolute; left: calc(50% - var(--cw) / 2); bottom: calc(var(--cw) * .4); width: var(--cw); transform-origin: 50% 220%; rotate: calc((var(--i) - 3) * var(--step)); transition: translate .2s ease-out; }
-.hand .card:hover, .hand .card:focus-visible { translate: 0 -26px; z-index: 10; }
-.hand-cap { position: relative; z-index: 2; text-align: center; color: var(--paper); margin-top: 6px; }
+/* Hero: the Top Deck concept frame, full screen. Sizes in cqw of the hero. */
+.hero { position: relative; overflow: hidden; container-type: inline-size; width: 100%; aspect-ratio: 16 / 10; max-height: calc(100svh - var(--navh)); min-height: 520px; }
+.hero::before { content: ""; position: absolute; z-index: 1; inset: 0 0 0 52%; background: var(--purple); clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); }
+.hero-copy { position: absolute; z-index: 3; left: 5.5cqw; bottom: 6cqw; width: 42cqw; display: flex; flex-direction: column; gap: 1.4cqw; }
+.hero-copy .label { color: var(--purple); font-size: clamp(11px, 1.3cqw, 16px); }
+.hero h1 { font-size: clamp(44px, 6.7cqw, 128px); line-height: 1; }
+.hero .sub { font-size: clamp(16px, 1.9cqw, 26px); line-height: 1.4; max-width: 24ch; }
+.fan { position: absolute; z-index: 2; right: 11cqw; top: 51%; translate: 0 -50%; width: min(27cqw, 44svh); aspect-ratio: 5 / 7; }
+.fan .cardback { position: absolute; inset: 0; aspect-ratio: auto; box-shadow: 0 12px 28px rgba(0, 0, 0, .35); }
+.fan .b1 { rotate: -16deg; translate: -33% 3%; }
+.fan .b2 { rotate: -7deg; translate: -16% 1%; }
+.herocard { position: absolute; inset: 0; width: auto; rotate: 5deg; }
+.herocard.idle .face { animation: rock 6s ease-in-out infinite; }
+.herocard.idle .foil { animation: foilmove 6s ease-in-out infinite; }
+.herocard::after { content: ""; position: absolute; inset: -3%; border-radius: 7%/5%; border: 2px solid var(--gold-pale); opacity: 0; animation: ring 2.8s ease-out infinite; pointer-events: none; }
+.deal-hint { position: absolute; z-index: 3; right: 11cqw; width: min(27cqw, 44svh); bottom: 3.2cqw; text-align: center; color: var(--paper); font-size: clamp(11px, 1.2cqw, 15px); }
+@keyframes rock { 0%, 100% { transform: perspective(900px) rotateX(6deg) rotateY(-14deg); } 50% { transform: perspective(900px) rotateX(-5deg) rotateY(14deg); } }
+@keyframes foilmove { 0%, 100% { background-position: 15% 30%; } 50% { background-position: 85% 70%; } }
+@keyframes ring { 0% { opacity: .9; transform: scale(.98); } 70%, 100% { opacity: 0; transform: scale(1.1); } }
+
+/* Table: the Pod Night scene. Sizes in cqw of the table. */
+.tablesec { background: radial-gradient(70% 80% at 66% 50%, #2a1c14, var(--espresso) 75%); color: var(--cream); min-height: 100svh; display: grid; align-items: center; padding-block: clamp(56px, 7vw, 96px); }
+.tablesec h2 em { color: var(--lamp); }
+.tablesec .label { color: var(--lamp); }
+.tgrid { width: 100%; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.replay { font: 500 14px var(--f-m); background: none; border: 0; color: var(--cream); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; padding: 6px 0; width: fit-content; }
+.lamp { position: absolute; z-index: 1; inset: 0; pointer-events: none; mix-blend-mode: screen; background: radial-gradient(circle 38vw at 66% 50%, rgba(255, 184, 77, .30), rgba(255, 184, 77, .08) 55%, transparent); animation: sway 7s ease-in-out infinite alternate; }
+.tbl { position: relative; container-type: inline-size; width: min(100%, 74svh, 700px); aspect-ratio: 1; justify-self: center; border-radius: 16%; background: radial-gradient(circle at 50% 45%, #4c2796, var(--felt) 55%, #2a1259); box-shadow: 0 0 0 12px #2e1c11, 0 0 0 15px rgba(255, 184, 77, .28), 0 40px 80px rgba(0, 0, 0, .6); }
+.tbl::after { content: ""; position: absolute; inset: 3.2%; border: 1px dashed rgba(217, 184, 99, .55); border-radius: 14%; pointer-events: none; }
+.felt-mark { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 34%; opacity: .16; --mark: var(--gold-pale); }
+.mat { position: absolute; background: rgba(10, 4, 24, .36); border: 1px solid rgba(243, 231, 211, .16); border-radius: 2cqw; display: flex; align-items: center; justify-content: center; gap: 2.4cqw; }
+.mat:hover, .mat:focus-within, .prizes:hover, .prizes:focus-within { z-index: 30; }
+.mat.t { top: 6%; left: 50%; translate: -50% 0; width: 40%; height: 27%; }
+.mat.l { left: 6%; top: 50%; translate: 0 -50%; width: 19%; height: 34%; flex-direction: column; gap: .6cqw; }
+.mat.r { right: 6%; top: 50%; translate: 0 -50%; width: 19%; height: 34%; flex-direction: column; gap: .6cqw; }
+.mat.o { bottom: 6%; left: 50%; translate: -50% 0; width: 48%; height: 27%; border: 2px dashed var(--lamp); background: rgba(255, 184, 77, .10); animation: seat 2.6s ease-in-out infinite; }
+.slot { display: flex; flex-direction: column; align-items: center; gap: .8cqw; }
+.tcard { width: 13cqw; flex: none; transition: scale .2s ease-out, rotate .2s ease-out; }
+.tcard:hover, .tcard:focus-visible { scale: 1.9; rotate: 0deg; z-index: 30; }
+.tcard .face { box-shadow: 0 1.2cqw 2.4cqw rgba(0, 0, 0, .45); }
+.scrib { font-family: var(--f-h); font-size: 3.7cqw; line-height: 1; color: var(--cream); }
+.life { font-family: var(--f-h); font-size: 5cqw; line-height: 1; color: var(--cream); opacity: .8; }
+.prizes { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 25cqw; height: 24cqw; }
+.prizes .tcard { position: absolute; top: 0; }
+.prizes .p1 { left: 0; rotate: -12deg; }
+.prizes .p2 { right: 0; rotate: 9deg; }
+.prizes .scrib { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; }
+.d20 { position: absolute; left: 66%; top: 35%; width: 6%; }
+.seat { display: flex; flex-direction: column; align-items: flex-start; gap: 1.4cqw; min-width: 0; }
+.seat .scrib { font-size: 5.4cqw; color: var(--lamp); }
+.seatbtn { font-size: max(12px, 2.5cqw); padding: 1.4cqw 2.4cqw; border-radius: 1.4cqw; white-space: nowrap; }
+.tbl.dealing .tcard { opacity: 0; }
+.tbl.dealing .tcard.landed { opacity: 1; animation: land .45s ease-out; }
+@keyframes sway { from { transform: translate(-1.2vw, -.6vw); } to { transform: translate(1.2vw, .6vw); } }
+@keyframes seat { 0%, 100% { background: rgba(255, 184, 77, .06); } 50% { background: rgba(255, 184, 77, .2); } }
+@keyframes land { from { transform: rotateY(90deg) scale(1.2); } to { transform: none; } }
+
+/* Cutscene overlay */
+.cut { position: fixed; inset: 0; z-index: 100; }
+.cut[hidden] { display: none; }
+.cut-bg { position: absolute; inset: 0; opacity: 0; background: radial-gradient(60% 60% at 50% 50%, #2a1c14, #120b08); }
+.cut-cap { position: absolute; left: 0; right: 0; top: calc(50% + 140px); text-align: center; color: var(--cream); font-family: var(--f-h); font-size: 30px; }
+.cut-deck { position: absolute; left: 50%; top: 50%; width: 150px; height: 210px; margin: -105px 0 0 -75px; }
+.cut-deck .cardback { position: absolute; inset: 0; aspect-ratio: auto; box-shadow: 0 2px 6px rgba(0, 0, 0, .5); }
 
 /* Club */
 .split { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
@@ -136,9 +191,9 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
 .pocket .glare { opacity: .35; transition: opacity .2s; }
 .pocket .card:hover .foil { opacity: .8; }
 .pocket .card:hover .glare { opacity: 1; }
-.slot { border: 2px dashed var(--purple); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; color: var(--purple); }
-.slot b { font-family: var(--f-d); font-weight: 400; text-transform: uppercase; font-size: clamp(18px, 2.2vw, 28px); line-height: 1; }
-.slot span { font-size: 14px; line-height: 1.3; }
+.slotcard { border: 2px dashed var(--purple); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; color: var(--purple); }
+.slotcard b { font-family: var(--f-d); font-weight: 400; text-transform: uppercase; font-size: clamp(18px, 2.2vw, 28px); line-height: 1; }
+.slotcard span { font-size: 14px; line-height: 1.3; }
 
 /* Events */
 .events { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
@@ -153,7 +208,8 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
 
 /* Join */
 .join::before { content: ""; position: absolute; z-index: 1; inset: 0 62% 0 0; background: var(--gold); clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%); }
-.join .lede { max-width: 44ch; }
+.lede { font-size: 19px; max-width: 44ch; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .recap { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 6px 32px; font-size: 15.5px; }
 .recap dt { font-family: var(--f-m); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--purple); }
 
@@ -177,26 +233,32 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
   .links.open { display: flex; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid rgba(27, 16, 51, .15); padding: 6px var(--gut) 14px; }
   .links.open a { padding: 12px 0; font-size: 17px; border-bottom: 1px solid rgba(27, 16, 51, .1); }
   .menu { display: block; }
-  .hero::before { inset: 56% 0 0 0; clip-path: polygon(0 16%, 100% 0, 100% 100%, 0 100%); }
-  .hero-grid, .split, .members, .events { grid-template-columns: minmax(0, 1fr); }
-  .hero-grid { gap: 40px; }
+  .tgrid, .split, .members, .events { grid-template-columns: minmax(0, 1fr); }
   .nights { grid-template-columns: minmax(0, 1fr); }
+  .lamp { background: radial-gradient(circle 70vw at 50% 62%, rgba(255, 184, 77, .30), rgba(255, 184, 77, .08) 55%, transparent); }
   .join::before { inset: 0 0 68% 0; clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%); }
   .glance { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .hero { aspect-ratio: auto; max-height: none; min-height: 0; display: flex; flex-direction: column; padding: 36px var(--gut) 0; }
+  .hero::before { inset: 44% 0 0 0; clip-path: polygon(0 14%, 100% 0, 100% 100%, 0 100%); }
+  .hero-copy { position: relative; left: auto; bottom: auto; order: -1; width: auto; gap: 14px; }
+  .fan { position: relative; right: auto; top: auto; translate: none; width: 54%; margin: 44px 9% 0 auto; }
+  .deal-hint { position: relative; right: auto; bottom: auto; width: auto; padding: 30px 0 88px; font-size: 12px; }
 }
 @media (max-width: 560px) {
   body { font-size: 16px; }
   .nav { gap: 10px; }
   .brand > span:last-child { display: none; }
-  .hand { --cw: 112px; --step: 5.6deg; }
   .binder { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .slot { grid-column: span 2; padding: 22px 16px; }
+  .slotcard { grid-column: span 2; padding: 22px 16px; }
   .recap { grid-template-columns: minmax(0, 1fr); }
   .recap dd { margin-bottom: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .face, .hand .card { transition: none; }
+  .face, .tcard { transition: none; }
+  .herocard.idle .face, .herocard.idle .foil, .herocard::after, .lamp, .mat.o { animation: none; }
 }
 </style>
 </head>
@@ -205,30 +267,60 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
 <header class="nav">
   <a class="brand" href="#top"><span class="badge"><span class="mark"></span></span><span>MTG at UWT</span></a>
   <nav class="links" id="links" aria-label="Sections">
-    <a href="#club">Club</a><a href="#nights">Nights</a><a href="#members">Members</a><a href="#events">Events</a>
+    <a href="#table">Table</a><a href="#club">Club</a><a href="#nights">Nights</a><a href="#members">Members</a><a href="#events">Events</a>
   </nav>
   <a class="btn btn-ink" href="https://discord.gg/VwcpCWfbz">Join the Discord</a>
   <button class="menu" type="button" id="menuBtn" aria-expanded="false" aria-controls="links">Menu</button>
 </header>
 
 <main>
-  <section class="sec hero dots" id="top">
-    <div class="in hero-grid">
-      <div class="hero-copy">
-        <p class="label">University of Washington Tacoma · Commander</p>
-        <h1>Shuffle up. <em>Draw seven.</em></h1>
-        <p class="lede">A new Magic: The Gathering club. We play Commander every Thursday and Friday at 6 PM in Tacoma.</p>
-        <div class="cta">
-          <a class="btn btn-ink" href="https://discord.gg/VwcpCWfbz">Join the Discord</a>
-          <a class="btn btn-line" href="#nights">See the two nights</a>
+  <section class="hero dots" id="top">
+    <div class="fan">
+      <div class="cardback b1"><span class="mark"></span></div>
+      <div class="cardback b2"><span class="mark"></span></div>
+      <button type="button" class="card herocard tilt idle" id="dealBtn" aria-label="Shuffle up: play the shuffle and go to the table">
+        <span class="face">
+          <span class="c-name"><span>Your name here</span><i></i></span>
+          <span class="c-art"><span class="mark"></span></span>
+          <span class="c-type"><span>Member · Commander</span></span>
+          <span class="c-text">Thursdays and Fridays, 6 PM, Tacoma.</span>
+          <span class="c-num"><span></span><span>100/100</span></span>
+          <span class="foil"></span><span class="glare"></span>
+        </span>
+      </button>
+    </div>
+    <p class="deal-hint label">Click the card to shuffle up</p>
+    <div class="hero-copy">
+      <p class="label">MTG at UWT</p>
+      <h1>Shuffle up. <em>Draw seven.</em></h1>
+      <p class="sub">Commander every Thursday and Friday, 6 PM.</p>
+    </div>
+  </section>
+
+  <section class="sec tablesec" id="table">
+    <div class="lamp"></div>
+    <div class="in tgrid">
+      <div class="body">
+        <p class="label">The table</p>
+        <h2>Pull up a chair. <em>We start at six.</em></h2>
+        <p>Seven cards are on the table. Six of them tell you about the club. The open seat is yours.</p>
+        <div class="cta"><a class="btn btn-gold" href="https://discord.gg/VwcpCWfbz">Take your seat on Discord</a></div>
+        <button class="replay" type="button" id="replayBtn">Replay the shuffle</button>
+      </div>
+      <div class="tbl" id="tbl">
+        <span class="mark felt-mark"></span>
+        <div class="mat t"><div class="slot" data-t="club" data-l="the club"></div><div class="slot" data-t="mem" data-l="members"></div></div>
+        <div class="mat l"><div class="slot" data-t="thu" data-l="thursday"></div><span class="life">40</span></div>
+        <div class="mat r"><div class="slot" data-t="fri" data-l="friday"></div><span class="life">40</span></div>
+        <div class="prizes" id="prizes"></div>
+        <svg class="d20" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,3 91,26 91,74 50,97 9,74 9,26" fill="#ffb84d"/><path d="M50 22 78 68H22ZM50 3v19M91 26 78 68M9 26l13 42M50 97 22 68M50 97l28-29M9 74l13-6M91 74l-13-6M9 26l41-4M91 26l-41-4" fill="none" stroke="#7a4a0c" stroke-width="3" stroke-linejoin="round"/></svg>
+        <div class="mat o">
+          <div class="slot" data-t="you"></div>
+          <div class="seat"><span class="scrib">your seat</span><a class="btn btn-gold seatbtn" href="https://discord.gg/VwcpCWfbz">Take your seat</a></div>
         </div>
       </div>
-      <div>
-        <div class="hand" data-cards="hand" aria-label="Your opening hand: seven cards, one for each part of this page"></div>
-        <p class="hand-cap label">Your opening hand. Pick a card.</p>
-      </div>
     </div>
-    <div class="in"><aside class="note"><b>Motion</b>On load a 3D deck of 100 cards shuffles and deals these seven into the hand. Cards lift on hover and jump to their section on click. The deck then shrinks into the corner tracker and counts cards as you scroll.</aside></div>
+    <div class="in"><aside class="note"><b>Motion</b>Clicking the hero card plays the cutscene: the deck shuffles, seven cards are dealt to this table, each flips face up as it lands. Scrolling down from the top plays the same shuffle. In the build this is a lit 3D table in three.js, and this 2D version is a stand-in. The lamp sways, the open seat pulses, and each card lifts when you point at it and jumps to its section on click.</aside></div>
   </section>
 
   <section class="sec dots" id="club">
@@ -250,7 +342,7 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
         </div>
       </div>
     </div>
-    <div class="in"><aside class="note"><b>Motion</b>Card 1 leaves the hand, flips in 3D and lands here. The text rises in behind it. The dotted background moves slower than the page for depth.</aside></div>
+    <div class="in"><aside class="note"><b>Motion</b>The club card slides off the table, flips in 3D and lands here. The text rises in behind it. The dotted background moves slower than the page for depth.</aside></div>
   </section>
 
   <section class="sec dark" id="nights">
@@ -341,7 +433,7 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
         </dl>
       </div>
     </div>
-    <div class="in"><aside class="note"><b>Motion</b>The last card in the hand flips over. It is blank with your name on it, and its foil follows the pointer. The deck in the corner squares up: all seven drawn.</aside></div>
+    <div class="in"><aside class="note"><b>Motion</b>Card 100 of 100 flips over. It is blank with your name on it, and its foil follows the pointer. The deck in the corner squares up: all seven drawn.</aside></div>
   </section>
 </main>
 
@@ -355,6 +447,11 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
     <p class="legal">MTG at UWT is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &copy;Wizards of the Coast LLC. <span class="tbd">check wording and club name before launch</span></p>
   </div>
 </footer>
+
+<div class="cut" id="cut" hidden aria-hidden="true">
+  <div class="cut-bg"><p class="cut-cap">shuffling up... (click to skip)</p></div>
+  <div class="cut-deck" id="cutDeck"></div>
+</div>
 
 <div class="tracker" aria-hidden="true"><span>0 / 7 drawn</span><div class="cardback"><span class="mark"></span></div></div>
 <button class="notes-toggle" type="button" id="notesBtn" aria-pressed="true">Motion notes: on</button>
@@ -380,7 +477,7 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
     grove: { pip: '#2f9e5b', art: 'linear-gradient(160deg,#74d79d,#1c6b3d)', glyph: '#fff' },
     foil:  { pip: 'conic-gradient(#ff5050,#ffe15a,#50ffaa,#50aaff,#c86eff,#ff5050)', art: 'linear-gradient(135deg,#ffd1d1,#fff3b8,#c9ffdf,#c5e2ff,#e6ccff)', glyph: '#1b1033' }
   };
-  // The opening hand. In the build this comes from the content JSON files.
+  // The seven cards dealt to the table. In the build this comes from the content JSON files.
   var HAND = [
     { key: 'club', name: 'The Club', c: 'gold', g: 'mark', type: 'Club · Tacoma', text: 'A new Commander club at UW Tacoma.', href: '#club' },
     { key: 'thu', name: 'Thursday', c: 'ember', g: 'cup', type: 'Night · Iruda Cafe', text: 'Thursdays, 6 PM.', href: '#nights' },
@@ -390,14 +487,15 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
     { key: 'give', name: 'Giveaway', c: 'dusk', g: 'deck', type: 'Event · End of quarter', text: 'Mutant Menace deck giveaway.', href: '#events', rare: true, foil: true },
     { key: 'you', name: 'Your name here', c: 'foil', g: 'plus', type: 'Member · Commander', text: 'This card is yours.', href: '#join', foil: true }
   ];
-  HAND.forEach(function (h, i) { h.idx = i + 1; h.num = (i + 1) + '/7'; });
+  HAND.forEach(function (h, i) { h.num = h.key === 'you' ? '100/100' : ('00' + (i + 1)).slice(-3) + '/100'; });
 
   function card(o, extra) {
-    var col = C[o.c], tag = (extra && extra.link) ? 'a' : 'div';
-    var cls = 'card' + (o.rare ? ' rare' : '') + ((extra && extra.tilt) ? ' tilt' : '');
-    var style = '--pip:' + col.pip + ';--art:' + col.art + ';--glyph:' + col.glyph + ';' + ((extra && extra.style) || '');
-    return '<' + tag + (tag === 'a' ? ' href="' + o.href + '"' : '') + ' class="' + cls + '" style="' + style + '">' +
-      '<div class="face"><div class="c-name"><span>' + (extra && extra.index ? '<b class="idx">' + o.idx + '</b>' : '') + o.name + '</span><i></i></div>' +
+    extra = extra || {};
+    var col = C[o.c], tag = extra.link ? 'a' : 'div';
+    var cls = 'card' + (o.rare ? ' rare' : '') + (extra.tilt ? ' tilt' : '') + (extra.cls ? ' ' + extra.cls : '');
+    var style = '--pip:' + col.pip + ';--art:' + col.art + ';--glyph:' + col.glyph + ';';
+    return '<' + tag + (tag === 'a' ? ' href="' + o.href + '" aria-label="' + o.name + '"' : '') + ' class="' + cls + '" style="' + style + '">' +
+      '<div class="face"><div class="c-name"><span>' + o.name + '</span><i></i></div>' +
       '<div class="c-art">' + G[o.g] + '</div><div class="c-type"><span>' + o.type + '</span></div>' +
       '<div class="c-text">' + o.text + '</div><div class="c-num"><span>UWT</span><span>' + o.num + '</span></div>' +
       (o.foil ? '<div class="foil"></div><div class="glare"></div>' : '') + '</div></' + tag + '>';
@@ -405,7 +503,14 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
   function byKey(k) { return HAND.filter(function (h) { return h.key === k; })[0]; }
   function mount(name, html) { var el = document.querySelector('[data-cards="' + name + '"]'); if (el) el.innerHTML = html; }
 
-  mount('hand', HAND.map(function (h, i) { return card(h, { link: true, index: true, style: '--i:' + i }); }).join(''));
+  // Table: seven small cards
+  document.querySelectorAll('[data-t]').forEach(function (el) {
+    var label = el.getAttribute('data-l');
+    el.innerHTML = card(byKey(el.getAttribute('data-t')), { link: true, cls: 'tcard' }) + (label ? '<span class="scrib">' + label + '</span>' : '');
+  });
+  document.getElementById('prizes').innerHTML = card(byKey('raf'), { link: true, cls: 'tcard p1' }) + card(byKey('give'), { link: true, cls: 'tcard p2' }) + '<span class="scrib">prizes</span>';
+
+  // Sections: the same cards, large
   mount('club', card(byKey('club'), { tilt: true }));
   mount('thu', card(byKey('thu'), { tilt: true }));
   mount('fri', card(byKey('fri'), { tilt: true }));
@@ -417,18 +522,21 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
   for (var i = 0; i < 8; i++) {
     members.push('<div class="pocket">' + card({ name: 'Member name', c: cycle[i % 5], g: 'person', type: 'Role', text: 'Favorite commander goes here.', num: '#' + ('0' + (i + 1)).slice(-2), foil: true }, { tilt: true }) + '</div>');
   }
-  members.push('<a class="pocket slot" href="#join"><b>Open pocket</b><span>Your card goes here.</span></a>');
+  members.push('<a class="pocket slotcard" href="#join"><b>Open pocket</b><span>Your card goes here.</span></a>');
   mount('members', members.join(''));
 
   // Pointer tilt and foil
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var props = ['--rx', '--ry', '--fx', '--fy', '--gx', '--gy'];
+  var heroCard = document.getElementById('dealBtn');
+  if (reduce) heroCard.classList.remove('idle');
   if (!reduce) {
     document.querySelectorAll('.card.tilt').forEach(function (el) {
       el.addEventListener('pointermove', function (e) {
         var r = el.getBoundingClientRect();
         var x = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
         var y = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+        el.classList.remove('idle');
         el.style.setProperty('--ry', ((x - 0.5) * 26).toFixed(1) + 'deg');
         el.style.setProperty('--rx', ((0.5 - y) * 20).toFixed(1) + 'deg');
         el.style.setProperty('--fx', (x * 100).toFixed(0) + '%');
@@ -436,9 +544,74 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
         el.style.setProperty('--gx', (x * 100).toFixed(0) + '%');
         el.style.setProperty('--gy', (y * 100).toFixed(0) + '%');
       });
-      el.addEventListener('pointerleave', function () { props.forEach(function (p) { el.style.removeProperty(p); }); });
+      el.addEventListener('pointerleave', function () {
+        props.forEach(function (p) { el.style.removeProperty(p); });
+        if (el === heroCard) el.classList.add('idle');
+      });
     });
   }
+
+  // Cutscene: shuffle, then deal seven cards to their real places on the table.
+  var cut = document.getElementById('cut'), cutBg = cut.querySelector('.cut-bg'), cutDeck = document.getElementById('cutDeck');
+  var tbl = document.getElementById('tbl'), playing = false;
+  function centerTable() {
+    var r = tbl.getBoundingClientRect();
+    var navh = 61;
+    window.scrollTo(0, window.scrollY + r.top - navh - Math.max(24, (window.innerHeight - navh - r.height) / 2));
+  }
+  function finish() {
+    cut.getAnimations({ subtree: true }).forEach(function (a) { a.cancel(); });
+    cut.hidden = true; cutDeck.innerHTML = '';
+    tbl.classList.remove('dealing');
+    tbl.querySelectorAll('.tcard').forEach(function (t) { t.classList.remove('landed'); });
+    document.documentElement.style.scrollBehavior = '';
+    playing = false;
+  }
+  function deal() {
+    if (playing) return;
+    document.documentElement.style.scrollBehavior = 'auto';
+    if (reduce || !cut.animate) { centerTable(); document.documentElement.style.scrollBehavior = ''; return; }
+    playing = true;
+    var targets = [].slice.call(tbl.querySelectorAll('.tcard'));
+    var backs = [];
+    cut.hidden = false;
+    cutBg.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 280, fill: 'forwards' }).finished.then(function () {
+      tbl.classList.add('dealing');
+      centerTable();
+      for (var i = 0; i < 16; i++) { var b = document.createElement('div'); b.className = 'cardback'; b.innerHTML = '<span class="mark"></span>'; cutDeck.appendChild(b); backs.push(b); }
+      var last;
+      backs.forEach(function (b, i) {
+        var dir = i % 2 ? 1 : -1;
+        last = b.animate([
+          { transform: 'translate(0,0) rotate(0deg)' },
+          { transform: 'translate(' + (dir * 92) + 'px,' + (-i) + 'px) rotate(' + (dir * 9) + 'deg)', offset: 0.45 },
+          { transform: 'translate(0,' + (-i * 0.6) + 'px) rotate(0deg)' }
+        ], { duration: 560, delay: i * 14, iterations: 2, easing: 'ease-in-out' });
+      });
+      return last.finished;
+    }).then(function () {
+      cutBg.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: 'forwards' });
+      var d = cutDeck.getBoundingClientRect(), dcx = d.left + d.width / 2, dcy = d.top + d.height / 2;
+      return Promise.all(targets.map(function (t, i) {
+        var r = t.getBoundingClientRect(), b = backs[backs.length - 1 - i];
+        var dx = r.left + r.width / 2 - dcx, dy = r.top + r.height / 2 - dcy, s = t.offsetWidth / d.width;
+        b.style.zIndex = 50 + i;
+        return b.animate([
+          { transform: 'translate(0,0) scale(1) rotate(0deg)' },
+          { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + s + ') rotate(' + (360 + (i % 2 ? 8 : -8)) + 'deg)' }
+        ], { duration: 520, delay: i * 120, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'forwards' }).finished.then(function () {
+          b.remove(); t.classList.add('landed');
+        });
+      }));
+    }).then(function () {
+      return cutDeck.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 420, fill: 'forwards' }).finished;
+    }).then(finish, finish);
+  }
+  cut.addEventListener('click', finish);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && playing) finish(); });
+  heroCard.addEventListener('click', deal);
+  document.getElementById('replayBtn').addEventListener('click', deal);
+  window.__deal = deal;
 
   // Phone menu and notes toggle
   var menuBtn = document.getElementById('menuBtn'), links = document.getElementById('links');

@@ -59,16 +59,29 @@ obvious placeholders and list them under "Content still owed" below.
 
 ## Creative direction: Top Deck
 Bright and collectible. The card is the interface.
-- The opening hand of seven cards is the table of contents: Club, Thursday,
-  Friday, Members, Raffle, Giveaway, You. Scrolling plays each card.
+- Page flow (club's request, 2026-11-14): the hero is the Top Deck concept
+  frame exactly as drawn in design/concepts.html (two card backs, the foil
+  "Your name here" card numbered 100/100, "Shuffle up. Draw seven."). Clicking
+  that card plays a cutscene: the deck shuffles and deals onto a table. That
+  lands on the Pod Night table scene (concept B), then the content sections
+  follow below. The site must feel alive: idle motion everywhere.
+- The table is the hub. Seven cards are dealt to it: Club and Members (top
+  seat), Thursday (left), Friday (right), Raffle and Giveaway (center, as
+  prizes), and the visitor's card at the open seat. Each card links to its
+  section. The open "your seat" carries the Discord call to action.
+- Table scene palette: espresso #17100c, felt #3d1d7a, lamp #ffb84d, cream
+  #f3e7d3, with Caveat for handwritten life totals and labels.
+- Section cards are numbered 001/100 to 006/100. The visitor's card is
+  always 100/100.
 - Every card uses the real 5:7 card ratio and one shared anatomy: name bar,
   art box, type bar, text box, collector number.
 - Palette: paper #f1edf9, ink #1b1033, purple #4b2e83, gold #c9a23f, plus five
   accents in the game's order (chalk, tide, dusk, ember, grove) and holo foil.
 - Type: Anton for display, Hanken Grotesk for text, JetBrains Mono for
   collector numbers and labels.
-- 3D: a 100-card deck that shuffles and deals the hand, then stays on screen
-  as a scroll tracker. Member cards have foil and pointer tilt.
+- 3D: a 100-card deck that shuffles and deals onto a lit 3D table, then stays
+  on screen as a scroll tracker. Member cards have foil and pointer tilt. The
+  cutscene must be skippable and must be skipped under reduced motion.
 - The other two concepts are in design/concepts.html for reference only.
 
 ## How we work
