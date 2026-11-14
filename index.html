@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MTG at UWT | Commander in Tacoma</title>
+  <meta name="description" content="A new Magic: The Gathering club at the University of Washington Tacoma. Commander every Thursday and Friday at 6 PM.">
+  <meta name="theme-color" content="#32096b">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+</head>
+<body>
+  <a class="skip" href="#top">Skip to content</a>
+
+  <!-- One WebGL canvas for the whole page. It sits above section backgrounds
+       and below all text. See src/core/stage.ts and src/styles/layout.css. -->
+  <canvas id="stage" aria-hidden="true"></canvas>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#top"><span class="badge"><span class="mark"></span></span><span class="brand-name" data-club-name>MTG at UWT</span></a>
+    <nav class="links" id="links" aria-label="Sections">
+      <a href="#table">Table</a>
+      <a href="#club">Club</a>
+      <a href="#nights">Nights</a>
+      <a href="#members">Members</a>
+      <a href="#events">Events</a>
+    </nav>
+    <a class="btn btn-ink" data-discord href="#join">Join the Discord</a>
+    <button class="menu" type="button" id="menuBtn" aria-expanded="false" aria-controls="links">Menu</button>
+  </header>
+
+  <main>
+    <section class="hero dots" id="top">
+      <div class="hero-in">
+        <div class="hero-copy">
+          <p class="label" data-club-name>MTG at UWT</p>
+          <h1>Shuffle up. <em>Draw seven.</em></h1>
+          <p class="sub">Commander every Thursday and Friday, 6 PM.</p>
+        </div>
+        <p class="stub stub-hero">Hero cards and the shuffle: Phase 5</p>
+      </div>
+    </section>
+
+    <section class="sec tablesec" id="table">
+      <div class="in">
+        <div class="body">
+          <p class="label">The table</p>
+          <h2>Pull up a chair. <em>We start at six.</em></h2>
+          <p>Seven cards are on the table. Six of them tell you about the club. The open seat is yours.</p>
+          <div class="cta"><a class="btn btn-gold" data-discord href="#join">Take your seat on Discord</a></div>
+          <p class="stub">The table and its seven cards: Phase 5</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec dots" id="club">
+      <div class="in">
+        <div class="body">
+          <p class="label">Card 1 of 7</p>
+          <h2>A new Commander club <em>at UW Tacoma.</em></h2>
+          <p>We are a brand new club at the University of Washington Tacoma. We play Commander twice a week, run a raffle every week, and give away a deck at the end of the quarter.</p>
+          <p class="stub">Club card and Commander facts: Phase 5</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec dark" id="nights">
+      <div class="in">
+        <div class="body">
+          <p class="label">Cards 2 and 3 of 7</p>
+          <h2>Two nights a week. <em>Both at 6 PM.</em></h2>
+          <p class="stub">Thursday and Friday cards: Phase 5</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec tint" id="members">
+      <div class="in">
+        <div class="body">
+          <p class="label">Card 4 of 7</p>
+          <h2>Who is <em>at the table.</em></h2>
+          <p class="stub">The member binder: Phase 5</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec violet" id="events">
+      <div class="in">
+        <div class="body">
+          <p class="label">Cards 5 and 6 of 7</p>
+          <h2>Two ways <em>to win.</em></h2>
+          <p class="stub">Raffle and giveaway cards: Phase 5</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec join dots" id="join">
+      <div class="in">
+        <div class="body">
+          <p class="label">Card 7 of 7</p>
+          <h2>The last card <em>is you.</em></h2>
+          <p class="lede">Come to a Thursday or Friday night, or say hello on Discord first.</p>
+          <div class="cta"><a class="btn btn-ink" data-discord href="#join">Join the Discord</a></div>
+          <p class="stub">Your foil card: Phase 5</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sec foot" id="foot">
+    <div class="in">
+      <div class="foot-top">
+        <a class="brand" href="#top"><span class="badge"><span class="mark"></span></span><span class="brand-name" data-club-name>MTG at UWT</span></a>
+        <div><span class="label">Play</span><ul id="footNights"></ul></div>
+        <div><span class="label">Find us</span><ul><li><a data-discord href="#join">Discord</a></li><li><a href="#members">Members</a></li><li><a href="#events">Events</a></li></ul></div>
+      </div>
+      <p class="legal"><span data-club-name>MTG at UWT</span> is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &copy;Wizards of the Coast LLC.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

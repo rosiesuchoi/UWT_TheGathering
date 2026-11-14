@@ -1,0 +1,18 @@
+[
+  {
+    "id": "raffle",
+    "title": "The weekly raffle",
+    "cadence": "Every week",
+    "text": "A raffle every week, with prizes to win.",
+    "date": null,
+    "owed": ["prizes", "how to enter"]
+  },
+  {
+    "id": "giveaway",
+    "title": "Mutant Menace deck giveaway",
+    "cadence": "End of the quarter",
+    "text": "At the end of the quarter we give away a Mutant Menace Commander deck.",
+    "date": null,
+    "owed": ["date"]
+  }
+]

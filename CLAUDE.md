@@ -84,6 +84,37 @@ Bright and collectible. The card is the interface.
   cutscene must be skippable and must be skipped under reduced motion.
 - The other two concepts are in design/concepts.html for reference only.
 
+## Commands
+- `npm run dev` - dev server at http://localhost:5173
+- `npm run build` - type-check, then production build into dist/
+- `npm run typecheck` - type-check only
+- Mockups: `python -m http.server 4173 --directory design`, then
+  http://localhost:4173/mockup.html
+
+## Code map
+- index.html - all section markup and headings. Static text lives here.
+- src/content/*.json - club, events and members data. index.ts holds the types.
+- src/styles/tokens.css - every color, font and layer. Change values here only.
+- src/styles/base.css, layout.css - reset, type, nav, section shells, footer.
+- src/core/scroll.ts - Lenis on GSAP's ticker, ScrollTrigger, scrollToTarget().
+- src/core/stage.ts - the single WebGL canvas. 1 world unit = 1 CSS pixel at
+  z = 0, origin at viewport center, so 3D objects can be placed over DOM
+  elements from getBoundingClientRect().
+- src/core/deck.ts - the corner deck (the persistent 3D object).
+- src/ui/chrome.ts - nav, footer, club name and Discord links from club.json.
+- design/ - concept board, approved mockup, logo sources. Reference only.
+
+## Rules the code depends on
+- Layering: section backgrounds are painted on ::before / ::after at
+  z-index -2, the canvas is at -1, text is above. A section must never create
+  a stacking context (no transform, opacity, filter, z-index or
+  container-type on .sec or .hero), or its background will cover the canvas.
+- three.js is loaded with a dynamic import so the text shows first. Keep
+  three imports out of main.ts and anything main.ts imports statically.
+- The mockup is the visual spec. When building a section, port its markup
+  and CSS from design/mockup.html, then replace the 2D stand-ins with 3D.
+- Sections still to build are marked with a dashed `.stub` note in the page.
+
 ## How we work
 Work in phases. At the end of each phase: stop, show the result (with
 screenshots), and wait for approval before starting the next. Do not jump
@@ -92,8 +123,8 @@ session.
 
 1. Discovery - done 2026-11-14
 2. Creative direction - done 2026-11-14. Picked C, "Top Deck" (see below)
-3. Design - page mockup in design/mockup.html, awaiting approval
-4. Foundation - scaffold, design tokens, layout, smooth scroll
+3. Design - done 2026-11-14. Approved mockup: design/mockup.html
+4. Foundation - built 2026-11-14, awaiting approval
 5. Sections - one at a time: hero, about, members, events, join
 6. Motion and 3D polish
 7. QA - real browser at desktop, tablet, phone; report what was measured

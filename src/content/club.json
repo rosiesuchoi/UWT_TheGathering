@@ -1,0 +1,26 @@
+{
+  "name": "MTG at UWT",
+  "nameConfirmed": false,
+  "school": "University of Washington Tacoma",
+  "format": "Commander",
+  "discord": "https://discord.gg/VwcpCWfbz",
+  "blurb": null,
+  "nights": [
+    {
+      "id": "thu",
+      "day": "Thursday",
+      "time": "6 PM",
+      "venue": "Iruda Cafe",
+      "address": "4916 Center St, Tacoma",
+      "addressConfirmed": false
+    },
+    {
+      "id": "fri",
+      "day": "Friday",
+      "time": "6 PM",
+      "venue": "Silver King Games & Hobby",
+      "address": "5442 S Tacoma Way, Tacoma, WA 98409",
+      "addressConfirmed": false
+    }
+  ]
+}

@@ -43,16 +43,39 @@ decided, what is next.
 - Preview: `python -m http.server 4173 --directory design`, then open
   http://localhost:4173/mockup.html
 
+- Club approved the revised mockup. Built Phase 4 (Foundation):
+  - Vite 8 + TypeScript 7 project, with three 0.187, gsap 3.15, lenis 1.3 and
+    self-hosted fonts (fontsource), so the site needs no outside servers.
+  - Design tokens, base type, nav with phone menu, a shell for every section
+    with its real heading, and the footer.
+  - Content files: club.json, events.json, members.json, with types. The
+    footer nights, club name and every Discord link already read from them.
+  - Smooth scroll: Lenis driven by GSAP's ticker, in-page links stop below
+    the nav.
+  - One WebGL canvas layered between section backgrounds and text, with a
+    small 3D deck in the corner that turns as the page scrolls. It proves the
+    canvas, the shared clock and the layering before any real 3D is built.
+  - three.js is split into its own chunk and loaded after the text.
+- Phase 4 check, in a real browser: build and type-check pass; no console
+  errors; no sideways scroll at 1280 or 375 wide; the deck shows above every
+  section color; clicking "Nights" lands on the section; the phone layout
+  holds. Not checked: frame rate, and how the smooth scroll feels, because
+  the browser pane was hidden during testing.
+- Lesson: a container query on the hero trapped its background above the
+  canvas (containment makes a stacking context). Moved it to an inner wrapper
+  and wrote the rule into CLAUDE.md.
+
 **Decided**
 - Stack: Vite + TypeScript, three.js, GSAP ScrollTrigger, Lenis, no framework.
 - Hosting: GitHub Pages with "mtguwt" in the URL.
 - Members content comes last; use marked placeholders until then.
 
 **Open**
-- Approve or change the page mockup.
+- Approve the foundation.
 - Confirm the official club name and the two venue addresses.
 - Owed content marked in the mockup: club blurb, raffle prizes and how to
   enter, giveaway date, member list.
 
 **Next**
-- Phase 4: scaffold the Vite project, design tokens, layout and smooth scroll.
+- Phase 5: build sections one at a time, starting with the hero (the card
+  fan and the shared card component), then the table.

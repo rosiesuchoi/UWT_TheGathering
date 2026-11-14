@@ -1,0 +1,46 @@
+/* Design tokens for the Top Deck direction. Every color, font and spacing
+   value used by the site is named here. See CLAUDE.md, "Creative direction". */
+:root {
+  /* Bright world: hero and most sections */
+  --paper: #f1edf9;
+  --paper-2: #e4dcf4;
+  --white: #fffdf8;
+  --ink: #1b1033;
+  --ink-2: #2a1b4d;
+  --purple: #4b2e83;
+  --purple-deep: #32096b;
+  --gold: #c9a23f;
+  --gold-pale: #f0dc9c;
+  --gold-foil: linear-gradient(135deg, #b08a34, #f4e3ad 42%, #d9b863 60%, #9c7626);
+
+  /* Five accents in the game's order. Original colors, no official symbols. */
+  --chalk: #fff8e1;
+  --tide: #2f7de1;
+  --dusk: #3a2a5c;
+  --ember: #e2472f;
+  --grove: #2f9e5b;
+
+  /* Table scene */
+  --espresso: #17100c;
+  --felt: #3d1d7a;
+  --lamp: #ffb84d;
+  --cream: #f3e7d3;
+
+  /* Type */
+  --f-d: "Anton", Impact, "Arial Narrow", sans-serif;
+  --f-t: "Hanken Grotesk Variable", "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-m: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --f-h: "Caveat", "Segoe Print", cursive;
+
+  /* Layout */
+  --max: 1200px;
+  --gut: clamp(20px, 5vw, 56px);
+  --navh: 61px;
+  --sec-pad: clamp(72px, 10vw, 136px);
+
+  /* Layers. Section backgrounds < WebGL canvas < page content < nav. */
+  --z-bg: -2;
+  --z-stage: -1;
+  --z-nav: 50;
+  --z-cut: 100;
+}

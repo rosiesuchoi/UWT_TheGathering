@@ -1,0 +1,88 @@
+/* Page chrome and section shells.
+
+   Layering rule: a section never paints its own background directly. The
+   background goes on ::before (and any slanted color block on ::after) at
+   z-index var(--z-bg). The WebGL canvas sits at var(--z-stage), one step
+   above, and all text sits above that. So 3D objects appear in front of
+   section colors and behind the words. For this to hold, .sec and .hero must
+   not create a stacking context: no transform, opacity, filter or z-index on
+   them. */
+
+#stage { position: fixed; inset: 0; width: 100%; height: 100%; z-index: var(--z-stage); pointer-events: none; }
+
+/* Nav */
+.nav { position: sticky; top: 0; z-index: var(--z-nav); display: flex; align-items: center; gap: 20px; padding: 10px var(--gut); background: rgba(241, 237, 249, .9); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(27, 16, 51, .12); }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--f-d); font-size: 20px; text-transform: uppercase; letter-spacing: .02em; margin-right: auto; }
+.badge { width: 40px; height: 40px; border-radius: 8px; background: var(--purple-deep); display: grid; place-items: center; flex: none; }
+.badge .mark { width: 56%; }
+.links { display: flex; gap: 26px; }
+.links a { text-decoration: none; font-weight: 500; font-size: 15px; }
+.links a:hover, .links a[aria-current="true"] { color: var(--purple); }
+.nav .btn { padding: 10px 16px; font-size: 15px; }
+.menu { display: none; font: 500 15px var(--f-t); background: none; border: 2px solid var(--ink); color: var(--ink); border-radius: 10px; padding: 8px 14px; cursor: pointer; }
+
+/* Section shell */
+.sec { position: relative; overflow: hidden; padding: var(--sec-pad) var(--gut); }
+.sec::before, .hero::before { content: ""; position: absolute; inset: 0; z-index: var(--z-bg); background-color: var(--sec-bg, var(--paper)); }
+.dots::before { background-image: radial-gradient(rgba(27, 16, 51, .13) 1px, transparent 1.3px); background-size: 22px 22px; }
+.in { position: relative; max-width: var(--max); margin: 0 auto; }
+.body { display: flex; flex-direction: column; gap: 20px; }
+.body > p:not(.label):not(.stub) { max-width: 56ch; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+.dark { --sec-bg: var(--ink); color: var(--paper); }
+.dark h2 em { color: var(--gold); }
+.violet { --sec-bg: var(--purple); color: var(--paper); }
+.violet h2 em { color: var(--gold-pale); }
+.tint { --sec-bg: var(--paper-2); }
+
+/* Hero: the Top Deck frame, full screen. Children of .hero-in are sized in
+   cqw. The container query lives on .hero-in, not .hero, because containment
+   creates a stacking context and would trap the hero background above the
+   canvas. */
+.hero { position: relative; overflow: hidden; width: 100%; aspect-ratio: 16 / 10; max-height: calc(100svh - var(--navh)); min-height: 520px; }
+.hero-in { position: absolute; inset: 0; container-type: inline-size; }
+.hero::after { content: ""; position: absolute; z-index: var(--z-bg); inset: 0 0 0 52%; background: var(--purple); clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); }
+.hero-copy { position: absolute; left: 5.5cqw; bottom: 6cqw; width: 42cqw; display: flex; flex-direction: column; gap: 1.4cqw; }
+.hero-copy .label { color: var(--purple); font-size: clamp(11px, 1.3cqw, 16px); }
+.hero h1 { font-size: clamp(44px, 6.7cqw, 128px); line-height: 1; }
+.hero .sub { font-size: clamp(16px, 1.9cqw, 26px); line-height: 1.4; max-width: 24ch; }
+.stub-hero { position: absolute; right: 11cqw; top: 46%; color: var(--paper); }
+
+/* Table scene shell */
+.tablesec { color: var(--cream); min-height: 100svh; display: grid; align-items: center; padding-block: clamp(56px, 7vw, 96px); }
+.tablesec::before { background: radial-gradient(70% 80% at 66% 50%, #2a1c14, var(--espresso) 75%); }
+.tablesec .in { width: 100%; }
+.tablesec h2 em, .tablesec .label { color: var(--lamp); }
+
+/* Join */
+.join::after { content: ""; position: absolute; z-index: var(--z-bg); inset: 0 0 0 68%; background: var(--gold); clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); }
+
+/* Footer */
+.foot { --sec-bg: var(--ink); color: var(--paper); padding-block: 56px 96px; }
+.foot .in { display: flex; flex-direction: column; gap: 28px; }
+.foot-top { display: flex; flex-wrap: wrap; gap: 24px 56px; align-items: flex-start; justify-content: space-between; }
+.foot .brand { margin: 0; color: var(--paper); }
+.foot ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 15.5px; }
+.foot .label { color: var(--gold-pale); margin-bottom: 4px; display: block; }
+.legal { font-size: 13px; line-height: 1.55; opacity: .75; max-width: 80ch; border-top: 1px solid rgba(241, 237, 249, .2); padding-top: 20px; }
+
+@media (max-width: 900px) {
+  .links { display: none; }
+  .links.open { display: flex; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid rgba(27, 16, 51, .15); padding: 6px var(--gut) 14px; }
+  .links.open a { padding: 12px 0; font-size: 17px; border-bottom: 1px solid rgba(27, 16, 51, .1); }
+  .menu { display: block; }
+  .join::after { display: none; }
+}
+@media (max-width: 700px) {
+  .hero { aspect-ratio: auto; max-height: none; min-height: 0; padding: 36px var(--gut) 56px; }
+  .hero-in { position: relative; inset: auto; display: flex; flex-direction: column; gap: 28px; }
+  .hero::after { inset: 44% 0 0 0; clip-path: polygon(0 14%, 100% 0, 100% 100%, 0 100%); }
+  .hero-copy { position: relative; left: auto; bottom: auto; width: auto; gap: 14px; }
+  .stub-hero { position: relative; right: auto; top: auto; margin-top: 180px; }
+}
+@media (max-width: 560px) {
+  .nav { gap: 10px; }
+  .brand-name { display: none; }
+  .foot .brand-name { display: inline; }
+}
