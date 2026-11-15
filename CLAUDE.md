@@ -40,7 +40,10 @@ Never invent real-sounding facts about the club. Where content is missing, use
 obvious placeholders and list them under "Content still owed" below.
 
 ## Content still owed
-- Member list (names, roles, favorite commanders, photos). Coming last.
+- The four officers are in members.json (from the club, 2026-11-15). Still
+  owed for each: favorite commander, its colors, and a photo. Their cards
+  say "to be announced" until then. The rest of the member list is owed too.
+- Artwork decision for the giveaway prize box (see "Next up").
 - Official club name as it should appear on the site. The site says "MTG at
   UWT"; the Discord server and the repository say "UW the Gathering".
 - Confirmation of the two venue addresses.
@@ -150,9 +153,21 @@ Bright and collectible. The card is the interface.
   onEnter() for one-off effects and the dotted-paper parallax.
 - Owed content shows as a dashed `.owed` box or `.tbd` tag. Search for both
   before launch.
+- src/ui/visitor.ts - the visitor's own name for the 100/100 card. The join
+  section has a form that sets it; the hero, table, join and binder cards
+  all show it. It is kept in localStorage (`mtguwt:visitor`) in that
+  visitor's browser only. There is no server, so nobody else sees it, and
+  the page must keep saying so. Real members are added by an officer in
+  members.json.
+- The binder (src/sections/members.ts): pages of nine pockets (six on a
+  phone), always with at least one page of spare sleeves so there is a page
+  to turn to. Order: members, then the visitor's card or an open pocket,
+  then empty sleeves.
 - Members: while members.json is `[]` the binder shows eight marked
   placeholder cards. Each real entry is
   `{ "name", "role", "commander", "colors": ["tide", ...], "photo": null }`.
+  `commander` may be null and `colors` may be `[]` while they are owed; the
+  card then says "to be announced" and uses club gold.
   `colors` uses chalk, tide, dusk, ember, grove (white, blue, black, red,
   green); the first sets the card's look and several show as a split pip.
   `photo` is a file name inside public/members/, or null for the silhouette.
@@ -180,6 +195,19 @@ Bright and collectible. The card is the interface.
   links, readable by screen readers) and only the flying deck is 3D. During
   it, html gets class `cutscene`, which lifts the canvas above everything.
 - The table layout assumes exactly two nights and two events.
+- Binder page turns. At rest a page is a plain grid in reading order. For
+  the length of a turn its pockets are moved into column strips nested
+  inside each other, so each column hinges on the one before and the page
+  bends. Rules that keep it working:
+  - The folded layout must match the resting grid to the pixel (same gap,
+    same pocket size), or the page jumps when a turn starts. All pockets
+    share one aspect ratio for this reason.
+  - Nothing between .b-stage and a .b-strip may get opacity, filter or
+    overflow: those flatten the 3D bend.
+  - Moving pockets replays CSS arrival animations, so the binder gets
+    `.settled` before the first turn and the arrival rule excludes it.
+  - JS only sets --a, --sh and --under; members.css applies them.
+  - Buttons turn pages too, and under reduced motion pages swap at once.
 - When the cutscene plays: on a click of the hero card or "Replay the
   shuffle" (always), and by itself the first time the visitor scrolls from
   the top into the table (once per browser tab, remembered in
@@ -243,6 +271,16 @@ session.
 7. QA - done 2026-11-15. Results are in LOG.md.
 8. Deploy - live on GitHub Pages 2026-11-15 at
    https://rosiesuchoi.github.io/UWT_TheGathering/. Checks are in LOG.md.
+9. Additions asked for on 2026-11-15, each approved before it is pushed
+   (a push goes live):
+   - Officers in the binder, visitors sign their own card, binder pages
+     turn by drag - built 2026-11-15, awaiting approval, not pushed.
+   - Next up: a 3D prize box for the giveaway that can be turned around,
+     in the events section. Blocked on a decision: the club sent a photo of
+     the real product box, which carries official logos and card art, and
+     this file's Constraints rule them out. Either the club lifts that rule
+     for the prize (and sends photos of every side), or the box is drawn in
+     the site's own style.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.

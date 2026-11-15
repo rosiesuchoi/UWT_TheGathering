@@ -1,10 +1,36 @@
-/* Members section: a binder page. Real binder pages hold nine cards in a
-   three by three grid, so the binder does too. */
+/* Members section: a binder. Real binder pages hold nine cards in a three by
+   three grid, so these do too (two by three on a phone). Pages turn when
+   dragged; src/sections/members.ts explains how. */
 .members { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
-.binder { position: relative; background: var(--white); border: 1px solid #d5cbe9; border-radius: 16px; padding: clamp(12px, 2vw, 24px); padding-left: clamp(34px, 4.6vw, 60px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(8px, 1.6vw, 18px); box-shadow: 0 24px 48px rgba(27, 16, 51, .14); }
+.binder { --bgap: clamp(8px, 1.6vw, 18px); position: relative; background: var(--white); border: 1px solid #d5cbe9; border-radius: 16px; padding: clamp(12px, 2vw, 24px); padding-left: clamp(34px, 4.6vw, 60px); box-shadow: 0 24px 48px rgba(27, 16, 51, .14); }
 /* Ring holes down the left edge. */
 .binder::before { content: ""; position: absolute; left: clamp(11px, 1.5vw, 20px); top: 0; bottom: 0; width: 16px; background: radial-gradient(circle, var(--paper-2) 0 6px, #b9add6 6.5px 7.5px, transparent 8px) center / 16px 33.33% repeat-y; }
-.pocket { background: var(--paper-2); border-radius: 10px; padding: 7%; min-width: 0; }
+
+/* The pages lie on top of each other. Only the current one shows, plus the
+   one beneath it while a page is turning. The viewer's eye is level with the
+   rings, so a turning page swings toward them. */
+.b-stage { display: grid; perspective: 2600px; perspective-origin: 0 50%; touch-action: pan-y; cursor: grab; }
+.b-stage.is-dragging { cursor: grabbing; user-select: none; -webkit-user-select: none; }
+.b-stage.is-dragging .b-sheet { pointer-events: none; }
+.b-sheet { grid-area: 1 / 1; position: relative; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--bgap); visibility: hidden; }
+.b-sheet.is-current, .b-sheet.is-under, .b-sheet.is-turning { visibility: visible; }
+.b-sheet.is-turning { z-index: 2; }
+/* The shadow a lifted page throws on the page beneath. --under comes from members.ts. */
+.b-sheet.is-under::after { content: ""; position: absolute; inset: 0; border-radius: 10px; pointer-events: none; background: linear-gradient(90deg, rgba(27, 16, 51, .34), rgba(27, 16, 51, .08) 60%, transparent); opacity: var(--under, 0); }
+
+/* A page mid-turn: columns nested inside each other, each hinged on its left
+   edge. --a (degrees) on each fold and --sh (shade) on each strip come from
+   members.ts. The layout must match the resting grid exactly, or the page
+   would jump when a turn starts. */
+.b-sheet.is-folded { display: block; transform-style: preserve-3d; }
+.b-fold { display: flex; transform-style: preserve-3d; transform-origin: 0 50%; transform: rotateY(calc(var(--a, 0) * 1deg)); }
+.b-strip { position: relative; flex: 0 0 calc(var(--colw) + var(--bgap)); padding-right: var(--bgap); display: grid; gap: var(--bgap); align-content: start; background: var(--white); backface-visibility: hidden; }
+.b-strip:only-child { flex-basis: var(--colw); padding-right: 0; }
+.b-strip::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgb(27, 16, 51), rgba(27, 16, 51, .7)); opacity: var(--sh, 0); }
+
+.pocket { background: var(--paper-2); border-radius: 10px; padding: 7%; min-width: 0; aspect-ratio: 1000 / 1344; }
+.pocket.empty { display: grid; place-items: center; box-shadow: inset 0 0 0 1px rgba(75, 46, 131, .14); }
+.b-scrib { font-family: var(--f-h); font-size: clamp(16px, 2.1vw, 26px); line-height: 1.05; text-align: center; color: var(--purple); rotate: -5deg; }
 
 /* Foil stays quiet across a full page of cards and wakes up under the pointer. */
 .pocket .c-foil { opacity: .2; transition: opacity .2s; }
@@ -12,26 +38,36 @@
 .pocket .card:hover .c-foil { opacity: .8; }
 .pocket .card:hover .c-glare { opacity: 1; }
 
-/* The last pocket is left open for the visitor. */
-.slotcard { border: 2px dashed var(--purple); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; color: var(--purple); transition: background-color .2s; }
+/* The pocket after the last member is left open for the visitor. */
+.slotcard { border: 2px dashed var(--purple); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; color: var(--purple); transition: background-color .2s; -webkit-user-drag: none; }
 .slotcard:hover { background: rgba(75, 46, 131, .08); }
 .slotcard b { font-family: var(--f-d); font-weight: 400; text-transform: uppercase; font-size: clamp(18px, 2.2vw, 28px); line-height: 1; }
 .slotcard span { font-size: 14px; line-height: 1.3; }
 
-/* Arrival: after the page rises in, cards drop into their pockets one by one. */
+/* Page controls under the binder page. */
+.b-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: var(--bgap); }
+.b-btn { font-family: var(--f-m); font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; padding: 9px 12px; border: 1.5px solid var(--purple); border-radius: 8px; background: none; color: var(--purple); cursor: pointer; }
+.b-btn:hover:not(:disabled) { background: rgba(75, 46, 131, .08); }
+.b-btn:disabled { opacity: .35; cursor: default; }
+.b-count { font-family: var(--f-m); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.b-hint { margin-left: auto; font-family: var(--f-h); font-size: 21px; line-height: 1; color: var(--purple); }
+
+/* Arrival: after the page rises in, cards drop into their pockets one by one.
+   .settled is added once pages start to turn, so it plays only once. */
 #members.rv-armed:not(.is-in) .pocket .card,
 #members.rv-armed:not(.is-in) .slotcard > * { opacity: 0; }
-#members.rv-armed.is-in .pocket .card { animation: pocket-in .5s cubic-bezier(.2, .8, .2, 1) backwards; animation-delay: calc(450ms + var(--i, 0) * 70ms); }
-#members.rv-armed.is-in .slotcard > * { animation: rv-rise .5s ease-out backwards; animation-delay: calc(450ms + var(--i, 0) * 70ms); }
+#members.rv-armed.is-in .binder:not(.settled) .pocket .card { animation: pocket-in .5s cubic-bezier(.2, .8, .2, 1) backwards; animation-delay: calc(450ms + var(--i, 0) * 70ms); }
+#members.rv-armed.is-in .binder:not(.settled) .slotcard > * { animation: rv-rise .5s ease-out backwards; animation-delay: calc(450ms + var(--i, 0) * 70ms); }
+/* The visitor's card drops into its pocket when they sign it. */
+.pocket.mine.just-in .card { animation: pocket-in .6s cubic-bezier(.2, .8, .2, 1) backwards; }
 @keyframes pocket-in { from { opacity: 0; transform: translateY(-34px) scale(1.08); } }
 
 @media (max-width: 900px) {
   .members { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 560px) {
-  .binder { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  /* Keeps the last row full when the count is odd. */
-  .slotcard:nth-child(odd) { grid-column: span 2; padding: 22px 16px; }
+  .b-sheet { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .b-hint { margin-left: 0; flex-basis: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pocket .c-foil, .pocket .c-glare, .slotcard { transition: none; }

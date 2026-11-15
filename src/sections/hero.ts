@@ -3,6 +3,7 @@ import { club } from '../content';
 import { ScrollTrigger, gsap, reducedMotion } from '../core/scroll';
 import { createCard } from '../ui/card';
 import { attachTilt } from '../ui/tilt';
+import { bindVisitorCard } from '../ui/visitor';
 import { dealIn } from './table';
 
 export function initHero(): void {
@@ -27,6 +28,7 @@ export function initHero(): void {
     { as: 'button', className: 'herocard idle', label: 'Shuffle up: deal me in at the table' },
   );
   fan.append(card);
+  bindVisitorCard(card);
   attachTilt(card);
 
   // Clicking the card plays the shuffle and deals the visitor in at the table.

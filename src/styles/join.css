@@ -1,5 +1,13 @@
 /* Join section: the visitor's foil card on a gold block, beside the invitation. */
 .join::after { content: ""; position: absolute; z-index: var(--z-bg); inset: 0 62% 0 0; background: var(--gold); clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%); }
+/* Sign the card: one field and a button. */
+.signup { display: grid; gap: 8px; max-width: 31rem; justify-items: start; }
+.signup label { font-weight: 700; }
+.signup-row { display: flex; flex-wrap: wrap; gap: 10px; width: 100%; }
+.signup input { flex: 1 1 12rem; min-width: 0; font: inherit; color: var(--ink); background: var(--white); border: 2px solid var(--ink); border-radius: 10px; padding: 12px 14px; }
+.signup input::placeholder { color: #6a5f85; }
+.signup-note { font-size: 14.5px; line-height: 1.45; }
+.linkbtn { font: inherit; font-size: 14.5px; color: var(--purple); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
 .recap { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 6px 32px; font-size: 15.5px; }
 .recap dt { font-family: var(--f-m); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--purple); }
 

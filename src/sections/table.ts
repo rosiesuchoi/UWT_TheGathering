@@ -5,6 +5,7 @@ import type { DealTarget, DeckFx } from '../core/fx';
 import { fx } from '../core/fx';
 import { ScrollTrigger, gsap, jumpTo, lockScroll, reducedMotion } from '../core/scroll';
 import { createCard } from '../ui/card';
+import { bindVisitorCard } from '../ui/visitor';
 
 type TableState = 'armed' | 'dealing' | 'revealing' | 'done';
 
@@ -234,6 +235,7 @@ export function initTable(): void {
     if (!slot) return;
     const card = createCard(data, { as: 'a', href: data.href, className: 'tcard' });
     card.style.setProperty('--i', String(i));
+    if (data.slot === 'you') bindVisitorCard(card);
     slot.append(card);
     if (data.label) {
       const label = document.createElement('span');

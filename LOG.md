@@ -304,7 +304,42 @@ decided, what is next.
   - Not checked on either address: a real phone, Safari, Firefox, frame
     rate.
 
+- Club asked for three additions. Built the first group; NOT PUSHED, so the
+  live site does not have it yet.
+  - Officers: Rosie Choi (President), Jeremiah Celestra (Vice President),
+    Jacob Caperon (Secretary), Emmet Meenk (Treasurer) are in members.json.
+    No commanders, colors or photos were given, so each card says
+    "Favorite commander: to be announced" and the section shows an "Owed"
+    note.
+  - Sign your card: a form in the join section takes a name. It then shows
+    on the hero card, the table's open-seat card, the join card, and as a
+    foil "Member" card in the binder where the open pocket was. The name is
+    saved in that browser only, because the site has no server, and the
+    form says so. "Take my name off" clears it.
+  - Binder pages: nine pockets a page (six on a phone), with a page of
+    spare sleeves after the last member. Drag a page to turn it: the outer
+    columns curl up first and the page hinges at the rings; let go and it
+    falls over or drops back. "Page back" and "Next page" buttons do the
+    same.
+  - Checked in Chrome on the dev server: type-check and build pass; no
+    console errors; the folded layout matches the resting grid exactly at
+    the start of a turn; long drag turns, slow short drag falls back, drag
+    right turns back, a drag on the last page and an up-down drag do
+    nothing; reading order is back to President, Vice President, Secretary,
+    Treasurer after a turn; the name survives a reload and clears; at 375
+    wide after a reload there are six pockets a page and no sideways
+    scroll; with ?reduce-motion pages swap at once.
+  - Not checked: the feel of a real drag by hand or by touch. Every drag
+    was scripted, and the frames I saw were single captures. Not checked on
+    a real phone, Safari or Firefox.
+  - Not built: the 3D prize box. The photo the club sent is the official
+    product box, with Wizards and Fallout logos and card art, which this
+    project's own rules exclude. One photo also shows only the front.
+    Waiting on the club's decision (see CLAUDE.md, phase 9).
+
 **Open**
+- Approve the binder, officers and sign-your-card work so it can go live.
+- Decide the artwork for the 3D prize box.
 - Open the live site on a real phone and watch the first second and the
   shuffle. Add ?fps for a frame-rate readout.
 - Decided by the owner: the GitHub Pages address is the club's official

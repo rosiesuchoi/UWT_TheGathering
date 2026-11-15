@@ -41,7 +41,13 @@ A member entry looks like this:
 
 `colors` uses `chalk`, `tide`, `dusk`, `ember` and `grove`, for white, blue,
 black, red and green. `photo` is a file name inside `public/members/`, or
-`null`. Only add members who have agreed to appear on a public site.
+`null`. If you do not know someone's commander yet, use `"commander": null`
+and `"colors": []`. Only add members who have agreed to appear on a public
+site.
+
+Visitors can type their name into the join section to see their own card in
+the binder. That name is saved in their browser only. It does not reach
+anyone else, so a new member still needs an officer to add them here.
 
 ## Publish it
 

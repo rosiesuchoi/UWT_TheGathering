@@ -156,6 +156,17 @@
           <p class="label" data-rv>Card 7 of 7</p>
           <h2 data-rv>The last card <em>is you.</em></h2>
           <p class="lede" data-rv>Come to a Thursday or Friday night, or say hello on Discord first.</p>
+          <!-- Signs the visitor's own card. The name is kept in their browser
+               only; see src/ui/visitor.ts and src/sections/join.ts. -->
+          <form class="signup" id="signForm" data-rv>
+            <label for="signName">Put your name on the last card</label>
+            <div class="signup-row">
+              <input id="signName" name="name" type="text" maxlength="24" autocomplete="nickname" placeholder="Your name">
+              <button class="btn btn-gold" id="signBtn" type="submit">Sign my card</button>
+            </div>
+            <p class="signup-note" id="signNote" aria-live="polite">Your name is saved in this browser only. To be added to the binder for everyone, say hello on Discord.</p>
+            <button class="linkbtn" id="signClear" type="button" hidden>Take my name off</button>
+          </form>
           <div class="cta" data-rv><a class="btn btn-ink" data-discord href="#join">Join the Discord</a></div>
           <!-- Filled from club.json by src/sections/join.ts -->
           <dl class="recap" id="joinRecap" data-rv></dl>

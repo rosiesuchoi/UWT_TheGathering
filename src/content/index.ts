@@ -58,9 +58,9 @@ export interface ClubEvent {
 export interface Member {
   name: string;
   role: string;
-  /** Favorite commander, as free text. */
-  commander: string;
-  /** Colors of that commander. Sets the card's look. */
+  /** Favorite commander, as free text. Null until the member says. */
+  commander: string | null;
+  /** Colors of that commander. Sets the card's look. Empty gives club gold. */
   colors: CardColor[];
   /** Path under public/members/, or null for the default silhouette. */
   photo: string | null;
