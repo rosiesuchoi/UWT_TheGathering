@@ -101,13 +101,14 @@
       </div>
     </section>
 
-    <section class="sec dark" id="nights">
+    <section class="sec dark" id="nights" data-reveal>
       <div class="in">
         <div class="body">
-          <p class="label">Cards 2 and 3 of 7</p>
-          <h2>Two nights a week. <em>Both at 6 PM.</em></h2>
-          <p class="stub">Thursday and Friday cards: Phase 5</p>
+          <p class="label" data-rv>Cards 2 and 3 of 7</p>
+          <h2 data-rv>Two nights a week. <em>Both at 6 PM.</em></h2>
         </div>
+        <!-- One block per night, built from club.json by src/sections/nights.ts -->
+        <div class="nights" id="nightsList"></div>
       </div>
     </section>
 

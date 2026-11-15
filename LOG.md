@@ -47,13 +47,26 @@ decided, what is next.
   start, middle and end, the counters finish on 100, 1, 4 and 40, and the
   phone layout matches the mockup. Real-time feel still not watched.
 
+- Club approved the club section. Built the fourth Phase 5 section: nights.
+  - One block per night, generated from club.json: the night's card with
+    pointer tilt, day, time, venue, address and an "Open in Maps" link (a
+    map search for the venue, opening in a new tab).
+  - Each address shows a "confirm" tag until addressConfirmed is set to true
+    in club.json.
+  - Reveal: the section darkens as it arrives, and the two cards come in
+    from opposite sides.
+- Check, in a real browser at 1280 and 375 wide: build and type-check pass,
+  no console errors, no sideways scroll, both blocks render with the right
+  venue and map link, the reveal looks right mid-way and at rest. The map
+  links were checked for the right address text but not opened.
+
 **Open**
-- Approve the club section.
+- Approve the nights section.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.
 
 **Next**
-- Phase 5, fourth section: the nights (Thursday and Friday cards).
+- Phase 5, fifth section: members (the binder of foil cards).
 
 ## 2026-11-14 (Sat) - Discovery and creative direction
 

@@ -11,11 +11,13 @@ import './styles/hero.css';
 import './styles/table.css';
 import './styles/motion.css';
 import './styles/club.css';
+import './styles/nights.css';
 
 import { fx } from './core/fx';
 import { ScrollTrigger, gsap, initScroll } from './core/scroll';
 import { initClub } from './sections/club';
 import { initHero } from './sections/hero';
+import { initNights } from './sections/nights';
 import { initTable } from './sections/table';
 import { applyClubContent, initNav } from './ui/chrome';
 import { initDotsParallax, initReveals } from './ui/motion';
@@ -26,6 +28,8 @@ initScroll();
 initTable();
 initHero();
 initClub();
+initNights();
+// Reveals go last: they number the pieces each section has just built.
 initReveals();
 initDotsParallax();
 

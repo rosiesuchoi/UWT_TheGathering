@@ -6,8 +6,12 @@
 @keyframes rv-rise { from { opacity: 0; translate: 0 26px; } }
 
 /* A played card: arrives from the table side, turning face up as it lands. */
-.rv-armed.is-in [data-rv="card"] { animation: rv-card .9s cubic-bezier(.2, .8, .2, 1) backwards; }
+.rv-armed.is-in [data-rv="card"] { animation: rv-card .9s cubic-bezier(.2, .8, .2, 1) backwards; animation-delay: calc(var(--rv, 0) * 90ms); }
 @keyframes rv-card { from { opacity: 0; transform: perspective(900px) translate3d(-22%, -14%, 0) rotateY(-75deg) rotateZ(-12deg) scale(.8); } }
+
+/* The same, arriving from the right. */
+.rv-armed.is-in [data-rv="card-r"] { animation: rv-card-r .9s cubic-bezier(.2, .8, .2, 1) backwards; animation-delay: calc(var(--rv, 0) * 90ms); }
+@keyframes rv-card-r { from { opacity: 0; transform: perspective(900px) translate3d(22%, -14%, 0) rotateY(75deg) rotateZ(12deg) scale(.8); } }
 
 /* Dotted paper drifts with --dp, set by motion.ts. */
 .dots::before { background-position: 0 calc(var(--dp, 0) * 1px); }

@@ -162,7 +162,8 @@ session.
 4. Foundation - done 2026-11-14
 5. Sections - one at a time, each approved before the next:
    hero (done 2026-11-14), table + shuffle cutscene (done 2026-11-15),
-   club (built 2026-11-15, awaiting approval), nights, members, events, join
+   club (done 2026-11-15), nights (built 2026-11-15, awaiting approval),
+   members, events, join
 6. Motion and 3D polish
 7. QA - real browser at desktop, tablet, phone; report what was measured
 8. Deploy
