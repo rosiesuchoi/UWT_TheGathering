@@ -289,14 +289,26 @@ decided, what is next.
 - New Discord invite from the club: https://discord.gg/kbevMqAuxD. Checked
   with Discord: valid, never expires, same server as the old one ("UW the
   Gathering"). Replaced in club.json and in the design mockup.
-- Left over from the Vercel try: the Vercel project still serves an old
-  build at mtguwt.vercel.app with the old invite, which expires
-  2026-11-30. The owner should delete that project.
+- Checked after the push (commit 2a34ec5):
+  - The "Deploy site" run on GitHub succeeded in under a minute and
+    replaced the gh-pages branch; the Pages build after it succeeded.
+  - On https://rosiesuchoi.github.io/UWT_TheGathering/ in Chrome: all 12
+    files load from under that address over HTTPS, no console errors, all
+    four fonts load, all five Discord links point to the new invite, and
+    clicking the hero card played the whole shuffle and ended with seven
+    cards on the table and focus on the table.
+  - Surprise: the Vercel copy at https://mtguwt.vercel.app picked up this
+    push too and serves the same build with the new invite. It had ignored
+    every push while the repository was private. So both addresses are
+    live and both update on push.
+  - Not checked on either address: a real phone, Safari, Firefox, frame
+    rate.
 
 **Open**
 - Open the live site on a real phone and watch the first second and the
   shuffle. Add ?fps for a frame-rate readout.
-- Delete the Vercel project `mtguwt`.
+- Decide which address to hand out, and whether to keep or delete the
+  Vercel copy. Two live copies are fine as long as both keep deploying.
 - Decide whether to rename the repository to `mtguwt` for a shorter
   address (rosiesuchoi.github.io/mtguwt).
 - Decide what, if anything, the back of a member card shows.

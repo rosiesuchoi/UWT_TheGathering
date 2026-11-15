@@ -71,9 +71,13 @@ obvious placeholders and list them under "Content still owed" below.
 - The club wanted "mtguwt" in the URL. Renaming the repository to `mtguwt`
   would give rosiesuchoi.github.io/mtguwt (then update the `origin` remote
   and the addresses in this file and README.md). Not done.
-- Leftover from the Vercel try: a Vercel project `mtguwt` at
-  mtguwt.vercel.app that does not receive pushes and still shows the old
-  Discord invite. The owner should delete it or it will go stale.
+- Second copy on Vercel: the project `mtguwt` from the Vercel try is still
+  connected and serves the same site at https://mtguwt.vercel.app. It
+  ignored pushes while the repository was private and has deployed them
+  since it went public (first seen with commit 2a34ec5). It builds with
+  Vercel's defaults; there is no vercel.json. Its dashboard cannot be read
+  from this machine. The owner decides whether to keep it (it has "mtguwt"
+  in the address) or delete it.
 - Repository: https://github.com/rosiesuchoi/UWT_TheGathering (remote
   `origin`, branch `main`). Push at the end of each approved step.
 - Keep local machine paths and personal details out of committed files.
