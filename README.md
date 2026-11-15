@@ -43,18 +43,20 @@ black, red and green. `photo` is a file name inside `public/members/`, or
 
 ## Publish it
 
-Every push to the `main` branch is built and published to GitHub Pages by
-`.github/workflows/deploy.yml`. Editing a content file on GitHub and saving
-it to `main` is enough to update the live site a minute or two later.
+The site is hosted on Vercel. Once the repository is connected, every push
+to the `main` branch is built and published automatically. Editing a content
+file on GitHub and saving it to `main` is enough to update the live site a
+minute or two later.
 
 One-time setup, by the repository owner:
 
-1. The repository must be public (GitHub Pages does not publish private
-   repositories on a free account).
-2. In Settings > Pages, set Source to "GitHub Actions".
+1. Sign in at vercel.com with the GitHub account that owns this repository.
+2. Add New > Project, then import this repository.
+3. Set the project name (it becomes the address, `<name>.vercel.app`) and
+   click Deploy. The build settings are read from `vercel.json`.
 
-To publish again without changing anything: Actions > Deploy site > Run
-workflow.
+To publish again without changing anything: open the project on Vercel,
+then Deployments > Redeploy.
 
 ## How the project is organized
 

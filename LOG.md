@@ -225,20 +225,30 @@ decided, what is next.
     author's email address, which becomes visible in a public repository.
     No local paths or personal details are in the files or their history.
 
+- Owner decided to deploy through Vercel instead of GitHub Pages. The
+  repository was still private when checked, and it can stay private.
+  - Removed .github/workflows/deploy.yml. It never ran successfully and
+    would have kept failing on every push.
+  - Added vercel.json: build with `npm run build`, publish dist/, and cache
+    the hashed files in /assets/ for a year.
+  - NOT LIVE YET. This machine is not signed in to Vercel, so the project
+    has to be created by the owner: sign in at vercel.com with GitHub,
+    import the repository, name the project, deploy.
+  - Checked: mtguwt.vercel.app is unclaimed, so a project named `mtguwt`
+    should get that address.
+  - Not verified: a build on Vercel. The same build command passed from a
+    fresh clone on this machine.
+
 **Open**
-- Make the repository public and turn on Pages (see above), then check the
-  live site.
-- Decide the web address. As named, the site will be at
-  rosiesuchoi.github.io/UWT_TheGathering. Renaming the repository to
-  `mtguwt` gives rosiesuchoi.github.io/mtguwt with no code change.
+- Import the repository into Vercel (see above), then check the live site.
 - Replace the Discord invite with one that does not expire.
 - Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.
 
 **Next**
-- Once Pages is on: re-run the deploy, check the live site, and add the
-  address to README.md and the portfolio card.
+- Once the Vercel project exists: check the live site, and add the address
+  to README.md and the portfolio card.
 
 ## 2026-11-14 (Sat) - Discovery and creative direction
 

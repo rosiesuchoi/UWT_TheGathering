@@ -57,17 +57,15 @@ obvious placeholders and list them under "Content still owed" below.
 - Hold 60fps on a mid-range laptop, respect prefers-reduced-motion, and give
   phones a lighter fallback for heavy WebGL.
 - Fully responsive, keyboard navigable, readable contrast.
-- Deploy: GitHub Pages, published by .github/workflows/deploy.yml on every
-  push to main. The build uses a relative base, so it works at any address
-  without changes. The club wanted "mtguwt" in the URL; the repository is
-  named UWT_TheGathering, so the address is
-  rosiesuchoi.github.io/UWT_TheGathering unless the repository is renamed
-  (renaming it to `mtguwt` gives rosiesuchoi.github.io/mtguwt; then update
-  the `origin` remote and this file).
-- Pages needs two settings only the repository owner can change: the
-  repository must be public (or the account on GitHub Pro), and Settings >
-  Pages > Source must be "GitHub Actions". As of 2026-11-15 the repository
-  is private and the site is not live.
+- Deploy: Vercel (owner's decision, 2026-11-15, replacing GitHub Pages; the
+  repository stays private). The owner imports the GitHub repository into
+  Vercel once; after that Vercel builds and publishes every push to main.
+  Build settings are in vercel.json. The build uses a relative base, so it
+  works at any address without changes.
+- The club wanted "mtguwt" in the URL. Naming the Vercel project `mtguwt`
+  gives mtguwt.vercel.app (free when checked on 2026-11-15).
+- As of 2026-11-15 the site is not live: the Vercel project does not exist
+  yet, and this machine is not signed in to Vercel.
 - Repository: https://github.com/rosiesuchoi/UWT_TheGathering (remote
   `origin`, branch `main`). Push at the end of each approved step.
 - Keep local machine paths and personal details out of committed files.
@@ -145,9 +143,10 @@ Bright and collectible. The card is the interface.
   `photo` is a file name inside public/members/, or null for the silhouette.
   Only add members who have agreed to appear on a public site.
 - design/ - concept board, approved mockup, logo sources. Reference only.
-- .github/workflows/deploy.yml - builds and publishes the site to GitHub
-  Pages on every push to main. Every push to main goes live, so only push
-  work that has been approved.
+- vercel.json - Vercel's build settings (npm run build, dist/) and long
+  caching for the hashed files in /assets/. Once the repository is
+  connected to Vercel, every push to main goes live, so only push work that
+  has been approved.
 
 ## Rules the code depends on
 - Layering: section backgrounds are painted on ::before / ::after at
@@ -227,8 +226,8 @@ session.
    2026-11-15), events (done 2026-11-15), join (done 2026-11-15)
 6. Motion and 3D polish - first pass done 2026-11-15
 7. QA - done 2026-11-15. Results are in LOG.md.
-8. Deploy - workflow added 2026-11-15. Waiting on the owner to make the
-   repository public and turn on Pages; then check the live site.
+8. Deploy - switched to Vercel 2026-11-15. Waiting on the owner to import
+   the repository into Vercel; then check the live site.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.
