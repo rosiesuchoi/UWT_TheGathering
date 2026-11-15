@@ -275,8 +275,15 @@ decided, what is next.
 **Open**
 - Open https://mtguwt.vercel.app on a real phone and watch the first second
   and the shuffle. Add ?fps for a frame-rate readout.
-- Confirm that pushes to main reach the live site (see the next entry or
-  the Vercel Deployments list).
+- PUSHES ARE NOT REACHING THE LIVE SITE. The live build is still the one
+  from the import. Four pushes since then (the switch to Vercel, two log
+  updates, and an empty test commit with no co-author line) had not
+  appeared three minutes after each of the last two. Tell: files under
+  /assets/ are still served without the `immutable` caching that
+  vercel.json sets. Cause unknown; the Vercel Deployments list will say
+  whether they were blocked, failed or never started. The test commit
+  rules out the co-author line as the only cause. The pages themselves are
+  identical to the repository, so nothing visible is out of date yet.
 - Replace the Discord invite with one that does not expire.
 - Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
