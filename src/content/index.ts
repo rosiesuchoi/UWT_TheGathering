@@ -57,7 +57,18 @@ export interface ClubEvent {
    * Something the event gives away. Shown as a box the visitor can turn
    * (src/ui/prizebox.ts). `colors` are the deck's colors, as dots.
    */
-  prize?: { name: string; kind: string; colors: CardColor[] };
+  prize?: {
+    name: string;
+    kind: string;
+    colors: CardColor[];
+    /**
+     * Folder under public/prizes/ holding front, back, left, right, top and
+     * bottom .webp photos of the real box. Leave out for a drawn box.
+     */
+    photos?: string;
+    /** Width, height and depth of the box as shares of its width, e.g. [1, 0.78, 0.24]. */
+    size?: [number, number, number];
+  };
 }
 
 export interface Member {

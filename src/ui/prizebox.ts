@@ -1,9 +1,10 @@
 // The prize box: a six-sided box that turns when dragged, for an event that
 // gives something away. Styles are in src/styles/prizebox.css.
 //
-// It is our own drawing in the site's style, not a copy of the real
-// packaging: the project uses no official card art or logos. The box says so
-// on its base and in its caption.
+// Two looks. If the prize has `photos`, each side is the club's own photo of
+// the real box (the club's decision for the giveaway prize, the one place
+// the site shows official packaging). Otherwise the sides are our own
+// drawing in the site's style, and the box says so.
 //
 // It is built from page elements with CSS 3D, not WebGL, so the lettering
 // stays sharp and it costs a phone almost nothing. This file only sets
@@ -34,8 +35,6 @@ const MAX_PITCH = 72;
 const IDLE_SPEED = 16;
 /** How long after the last touch the box starts turning by itself again. */
 const IDLE_AFTER_MS = 3500;
-/** Depth of the box as a share of its width. Must match prizebox.css. */
-const DEPTH = 0.44;
 
 // An original moth: the deck is called Mutant Menace.
 const MOTH = `<svg viewBox="0 0 100 80" aria-hidden="true" focusable="false">
@@ -129,15 +128,32 @@ export function createPrizeBox(event: ClubEvent): HTMLElement | null {
     return wrap;
   };
 
+  // With photos, each side is a photo of the real box, cut out and squared
+  // up, from public/prizes/<folder>/. Without, the sides are our drawing.
+  const photoSides: HTMLImageElement[] = [];
+  const photoSide = (name: string): HTMLElement => {
+    const img = document.createElement('img');
+    img.alt = '';
+    img.decoding = 'async';
+    img.draggable = false;
+    img.dataset.src = `${import.meta.env.BASE_URL}prizes/${prize.photos}/${name}.webp`;
+    photoSides.push(img);
+    const face = side(name, img);
+    face.classList.add('pz-photo');
+    return face;
+  };
+
   const box = el('div', 'pz-box');
-  const sides = [
-    front,
-    back,
-    side('right', spine(prize.name, true)),
-    side('left', spine('Club giveaway', false)),
-    side('top', el('span', 'mark'), el('span', 'pz-kicker', prize.kind)),
-    side('bottom', el('span', 'pz-kicker pz-small', 'Our drawing, not the real packaging')),
-  ];
+  const sides = prize.photos
+    ? ['front', 'back', 'right', 'left', 'top', 'bottom'].map(photoSide)
+    : [
+        front,
+        back,
+        side('right', spine(prize.name, true)),
+        side('left', spine('Club giveaway', false)),
+        side('top', el('span', 'mark'), el('span', 'pz-kicker', prize.kind)),
+        side('bottom', el('span', 'pz-kicker pz-small', 'Our drawing, not the real packaging')),
+      ];
   box.append(...sides);
 
   const scene = el('div', 'pz-scene');
@@ -150,12 +166,39 @@ export function createPrizeBox(event: ClubEvent): HTMLElement | null {
   turnBtn.type = 'button';
   const caption = el('p', 'pz-cap');
   caption.append(
-    el('span', 'sr-only', `A drawing of the prize box: a ${prize.name} ${prize.kind}. `),
-    'Our drawing of the prize, not the real box. Drag it to look around.',
+    el('span', 'sr-only', `${prize.photos ? 'Photos' : 'A drawing'} of the prize box: a ${prize.name} ${prize.kind}. `),
+    prize.photos ? 'The real box. Drag it to look around.' : 'Our drawing of the prize, not the real box. Drag it to look around.',
   );
 
+  // Width, height and depth of the box, as shares of its width.
+  const [, heightShare, depthShare] = prize.size ?? [1, 1.4, 0.44];
   const root = el('div', 'prize');
+  root.style.setProperty('--hr', String(heightShare));
+  root.style.setProperty('--dr', String(depthShare));
+  // A box wider than it is tall sits under its entry's text, not beside it.
+  if (heightShare < 1) root.classList.add('wide');
   root.append(scene, turnBtn, caption);
+
+  // The photos are fetched when the box is about to scroll into view, all six
+  // together, so no side is still blank when the box turns to it.
+  if (photoSides.length > 0) {
+    const load = (): void => photoSides.forEach((img) => (img.src = img.dataset.src ?? ''));
+    if ('IntersectionObserver' in window) {
+      const near = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          load();
+          near.disconnect();
+        },
+        { rootMargin: '900px 0px' },
+      );
+      near.observe(root);
+      // Belt and braces: touching the box fetches them too.
+      scene.addEventListener('pointerdown', load, { once: true });
+    } else {
+      load();
+    }
+  }
 
   // ---- Turning -----------------------------------------------------------
   const pose = { yaw: REST_YAW, pitch: REST_PITCH };
@@ -186,7 +229,7 @@ export function createPrizeBox(event: ClubEvent): HTMLElement | null {
     // A band of light slides across the wide sides as the box turns.
     box.style.setProperty('--sheen', (Math.sin(ry) * 130).toFixed(1));
     // The shadow on the floor is as wide as the box looks from the front.
-    shadow.style.setProperty('--sw', (Math.abs(Math.cos(ry)) + Math.abs(Math.sin(ry)) * DEPTH).toFixed(3));
+    shadow.style.setProperty('--sw', (Math.abs(Math.cos(ry)) + Math.abs(Math.sin(ry)) * depthShare).toFixed(3));
     dirty = false;
   };
   draw();

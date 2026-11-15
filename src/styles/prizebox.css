@@ -3,11 +3,13 @@
    each side, --sheen on the box and --sw on the shadow.
 
    Every size is a share of --bw, the width of the box, so the whole thing
-   scales as one. The box is 1 wide, 1.4 tall and 0.44 deep (DEPTH in
-   prizebox.ts must match). */
-.prize { --bw: clamp(128px, 15vw, 178px); --bh: calc(var(--bw) * 1.4); --bd: calc(var(--bw) * .44); display: grid; justify-items: center; gap: 12px; width: calc(var(--bw) * 1.5); }
+   scales as one. --hr and --dr are the box's height and depth as shares of
+   its width; prizebox.ts sets them from the prize's `size` in events.json. */
+.prize { --bw: clamp(128px, 15vw, 178px); --hr: 1.4; --dr: .44; --bh: calc(var(--bw) * var(--hr)); --bd: calc(var(--bw) * var(--dr)); display: grid; justify-items: center; gap: 12px; width: calc(var(--bw) * 1.5); }
+/* A box wider than it is tall is drawn larger and gets less room at its sides. */
+.prize.wide { --bw: clamp(190px, 23vw, 270px); width: calc(var(--bw) * 1.3); }
 
-.pz-scene { position: relative; width: 100%; height: calc(var(--bh) * 1.22); display: grid; place-items: center; perspective: calc(var(--bw) * 6); cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.pz-scene { position: relative; width: 100%; height: calc(var(--bh) * 1.1 + var(--bw) * .34); display: grid; place-items: center; perspective: calc(var(--bw) * 6); cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
 .pz-scene.is-dragging { cursor: grabbing; }
 .pz-box { position: relative; width: var(--bw); height: var(--bh); transform-style: preserve-3d; transform: rotateX(calc(var(--rx, -10) * 1deg)) rotateY(calc(var(--ry, -28) * 1deg)); }
 
@@ -26,6 +28,13 @@
 .pz-side::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: #0b0518; opacity: var(--sh, 0); }
 /* Sheen: a soft band of light that crosses the two wide sides. */
 .pz-front::before, .pz-back::before { content: ""; position: absolute; inset: -20% -60%; pointer-events: none; background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, .16) 50%, transparent 58%); transform: translateX(calc(var(--sheen, 0) * 1%)); }
+
+/* Photo sides: the picture fills the side edge to edge. */
+.pz-side.pz-photo { padding: 0; gap: 0; border: 0; border-radius: calc(var(--bw) * .008); background: #1a1410; }
+.pz-photo img { width: 100%; height: 100%; max-width: none; object-fit: fill; pointer-events: none; -webkit-user-drag: none; }
+.pz-photo img:not([src]) { visibility: hidden; }
+/* Photos carry their own light and dark, so they are shaded more gently. */
+.pz-side.pz-photo::after { opacity: calc(var(--sh, 0) * .7); }
 
 .pz-kicker { font-family: var(--f-m); font-weight: 500; font-size: calc(var(--bw) * .052); letter-spacing: .1em; text-transform: uppercase; line-height: 1.25; color: var(--gold-pale); }
 .pz-small { font-size: calc(var(--bw) * .044); letter-spacing: .06em; }
@@ -70,9 +79,14 @@
 .event.has-prize { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: clamp(16px, 2.4vw, 32px); row-gap: 6px; align-content: start; max-width: none; }
 .event.has-prize > :not(.prize) { grid-column: 1; }
 .event.has-prize > .prize { grid-column: 2; grid-row: 1 / span 6; }
+/* A wide box goes under the text. */
+.event.has-prize:has(.prize.wide) { grid-template-columns: minmax(0, 1fr); max-width: 54ch; }
+.event.has-prize:has(.prize.wide) > .prize { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 16px; }
 
 @media (max-width: 700px) {
   .prize { --bw: 150px; }
+  .prize.wide { --bw: min(230px, 62vw); }
+  .event.has-prize:has(.prize.wide) > .prize { justify-self: center; }
   .event.has-prize { grid-template-columns: minmax(0, 1fr); }
   .event.has-prize > .prize { grid-column: 1; grid-row: auto; justify-self: center; margin-top: 18px; }
 }

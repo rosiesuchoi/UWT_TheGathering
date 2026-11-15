@@ -368,7 +368,34 @@ decided, what is next.
   files fail, there are no console errors, and a scripted drag turned the
   box to its spine.
 
+- Club sent six photos of the real Mutant Menace box and asked for the
+  real box as the 3D model, with the background removed. Built it; NOT
+  PUSHED. This lifts the no-official-art rule for this one prize, by the
+  club's decision (see CLAUDE.md, Constraints).
+  - Each side was cut out of its photo and squared up from its four
+    corners, which removes the desk, keyboard and everything else. Corners
+    were placed by eye from close-ups and checked on a sheet of all six
+    results. Saved as WebP in public/prizes/mutant-menace/: 900 px wide for
+    the large sides, about 220 KB in total.
+  - The box now has the real proportions: 1 wide, 0.78 tall, 0.24 deep. It
+    is wider than tall, so it sits under the giveaway text, not beside it.
+  - The photos are fetched only when the box nears the screen, so they add
+    nothing to the first load.
+  - The drawn box is still in the code as the look for a prize without
+    photos. The caption now reads "The real box."
+  - Footer: added that Fallout and related logos belong to Bethesda and
+    that the club is not affiliated with either company.
+  - Checked in Chrome on the dev server: type-check passes, no console
+    errors; all six photos load at full size; front, right, back, left, top
+    and base each seen on the right side of the box and the right way up;
+    the yellow band lines up from the front round to the sides; at 375 wide
+    the box is centered with no sideways scroll and a touch drag spins it.
+  - Not checked: the feel of a real drag by hand or touch, a real phone,
+    Safari, Firefox. The corners were placed by eye, so an edge may be off
+    by a few pixels of the original photo.
+
 **Open**
+- Approve the photo box so it can go live.
 - Try the binder drag and the prize box by hand and on a phone.
 - Open the live site on a real phone and watch the first second and the
   shuffle. Add ?fps for a frame-rate readout.

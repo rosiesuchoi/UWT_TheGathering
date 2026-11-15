@@ -26,6 +26,6 @@
     "tone": "dusk",
     "glyph": "deck",
     "rare": true,
-    "prize": { "name": "Mutant Menace", "kind": "Commander deck", "colors": ["dusk", "grove", "tide"] }
+    "prize": { "name": "Mutant Menace", "kind": "Commander deck", "colors": ["dusk", "grove", "tide"], "photos": "mutant-menace", "size": [1, 0.78, 0.24] }
   }
 ]

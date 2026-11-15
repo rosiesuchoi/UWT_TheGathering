@@ -55,6 +55,13 @@ obvious placeholders and list them under "Content still owed" below.
 - No official Magic card art, mana symbols, or Wizards of the Coast logos.
   Build an original visual language inspired by the game. Footer carries the
   Wizards Fan Content Policy disclaimer.
+- One exception, by the club's decision on 2026-11-15: the giveaway prize
+  box shows the club's own photos of the real Mutant Menace box, which
+  carry Magic and Fallout logos and card art. It applies to that prize
+  only. Everything else on the site stays original. The footer also names
+  Bethesda as the owner of the Fallout marks and says the club is not
+  affiliated with either company. Note for the club: the Wizards Fan
+  Content Policy does not cover Fallout, which belongs to Bethesda.
 - Stack: Vite + TypeScript, three.js, GSAP ScrollTrigger, Lenis. No UI framework.
 - Architecture rules learned in discovery: one persistent WebGL canvas behind
   the page; Lenis driven from gsap.ticker so scroll, ScrollTrigger and three.js
@@ -165,11 +172,21 @@ Bright and collectible. The card is the interface.
   box beside its entry that spins when dragged, idles slowly, and has a
   "Turn the box" button. It is CSS 3D made of page elements, not WebGL, so
   it needs no three.js and costs a phone almost nothing. Every size is a
-  share of --bw; the depth ratio lives in both files (DEPTH and --bd). JS
-  sets --ry, --rx, --sh, --sheen and --sw only. It rests while its section
-  is off screen and does not idle or coast under reduced motion. The art
-  is original and the box says it is a drawing, on its base, its back and
-  in its caption.
+  share of --bw. JS sets --ry, --rx, --sh, --sheen, --sw, and the box's
+  proportions --hr and --dr. It rests while its section is off screen and
+  does not idle or coast under reduced motion.
+- The prize box has two looks. With `"photos": "<folder>"` in the prize,
+  each side is a photo from public/prizes/<folder>/ (front, back, left,
+  right, top, bottom .webp), and `"size": [1, height, depth]` gives the
+  box's proportions as shares of its width. Without `photos` the sides are
+  an original drawing that says it is a drawing. The photos are fetched
+  only when the box nears the screen. A box wider than tall sits under its
+  entry's text.
+- Making the side photos: each side was cut out of a phone photo and
+  squared up (a perspective warp from its four corners), which also removes
+  the background. Orientation that the box depends on: top.webp has the
+  back edge of the box at the top of the picture; bottom.webp has the front
+  edge at the top; left and right are upright.
 - The binder (src/sections/members.ts): pages of nine pockets (six on a
   phone), always with at least one page of spare sleeves so there is a page
   to turn to. Order: members, then the visitor's card or an open pocket,
@@ -285,13 +302,11 @@ session.
 9. Additions asked for on 2026-11-15, each approved before it is pushed
    (a push goes live):
    - Officers in the binder, visitors sign their own card, binder pages
-     turn by drag - built 2026-11-15, awaiting approval, not pushed.
-     Approved and pushed 2026-11-15.
+     turn by drag - approved and pushed 2026-11-15.
    - A prize box for the giveaway that can be turned around, in the events
-     section - approved and pushed 2026-11-15. The club
-     chose an original drawing over the real product box (2026-11-15),
-     which keeps the no-official-art rule. Do not add photos of the real
-     packaging.
+     section. First as an original drawing - approved and pushed
+     2026-11-15. The club then sent photos of all six sides and asked for
+     the real box - built 2026-11-15, awaiting approval, not pushed.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.
