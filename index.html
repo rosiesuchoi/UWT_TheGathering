@@ -78,13 +78,25 @@
       </div>
     </section>
 
-    <section class="sec dots" id="club">
-      <div class="in">
+    <section class="sec dots" id="club" data-reveal>
+      <div class="in split">
+        <!-- The club card is added here by src/sections/club.ts -->
+        <div class="played" id="clubCard" data-rv="card"></div>
         <div class="body">
-          <p class="label">Card 1 of 7</p>
-          <h2>A new Commander club <em>at UW Tacoma.</em></h2>
-          <p>We are a brand new club at the University of Washington Tacoma. We play Commander twice a week, run a raffle every week, and give away a deck at the end of the quarter.</p>
-          <p class="stub">Club card and Commander facts: Phase 5</p>
+          <p class="label" data-rv>Card 1 of 7</p>
+          <h2 data-rv>A new Commander club <em>at UW Tacoma.</em></h2>
+          <p data-rv>We are a brand new club at the University of Washington Tacoma. We play Commander twice a week, run a raffle every week, and give away a deck at the end of the quarter.</p>
+          <!-- Replaced by club.json "blurb" once the officers write it. -->
+          <p class="owed" id="clubBlurb" data-rv><span class="tbd">Owed</span> Two or three sentences from the officers, in your own words: why the club started and who it is for.</p>
+          <div data-rv>
+            <p class="label">Commander at a glance</p>
+            <div class="glance" id="clubGlance">
+              <div><b data-count="100">100</b><span>cards in a deck</span></div>
+              <div><b data-count="1">1</b><span>commander leads it</span></div>
+              <div><b data-count="4">4</b><span>players in a pod</span></div>
+              <div><b data-count="40">40</b><span>starting life</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

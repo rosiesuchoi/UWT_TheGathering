@@ -115,7 +115,13 @@ Bright and collectible. The card is the interface.
   frame, foil layer. src/ui/glyphs.ts holds the art-box pictures.
 - src/ui/tilt.ts - pointer tilt and foil tracking for any card.
 - src/sections/*.ts + src/styles/<section>.css - one pair per section.
-  hero.ts is the pattern to follow.
+  club.ts is the pattern for content sections.
+- src/ui/motion.ts + src/styles/motion.css - scroll reveals. Mark a section
+  [data-reveal] and its pieces [data-rv] (or [data-rv="card"] for a played
+  card) and they play in order when the section scrolls into view. Also
+  onEnter() for one-off effects and the dotted-paper parallax.
+- Owed content shows as a dashed `.owed` box or `.tbd` tag. Search for both
+  before launch.
 - design/ - concept board, approved mockup, logo sources. Reference only.
 
 ## Rules the code depends on
@@ -155,8 +161,8 @@ session.
 3. Design - done 2026-11-14. Approved mockup: design/mockup.html
 4. Foundation - done 2026-11-14
 5. Sections - one at a time, each approved before the next:
-   hero (done 2026-11-14), table + shuffle cutscene (built 2026-11-15,
-   awaiting approval), club, nights, members, events, join
+   hero (done 2026-11-14), table + shuffle cutscene (done 2026-11-15),
+   club (built 2026-11-15, awaiting approval), nights, members, events, join
 6. Motion and 3D polish
 7. QA - real browser at desktop, tablet, phone; report what was measured
 8. Deploy

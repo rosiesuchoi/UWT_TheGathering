@@ -30,6 +30,11 @@
 .body > p:not(.label):not(.stub) { max-width: 56ch; }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
+/* A played card beside its text. Used by the club and join sections. */
+.split { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
+.played { width: min(320px, 72vw); rotate: -4deg; justify-self: center; }
+.played.r { rotate: 4deg; }
+
 .dark { --sec-bg: var(--ink); color: var(--paper); }
 .dark h2 em { color: var(--gold); }
 .violet { --sec-bg: var(--purple); color: var(--paper); }
@@ -55,6 +60,7 @@
   .links.open { display: flex; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid rgba(27, 16, 51, .15); padding: 6px var(--gut) 14px; }
   .links.open a { padding: 12px 0; font-size: 17px; border-bottom: 1px solid rgba(27, 16, 51, .1); }
   .menu { display: block; }
+  .split { grid-template-columns: minmax(0, 1fr); }
   .join::after { display: none; }
 }
 @media (max-width: 560px) {

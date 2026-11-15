@@ -9,18 +9,28 @@ import './styles/layout.css';
 import './styles/card.css';
 import './styles/hero.css';
 import './styles/table.css';
+import './styles/motion.css';
+import './styles/club.css';
 
 import { fx } from './core/fx';
-import { gsap, initScroll } from './core/scroll';
+import { ScrollTrigger, gsap, initScroll } from './core/scroll';
+import { initClub } from './sections/club';
 import { initHero } from './sections/hero';
 import { initTable } from './sections/table';
 import { applyClubContent, initNav } from './ui/chrome';
+import { initDotsParallax, initReveals } from './ui/motion';
 
 applyClubContent();
 initNav();
 initScroll();
 initTable();
 initHero();
+initClub();
+initReveals();
+initDotsParallax();
+
+// Section positions shift once the fonts arrive, so measure again then.
+void document.fonts.ready.then(() => ScrollTrigger.refresh());
 
 // three.js is the heaviest part of the site, so it loads after the page is
 // readable instead of blocking it.

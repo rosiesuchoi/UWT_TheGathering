@@ -34,13 +34,26 @@ decided, what is next.
   the mockup note promised. It flips the cards in instead. Candidate for
   Phase 6.
 
+- Club approved the table. Built the third Phase 5 section: the club.
+  - The club card at full size with pointer tilt, the introduction, a dashed
+    "owed" box where the officers' blurb will go (filled automatically once
+    club.json has a blurb), and the four Commander facts.
+  - Scroll reveal: the card arrives turned and lands face up, the text rises
+    in line by line, and the four numbers count up from zero.
+  - New shared helpers (motion.ts, motion.css) that the remaining sections
+    will reuse, plus a slow drift on the dotted paper for depth.
+- Check, in a real browser at 1280 and 375 wide: build and type-check pass,
+  no console errors, no sideways scroll, the reveal looks right at its
+  start, middle and end, the counters finish on 100, 1, 4 and 40, and the
+  phone layout matches the mockup. Real-time feel still not watched.
+
 **Open**
-- Approve the table and cutscene.
+- Approve the club section.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.
 
 **Next**
-- Phase 5, third section: the club section (club card and Commander facts).
+- Phase 5, fourth section: the nights (Thursday and Friday cards).
 
 ## 2026-11-14 (Sat) - Discovery and creative direction
 
