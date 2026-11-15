@@ -36,13 +36,7 @@
 .violet h2 em { color: var(--gold-pale); }
 .tint { --sec-bg: var(--paper-2); }
 
-/* The hero has its own file: hero.css. */
-
-/* Table scene shell */
-.tablesec { color: var(--cream); min-height: 100svh; display: grid; align-items: center; padding-block: clamp(56px, 7vw, 96px); }
-.tablesec::before { background: radial-gradient(70% 80% at 66% 50%, #2a1c14, var(--espresso) 75%); }
-.tablesec .in { width: 100%; }
-.tablesec h2 em, .tablesec .label { color: var(--lamp); }
+/* The hero and the table have their own files: hero.css, table.css. */
 
 /* Join */
 .join::after { content: ""; position: absolute; z-index: var(--z-bg); inset: 0 0 0 68%; background: var(--gold); clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); }

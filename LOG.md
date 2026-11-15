@@ -3,6 +3,45 @@
 Newest entry first. One entry per working session: what was done, what was
 decided, what is next.
 
+## 2026-11-15 (Sun) - The table and the shuffle cutscene
+
+**Done**
+- Club approved the hero. Built the second Phase 5 section: the table.
+  - The Pod Night table from the mockup: felt, four seats, swaying lamp,
+    pulsing open seat with its Discord button, and seven cards that each
+    jump to their section. Cards lift and straighten when pointed at.
+  - The seven cards come from a new content file (cards.ts) that builds
+    them out of club.json and events.json.
+  - The shuffle cutscene, in three.js. Clicking the hero card dims the
+    screen; the corner deck flies to the middle, riffles twice (splits into
+    two piles and interleaves), then deals seven cards that fly to their
+    exact spots on the table. Each 3D card turns edge-on as it lands and the
+    real card flips in face up. The deck then returns to its corner.
+  - Click or Escape skips it. Reduced motion skips it entirely. If 3D has
+    not loaded, the cards flip in without the deck. Scrolling to the table
+    instead of clicking also flips the cards in.
+- Check, in a real browser at 1280 and 375 wide: build and type-check pass;
+  no console errors; the cutscene runs start to finish and ends with all
+  seven cards visible, the overlay gone and focus on the table; skipping by
+  Escape and by click both end in the same clean state; paused frames show
+  the split and the riffle; cards land on their mats; phone layout holds.
+- Not confirmed: real-time speed and smoothness (the pane was hidden, so
+  frames only advanced on capture). In two captures the first frame after a
+  page load came out blank; a third capture of the same moment and a check
+  of the page state were normal, so this looks like a capture artifact, but
+  it is worth watching for a flash when the card is clicked.
+- Not built: scrolling from the top does not scrub through the shuffle as
+  the mockup note promised. It flips the cards in instead. Candidate for
+  Phase 6.
+
+**Open**
+- Approve the table and cutscene.
+- Still owed by the club: official name, address confirmation, blurb,
+  raffle details, giveaway date, member list.
+
+**Next**
+- Phase 5, third section: the club section (club card and Commander facts).
+
 ## 2026-11-14 (Sat) - Discovery and creative direction
 
 **Done**

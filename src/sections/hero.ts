@@ -1,8 +1,9 @@
 // Hero: the fan of cards. Styles are in src/styles/hero.css.
 import { club } from '../content';
-import { ScrollTrigger, gsap, reducedMotion, scrollToTarget } from '../core/scroll';
+import { ScrollTrigger, gsap, reducedMotion } from '../core/scroll';
 import { createCard } from '../ui/card';
 import { attachTilt } from '../ui/tilt';
+import { dealIn } from './table';
 
 export function initHero(): void {
   const hero = document.getElementById('top');
@@ -23,14 +24,13 @@ export function initHero(): void {
       glyph: 'mark',
       foil: true,
     },
-    { as: 'button', className: 'herocard idle', label: 'Shuffle up: go to the table' },
+    { as: 'button', className: 'herocard idle', label: 'Shuffle up: deal me in at the table' },
   );
   fan.append(card);
   attachTilt(card);
 
-  // The shuffle cutscene arrives with the table section. Until then the card
-  // takes the visitor straight to the table.
-  card.addEventListener('click', () => scrollToTarget('#table'));
+  // Clicking the card plays the shuffle and deals the visitor in at the table.
+  card.addEventListener('click', dealIn);
 
   // Play the entrance once the display font is in, so the headline does not
   // jump. Never wait longer than a moment for it.

@@ -47,14 +47,33 @@
       </div>
     </section>
 
-    <section class="sec tablesec" id="table">
-      <div class="in">
+    <section class="sec tablesec" id="table" tabindex="-1">
+      <div class="lamp" aria-hidden="true"></div>
+      <div class="in tgrid">
         <div class="body">
           <p class="label">The table</p>
           <h2>Pull up a chair. <em>We start at six.</em></h2>
           <p>Seven cards are on the table. Six of them tell you about the club. The open seat is yours.</p>
           <div class="cta"><a class="btn btn-gold" data-discord href="#join">Take your seat on Discord</a></div>
-          <p class="stub">The table and its seven cards: Phase 5</p>
+          <button class="replay" type="button" id="replayBtn">Replay the shuffle</button>
+        </div>
+        <!-- Cards are dealt into the [data-card] slots by src/sections/table.ts,
+             from src/content/cards.ts. -->
+        <div class="tbl" id="tbl">
+          <span class="mark felt-mark" aria-hidden="true"></span>
+          <div class="mat t"><div class="slot" data-card="club"></div><div class="slot" data-card="members"></div></div>
+          <div class="mat l"><div class="slot" data-card="night-0"></div><span class="life" aria-hidden="true">40</span></div>
+          <div class="mat r"><div class="slot" data-card="night-1"></div><span class="life" aria-hidden="true">40</span></div>
+          <div class="prizes">
+            <div class="pslot p1" data-card="event-0"></div>
+            <div class="pslot p2" data-card="event-1"></div>
+            <span class="scrib" aria-hidden="true">prizes</span>
+          </div>
+          <svg class="d20" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,3 91,26 91,74 50,97 9,74 9,26" fill="#ffb84d"/><path d="M50 22 78 68H22ZM50 3v19M91 26 78 68M9 26l13 42M50 97 22 68M50 97l28-29M9 74l13-6M91 74l-13-6M9 26l41-4M91 26l-41-4" fill="none" stroke="#7a4a0c" stroke-width="3" stroke-linejoin="round"/></svg>
+          <div class="mat o">
+            <div class="slot" data-card="you"></div>
+            <div class="seat"><span class="scrib">your seat</span><a class="btn btn-gold seatbtn" data-discord href="#join">Take your seat</a></div>
+          </div>
         </div>
       </div>
     </section>
@@ -123,6 +142,11 @@
       <p class="legal"><span data-club-name>MTG at UWT</span> is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &copy;Wizards of the Coast LLC.</p>
     </div>
   </footer>
+
+  <!-- Shuffle cutscene overlay. The 3D deck flies above it. Click or Escape skips. -->
+  <div class="cut" id="cut" hidden aria-hidden="true">
+    <div class="cut-bg"><p class="cut-cap">shuffling up...<small>Click or press Escape to skip</small></p></div>
+  </div>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

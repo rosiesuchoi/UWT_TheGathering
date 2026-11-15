@@ -41,4 +41,17 @@ export function scrollToTarget(target: string | HTMLElement, immediate = false):
   el?.scrollIntoView();
 }
 
+/** Jump straight to a scroll position, even while scrolling is locked. */
+export function jumpTo(y: number): void {
+  if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
+  else window.scrollTo(0, y);
+  ScrollTrigger.update();
+}
+
+/** Stop or resume visitor scrolling. Used while the cutscene plays. */
+export function lockScroll(lock: boolean): void {
+  if (lock) lenis?.stop();
+  else lenis?.start();
+}
+
 export { gsap, ScrollTrigger };

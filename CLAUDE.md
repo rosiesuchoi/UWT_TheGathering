@@ -100,7 +100,15 @@ Bright and collectible. The card is the interface.
 - src/core/stage.ts - the single WebGL canvas. 1 world unit = 1 CSS pixel at
   z = 0, origin at viewport center, so 3D objects can be placed over DOM
   elements from getBoundingClientRect().
-- src/core/deck.ts - the corner deck (the persistent 3D object).
+- src/core/deck.ts - the 3D deck. Rests in the corner; for the cutscene it
+  gathers, riffles, deals and goes home.
+- src/core/fx.ts - where page code asks for a 3D effect. fx.deck is null
+  until the three.js chunk has loaded, so callers must have a plain fallback.
+- src/content/cards.ts - the seven table cards, built from club.json and
+  events.json. Numbered 001/100 to 006/100, plus the visitor's 100/100.
+- src/sections/table.ts - mounts the table cards and runs the cutscene:
+  overlay, scroll jump, measuring where each DOM card rests, handing those
+  spots to the deck, and revealing each DOM card as its 3D twin lands.
 - src/ui/chrome.ts - nav, footer, club name and Discord links from club.json.
 - src/ui/card.ts + src/styles/card.css - the one card component used by
   every section. Tones (gold, chalk, tide, dusk, ember, grove, foil), rare
@@ -123,6 +131,13 @@ Bright and collectible. The card is the interface.
 - Entrance animations hide their start state only under `.js` and only
   until the section gets `.is-ready`, with a CSS failsafe that reveals
   everything after 4 seconds if the script never runs.
+- The cutscene is hybrid on purpose: table cards are DOM (crisp text, real
+  links, readable by screen readers) and only the flying deck is 3D. During
+  it, html gets class `cutscene`, which lifts the canvas above everything.
+- The table layout assumes exactly two nights and two events.
+- Testing animation: in dev, `window.__gsap` is exposed. Pause with
+  `__gsap.globalTimeline.pause()` and set a timeline's `.time()` to inspect
+  a frame. If the browser pane is hidden, frames only advance on capture.
 - three.js is loaded with a dynamic import so the text shows first. Keep
   three imports out of main.ts and anything main.ts imports statically.
 - The mockup is the visual spec. When building a section, port its markup
@@ -140,8 +155,8 @@ session.
 3. Design - done 2026-11-14. Approved mockup: design/mockup.html
 4. Foundation - done 2026-11-14
 5. Sections - one at a time, each approved before the next:
-   hero (built 2026-11-14, awaiting approval), table + shuffle cutscene,
-   club, nights, members, events, join
+   hero (done 2026-11-14), table + shuffle cutscene (built 2026-11-15,
+   awaiting approval), club, nights, members, events, join
 6. Motion and 3D polish
 7. QA - real browser at desktop, tablet, phone; report what was measured
 8. Deploy

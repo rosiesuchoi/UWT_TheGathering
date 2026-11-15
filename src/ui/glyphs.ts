@@ -1,5 +1,7 @@
 // Small original pictures for card art boxes. Simple shapes only: no official
 // game symbols. Each uses currentColor so the card's tone colors it.
+import type { CardGlyph } from '../content';
+
 export const GLYPHS = {
   cup: '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 40h48v18a24 24 0 0 1-48 0z" fill="currentColor" stroke="none"/><path d="M70 44h6a9 9 0 0 1 0 18h-8"/><path d="M16 90h60"/><path d="M36 28c-4-6 4-8 0-14M54 28c-4-6 4-8 0-14"/></svg>',
   d20: '<svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,4 90,27 90,73 50,96 10,73 10,27" fill="currentColor"/><path d="M50 24 77 68H23ZM50 4v20M90 27 77 68M10 27l13 41M50 96 23 68M50 96l27-28M10 73l13-5M90 73l-13-5M10 27l40-3M90 27l-40-3" fill="none" stroke="rgba(0,0,0,.45)" stroke-width="2.5" stroke-linejoin="round"/></svg>',
@@ -12,3 +14,8 @@ export const GLYPHS = {
 
 /** 'mark' is the club logo, drawn with a CSS mask instead of inline SVG. */
 export type GlyphName = keyof typeof GLYPHS | 'mark';
+
+// Keeps the list in src/content/index.ts (which content files are typed
+// against) in step with the pictures that exist here.
+const _inSync: GlyphName extends CardGlyph ? (CardGlyph extends GlyphName ? true : never) : never = true;
+void _inSync;

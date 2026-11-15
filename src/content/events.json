@@ -2,17 +2,29 @@
   {
     "id": "raffle",
     "title": "The weekly raffle",
+    "cardName": "Raffle",
     "cadence": "Every week",
+    "cadenceShort": "Weekly",
     "text": "A raffle every week, with prizes to win.",
+    "cardText": "A raffle every week, with prizes.",
     "date": null,
-    "owed": ["prizes", "how to enter"]
+    "owed": ["prizes", "how to enter"],
+    "tone": "chalk",
+    "glyph": "ticket",
+    "rare": false
   },
   {
     "id": "giveaway",
     "title": "Mutant Menace deck giveaway",
+    "cardName": "Giveaway",
     "cadence": "End of the quarter",
+    "cadenceShort": "End of quarter",
     "text": "At the end of the quarter we give away a Mutant Menace Commander deck.",
+    "cardText": "Mutant Menace deck giveaway.",
     "date": null,
-    "owed": ["date"]
+    "owed": ["date"],
+    "tone": "dusk",
+    "glyph": "deck",
+    "rare": true
   }
 ]

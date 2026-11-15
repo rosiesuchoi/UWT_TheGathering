@@ -12,16 +12,22 @@
       "day": "Thursday",
       "time": "6 PM",
       "venue": "Iruda Cafe",
+      "venueShort": "Iruda Cafe",
       "address": "4916 Center St, Tacoma",
-      "addressConfirmed": false
+      "addressConfirmed": false,
+      "tone": "ember",
+      "glyph": "cup"
     },
     {
       "id": "fri",
       "day": "Friday",
       "time": "6 PM",
       "venue": "Silver King Games & Hobby",
+      "venueShort": "Silver King",
       "address": "5442 S Tacoma Way, Tacoma, WA 98409",
-      "addressConfirmed": false
+      "addressConfirmed": false,
+      "tone": "tide",
+      "glyph": "d20"
     }
   ]
 }

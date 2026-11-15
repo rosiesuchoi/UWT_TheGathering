@@ -7,14 +7,21 @@ import membersData from './members.json';
 /** One of the five accent colors a card can take. */
 export type CardColor = 'chalk' | 'tide' | 'dusk' | 'ember' | 'grove';
 
+/** Pictures available for a card's art box. See src/ui/glyphs.ts. */
+export type CardGlyph = 'mark' | 'cup' | 'd20' | 'people' | 'person' | 'ticket' | 'deck' | 'plus';
+
 export interface Night {
   id: string;
   day: string;
   time: string;
   venue: string;
+  /** Short venue name that fits on a card's type line. */
+  venueShort: string;
   address: string;
   /** False until the club confirms the address found online. */
   addressConfirmed: boolean;
+  tone: CardColor;
+  glyph: CardGlyph;
 }
 
 export interface Club {
@@ -32,11 +39,20 @@ export interface Club {
 export interface ClubEvent {
   id: string;
   title: string;
+  /** Short name for the card's name bar. */
+  cardName: string;
   cadence: string;
+  cadenceShort: string;
   text: string;
+  /** Short text for the card's text box. */
+  cardText: string;
   date: string | null;
   /** Details the club still owes. Shown as placeholders until empty. */
   owed: string[];
+  tone: CardColor;
+  glyph: CardGlyph;
+  /** Gold frame. */
+  rare: boolean;
 }
 
 export interface Member {
@@ -50,6 +66,6 @@ export interface Member {
   photo: string | null;
 }
 
-export const club: Club = clubData;
-export const events: ClubEvent[] = eventsData;
-export const members: Member[] = membersData as Member[];
+export const club = clubData as Club;
+export const events = eventsData as ClubEvent[];
+export const members = membersData as Member[];

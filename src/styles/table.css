@@ -1,0 +1,80 @@
+/* The table: the Pod Night scene, and the hub of the site. Seven cards are
+   dealt here and each one jumps to its section. Sizes inside .tbl are in cqw
+   of the table, so the whole scene scales as one picture.
+
+   The table expects two nights and two events (see index.html, [data-card]). */
+.tablesec { color: var(--cream); min-height: 100svh; display: grid; align-items: center; padding-block: clamp(56px, 7vw, 96px); }
+.tablesec::before { background: radial-gradient(70% 80% at 66% 50%, #2a1c14, var(--espresso) 75%); }
+.tablesec:focus { outline: none; }
+.tablesec h2 em, .tablesec .label { color: var(--lamp); }
+.tgrid { width: 100%; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.replay { font: 500 14px var(--f-m); background: none; border: 0; color: var(--cream); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; padding: 6px 0; width: fit-content; }
+
+/* Lamp light. It sits above the WebGL canvas, so it also warms the 3D deck. */
+.lamp { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; background: radial-gradient(circle 38vw at 66% 50%, rgba(255, 184, 77, .30), rgba(255, 184, 77, .08) 55%, transparent); animation: table-sway 7s ease-in-out infinite alternate; }
+
+.tbl { position: relative; container-type: inline-size; width: min(100%, 74svh, 700px); aspect-ratio: 1; justify-self: center; border-radius: 16%; background: radial-gradient(circle at 50% 45%, #4c2796, var(--felt) 55%, #2a1259); box-shadow: 0 0 0 12px #2e1c11, 0 0 0 15px rgba(255, 184, 77, .28), 0 40px 80px rgba(0, 0, 0, .6); }
+.tbl::after { content: ""; position: absolute; inset: 3.2%; border: 1px dashed rgba(217, 184, 99, .55); border-radius: 14%; pointer-events: none; }
+.felt-mark { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 34%; opacity: .16; --mark: var(--gold-pale); }
+
+/* Seats */
+.mat { position: absolute; background: rgba(10, 4, 24, .36); border: 1px solid rgba(243, 231, 211, .16); border-radius: 2cqw; display: flex; align-items: center; justify-content: center; gap: 2.4cqw; }
+.mat:hover, .mat:focus-within, .prizes:hover, .prizes:focus-within { z-index: 30; }
+.mat.t { top: 6%; left: 50%; translate: -50% 0; width: 40%; height: 27%; }
+.mat.l { left: 6%; top: 50%; translate: 0 -50%; width: 19%; height: 34%; flex-direction: column; gap: .6cqw; }
+.mat.r { right: 6%; top: 50%; translate: 0 -50%; width: 19%; height: 34%; flex-direction: column; gap: .6cqw; }
+.mat.o { bottom: 6%; left: 50%; translate: -50% 0; width: 48%; height: 27%; border: 2px dashed var(--lamp); background: rgba(255, 184, 77, .10); animation: table-seat 2.6s ease-in-out infinite; }
+.slot { display: flex; flex-direction: column; align-items: center; gap: .8cqw; }
+.scrib { font-family: var(--f-h); font-size: 3.7cqw; line-height: 1; color: var(--cream); }
+.life { font-family: var(--f-h); font-size: 5cqw; line-height: 1; color: var(--cream); opacity: .8; }
+
+/* Prizes in the middle of the table */
+.prizes { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 25cqw; height: 24cqw; }
+.pslot { position: absolute; top: 0; }
+.pslot.p1 { left: 0; }
+.pslot.p2 { right: 0; }
+.pslot.p1 .tcard { rotate: -12deg; }
+.pslot.p2 .tcard { rotate: 9deg; }
+.prizes .scrib { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; }
+.d20 { position: absolute; left: 66%; top: 35%; width: 6%; }
+
+/* The open seat */
+.seat { display: flex; flex-direction: column; align-items: flex-start; gap: 1.4cqw; min-width: 0; }
+.seat .scrib { font-size: 5.4cqw; color: var(--lamp); }
+.seatbtn { font-size: max(12px, 2.5cqw); padding: 1.4cqw 2.4cqw; border-radius: 1.4cqw; white-space: nowrap; }
+
+/* Cards on the table: small, and they lift and straighten when pointed at. */
+.tcard { width: 13cqw; flex: none; transition: scale .2s ease-out, rotate .2s ease-out; }
+.tcard:hover, .tcard:focus-visible { scale: 1.9; rotate: 0deg; z-index: 30; }
+.tcard .face { box-shadow: 0 1.2cqw 2.4cqw rgba(0, 0, 0, .45); }
+
+/* Dealing. src/sections/table.ts sets data-state on .tbl:
+   armed      cards hidden, waiting for the visitor to arrive
+   dealing    the 3D cutscene is running; each card shows as its 3D twin lands
+   revealing  no cutscene (scrolled here, or 3D not loaded): cards flip in
+   done       everything visible */
+.tbl[data-state="armed"] .tcard,
+.tbl[data-state="dealing"] .tcard { opacity: 0; }
+.tbl[data-state="dealing"] .tcard.landed { opacity: 1; animation: table-land .3s ease-out; }
+.tbl[data-state="revealing"] .tcard { animation: table-land .5s cubic-bezier(.2, .8, .2, 1) backwards; animation-delay: calc(var(--i, 0) * 90ms); }
+@keyframes table-land { from { opacity: 0; transform: perspective(600px) rotateY(-90deg) scale(1.15); } }
+@keyframes table-sway { from { transform: translate(-1.2vw, -.6vw); } to { transform: translate(1.2vw, .6vw); } }
+@keyframes table-seat { 0%, 100% { background: rgba(255, 184, 77, .06); } 50% { background: rgba(255, 184, 77, .2); } }
+
+/* Cutscene overlay. While it plays, the WebGL canvas is lifted above
+   everything so the 3D deck flies over the page. */
+.cut { position: fixed; inset: 0; z-index: var(--z-cut); cursor: pointer; }
+.cut[hidden] { display: none; }
+.cut-bg { position: absolute; inset: 0; opacity: 0; background: radial-gradient(60% 60% at 50% 50%, #2a1c14, #120b08); }
+.cut-cap { position: absolute; left: 0; right: 0; bottom: 12%; text-align: center; color: var(--cream); font-family: var(--f-h); font-size: 28px; line-height: 1.2; }
+.cut-cap small { display: block; font-family: var(--f-m); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; margin-top: 6px; }
+.cutscene #stage { z-index: calc(var(--z-cut) + 1); }
+
+@media (max-width: 900px) {
+  .tgrid { grid-template-columns: minmax(0, 1fr); }
+  .lamp { background: radial-gradient(circle 70vw at 50% 62%, rgba(255, 184, 77, .30), rgba(255, 184, 77, .08) 55%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lamp, .mat.o { animation: none; }
+  .tcard { transition: none; }
+}
