@@ -3,7 +3,7 @@
 The showcase website for a new Magic: The Gathering club at the University of
 Washington Tacoma. We play Commander on Thursdays and Fridays at 6 PM.
 
-Live site: https://mtguwt.vercel.app
+Live site: https://rosiesuchoi.github.io/UWT_TheGathering/
 
 It is a static site: a card-themed page with a 3D deck that shuffles and deals
 onto a table, built with Vite, TypeScript, three.js, GSAP and Lenis.
@@ -45,20 +45,16 @@ black, red and green. `photo` is a file name inside `public/members/`, or
 
 ## Publish it
 
-The site is hosted on Vercel. Once the repository is connected, every push
-to the `main` branch is built and published automatically. Editing a content
-file on GitHub and saving it to `main` is enough to update the live site a
-minute or two later.
+The site is hosted on GitHub Pages. Every push to the `main` branch is built
+and published automatically by `.github/workflows/deploy.yml`. Editing a
+content file on GitHub and saving it to `main` is enough to update the live
+site a minute or two later.
 
-One-time setup, by the repository owner:
+The built site lives on the `gh-pages` branch. Do not edit that branch by
+hand; it is replaced on every deploy.
 
-1. Sign in at vercel.com with the GitHub account that owns this repository.
-2. Add New > Project, then import this repository.
-3. Set the project name (it becomes the address, `<name>.vercel.app`) and
-   click Deploy. The build settings are read from `vercel.json`.
-
-To publish again without changing anything: open the project on Vercel,
-then Deployments > Redeploy.
+To publish again without changing anything: Actions > Deploy site > Run
+workflow. If a deploy fails, the Actions tab shows which step and why.
 
 ## How the project is organized
 

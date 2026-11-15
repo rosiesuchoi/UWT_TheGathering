@@ -272,19 +272,33 @@ decided, what is next.
     ruled out on a real phone.
   - Not checked on the live site: a real phone, Safari, Firefox, frame rate.
 
+- Pushes never reached the Vercel site. The live build there stayed the one
+  from the import; five pushes after it (including an empty test commit
+  with no co-author line) did not appear. Cause not found: the Vercel
+  dashboard cannot be read from this machine.
+- Owner made the repository public and decided to go back to GitHub Pages.
+  THE SITE IS LIVE at https://rosiesuchoi.github.io/UWT_TheGathering/.
+  - Removed vercel.json. Restored .github/workflows/deploy.yml in a
+    different form: it builds the site and force-pushes dist/ to a
+    `gh-pages` branch, which needs no settings change on GitHub. Pushing
+    that branch for the first time turned Pages on by itself; the site
+    answered about 30 seconds later.
+  - The earlier Pages run can now be read: on GitHub's Linux machine the
+    install and the build both passed. Only its publish step failed,
+    because Pages was off then.
+- New Discord invite from the club: https://discord.gg/kbevMqAuxD. Checked
+  with Discord: valid, never expires, same server as the old one ("UW the
+  Gathering"). Replaced in club.json and in the design mockup.
+- Left over from the Vercel try: the Vercel project still serves an old
+  build at mtguwt.vercel.app with the old invite, which expires
+  2026-11-30. The owner should delete that project.
+
 **Open**
-- Open https://mtguwt.vercel.app on a real phone and watch the first second
-  and the shuffle. Add ?fps for a frame-rate readout.
-- PUSHES ARE NOT REACHING THE LIVE SITE. The live build is still the one
-  from the import. Four pushes since then (the switch to Vercel, two log
-  updates, and an empty test commit with no co-author line) had not
-  appeared three minutes after each of the last two. Tell: files under
-  /assets/ are still served without the `immutable` caching that
-  vercel.json sets. Cause unknown; the Vercel Deployments list will say
-  whether they were blocked, failed or never started. The test commit
-  rules out the co-author line as the only cause. The pages themselves are
-  identical to the repository, so nothing visible is out of date yet.
-- Replace the Discord invite with one that does not expire.
+- Open the live site on a real phone and watch the first second and the
+  shuffle. Add ?fps for a frame-rate readout.
+- Delete the Vercel project `mtguwt`.
+- Decide whether to rename the repository to `mtguwt` for a shorter
+  address (rosiesuchoi.github.io/mtguwt).
 - Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.

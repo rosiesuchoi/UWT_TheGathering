@@ -28,7 +28,9 @@ This is Artifact 5 for TCSS 490 (Autumn 2026).
 - Thursdays 6 PM at Iruda Cafe. Fridays 6 PM at Silver King Games & Hobby.
 - Events: a raffle with prizes every week; a Mutant Menace deck giveaway at the
   end of the school quarter.
-- Discord: https://discord.gg/VwcpCWfbz
+- Discord: https://discord.gg/kbevMqAuxD (from the club 2026-11-15; checked
+  the same day: valid, never expires). The server is named "UW the
+  Gathering".
 - Logo: gold crown-W on purple. Original in design/assets/logo-original.webp.
 - Venue addresses found in online directories, NOT yet confirmed by the club:
   Iruda Cafe, 4916 Center St, Tacoma. Silver King Games & Hobby, 5442 S Tacoma
@@ -38,10 +40,9 @@ Never invent real-sounding facts about the club. Where content is missing, use
 obvious placeholders and list them under "Content still owed" below.
 
 ## Content still owed
-- A Discord invite that does not expire. The one in club.json was checked on
-  2026-11-15: valid, but it expires 2026-11-30, before the show and tell.
 - Member list (names, roles, favorite commanders, photos). Coming last.
-- Official club name as it should appear on the site.
+- Official club name as it should appear on the site. The site says "MTG at
+  UWT"; the Discord server and the repository say "UW the Gathering".
 - Confirmation of the two venue addresses.
 - Whether there is a vector (SVG/AI) version of the logo.
 - Event photos, once the club has some.
@@ -57,21 +58,22 @@ obvious placeholders and list them under "Content still owed" below.
 - Hold 60fps on a mid-range laptop, respect prefers-reduced-motion, and give
   phones a lighter fallback for heavy WebGL.
 - Fully responsive, keyboard navigable, readable contrast.
-- Deploy: Vercel (owner's decision, 2026-11-15, replacing GitHub Pages; the
-  repository stays private). The owner imports the GitHub repository into
-  Vercel once; after that Vercel builds and publishes every push to main.
-  Build settings are in vercel.json. The build uses a relative base, so it
-  works at any address without changes.
-- The club wanted "mtguwt" in the URL. Naming the Vercel project `mtguwt`
-  gives mtguwt.vercel.app (free when checked on 2026-11-15).
-- Live at https://mtguwt.vercel.app since 2026-11-15 (Vercel project
-  `mtguwt`). The project also lists mtgforuwt.com, which was not registered
-  when checked and does not resolve; ignore it unless the club buys it.
-- This machine is not signed in to Vercel, so deployments cannot be
-  inspected from here. To tell which build is live, compare the file names
-  in the live page's source with dist/assets after `npm run build`, and
-  check that files under /assets/ are served with `immutable` caching (set
-  in vercel.json).
+- Deploy: GitHub Pages (owner's final decision, 2026-11-15, after a short
+  try of Vercel). Live at https://rosiesuchoi.github.io/UWT_TheGathering/.
+  The repository is public.
+- How it publishes: on every push to main, .github/workflows/deploy.yml
+  builds the site and force-pushes dist/ to the `gh-pages` branch, which
+  Pages serves. Never edit `gh-pages` by hand; it is replaced on each
+  deploy. The build uses a relative base, so it works at any address.
+- The run and the live build can be checked without signing in: the
+  repository's Actions tab, or compare the file names in the live page's
+  source with dist/assets after `npm run build`.
+- The club wanted "mtguwt" in the URL. Renaming the repository to `mtguwt`
+  would give rosiesuchoi.github.io/mtguwt (then update the `origin` remote
+  and the addresses in this file and README.md). Not done.
+- Leftover from the Vercel try: a Vercel project `mtguwt` at
+  mtguwt.vercel.app that does not receive pushes and still shows the old
+  Discord invite. The owner should delete it or it will go stale.
 - Repository: https://github.com/rosiesuchoi/UWT_TheGathering (remote
   `origin`, branch `main`). Push at the end of each approved step.
 - Keep local machine paths and personal details out of committed files.
@@ -149,10 +151,10 @@ Bright and collectible. The card is the interface.
   `photo` is a file name inside public/members/, or null for the silhouette.
   Only add members who have agreed to appear on a public site.
 - design/ - concept board, approved mockup, logo sources. Reference only.
-- vercel.json - Vercel's build settings (npm run build, dist/) and long
-  caching for the hashed files in /assets/. Once the repository is
-  connected to Vercel, every push to main goes live, so only push work that
-  has been approved.
+- .github/workflows/deploy.yml - builds the site and publishes it to GitHub
+  Pages on every push to main. Every push to main goes live, so only push
+  work that has been approved.
+- public/.nojekyll - tells Pages to serve the files as they are.
 
 ## Rules the code depends on
 - Layering: section backgrounds are painted on ::before / ::after at
@@ -232,8 +234,8 @@ session.
    2026-11-15), events (done 2026-11-15), join (done 2026-11-15)
 6. Motion and 3D polish - first pass done 2026-11-15
 7. QA - done 2026-11-15. Results are in LOG.md.
-8. Deploy - live on Vercel 2026-11-15 at https://mtguwt.vercel.app. Checks
-   are in LOG.md.
+8. Deploy - live on GitHub Pages 2026-11-15 at
+   https://rosiesuchoi.github.io/UWT_TheGathering/. Checks are in LOG.md.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.
