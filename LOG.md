@@ -337,9 +337,34 @@ decided, what is next.
     project's own rules exclude. One photo also shows only the front.
     Waiting on the club's decision (see CLAUDE.md, phase 9).
 
+- Club approved the binder, officers and sign-your-card work. Pushed; the
+  deploy run succeeded and the live site serves it. A scripted drag turned
+  a page on the live site.
+- Club chose an original drawing for the prize box. Built it; NOT PUSHED.
+  - In the giveaway entry of "Two ways to win": a box 1 wide, 1.4 tall and
+    0.44 deep with six drawn sides. Front: "Commander deck", three color
+    dots (dusk, grove, tide), an original moth, "Mutant Menace", the club
+    mark. Back: what the prize is, from events.json, and "Date to be
+    announced". Spines, top and base carry the name, the mark, and a line
+    saying it is our drawing and not the real packaging.
+  - Drag spins it (and tips it, with a mouse); a flick coasts; left alone
+    it turns slowly; "Turn the box" turns it a quarter. Each side darkens
+    as it turns from the light and the floor shadow narrows side-on.
+  - Built with CSS 3D from page elements, not three.js: sharp lettering,
+    no extra download, almost no cost on a phone.
+  - Checked in Chrome on the dev server: type-check passes, no console
+    errors; all six sides seen by scripted drags; no drift when held and
+    released; idle turn measured at 16 degrees a second, starting 3.5 s
+    after the last touch; the button lands on exact quarter turns; nothing
+    moves while the section is marked off screen; at 375 wide the box sits
+    centered under the text, a touch drag spins without tipping, and there
+    is no sideways scroll; with ?reduce-motion there is no idle turn and
+    no coast, and the button and drag still work.
+  - Not checked: the feel of a real drag by hand or touch (all scripted),
+    a real phone, Safari, Firefox.
+
 **Open**
-- Approve the binder, officers and sign-your-card work so it can go live.
-- Decide the artwork for the 3D prize box.
+- Approve the prize box so it can go live.
 - Open the live site on a real phone and watch the first second and the
   shuffle. Add ?fps for a frame-rate readout.
 - Decided by the owner: the GitHub Pages address is the club's official

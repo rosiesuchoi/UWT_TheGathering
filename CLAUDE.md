@@ -43,7 +43,8 @@ obvious placeholders and list them under "Content still owed" below.
 - The four officers are in members.json (from the club, 2026-11-15). Still
   owed for each: favorite commander, its colors, and a photo. Their cards
   say "to be announced" until then. The rest of the member list is owed too.
-- Artwork decision for the giveaway prize box (see "Next up").
+- The giveaway date. Until then the prize box's back says "Date to be
+  announced".
 - Official club name as it should appear on the site. The site says "MTG at
   UWT"; the Discord server and the repository say "UW the Gathering".
 - Confirmation of the two venue addresses.
@@ -159,6 +160,16 @@ Bright and collectible. The card is the interface.
   visitor's browser only. There is no server, so nobody else sees it, and
   the page must keep saying so. Real members are added by an officer in
   members.json.
+- src/ui/prizebox.ts + src/styles/prizebox.css - the prize box. An event
+  in events.json with a `prize` ({ name, kind, colors }) gets a six-sided
+  box beside its entry that spins when dragged, idles slowly, and has a
+  "Turn the box" button. It is CSS 3D made of page elements, not WebGL, so
+  it needs no three.js and costs a phone almost nothing. Every size is a
+  share of --bw; the depth ratio lives in both files (DEPTH and --bd). JS
+  sets --ry, --rx, --sh, --sheen and --sw only. It rests while its section
+  is off screen and does not idle or coast under reduced motion. The art
+  is original and the box says it is a drawing, on its base, its back and
+  in its caption.
 - The binder (src/sections/members.ts): pages of nine pockets (six on a
   phone), always with at least one page of spare sleeves so there is a page
   to turn to. Order: members, then the visitor's card or an open pocket,
@@ -275,12 +286,12 @@ session.
    (a push goes live):
    - Officers in the binder, visitors sign their own card, binder pages
      turn by drag - built 2026-11-15, awaiting approval, not pushed.
-   - Next up: a 3D prize box for the giveaway that can be turned around,
-     in the events section. Blocked on a decision: the club sent a photo of
-     the real product box, which carries official logos and card art, and
-     this file's Constraints rule them out. Either the club lifts that rule
-     for the prize (and sends photos of every side), or the box is drawn in
-     the site's own style.
+     Approved and pushed 2026-11-15.
+   - A prize box for the giveaway that can be turned around, in the events
+     section - built 2026-11-15, awaiting approval, not pushed. The club
+     chose an original drawing over the real product box (2026-11-15),
+     which keeps the no-official-art rule. Do not add photos of the real
+     packaging.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.

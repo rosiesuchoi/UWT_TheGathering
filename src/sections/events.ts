@@ -3,6 +3,7 @@
 import { events, type ClubEvent } from '../content';
 import { siteCard } from '../content/cards';
 import { createCard } from '../ui/card';
+import { createPrizeBox } from '../ui/prizebox';
 import { attachTilt } from '../ui/tilt';
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className: string, text?: string): HTMLElementTagNameMap[K] {
@@ -20,6 +21,12 @@ function eventEntry(event: ClubEvent): HTMLElement {
   // Whatever the club has not supplied yet is named, so it cannot be missed.
   if (event.owed.length > 0) text.append(' ', el('span', 'tbd', `${event.owed.join(' and ')}: owed`));
   entry.append(el('p', 'label', event.cadence), el('h3', '', event.title), text);
+  // An event that gives something away shows it, as a box that can be turned.
+  const prize = createPrizeBox(event);
+  if (prize) {
+    entry.classList.add('has-prize');
+    entry.append(prize);
+  }
   return entry;
 }
 

@@ -53,6 +53,11 @@ export interface ClubEvent {
   glyph: CardGlyph;
   /** Gold frame. */
   rare: boolean;
+  /**
+   * Something the event gives away. Shown as a box the visitor can turn
+   * (src/ui/prizebox.ts). `colors` are the deck's colors, as dots.
+   */
+  prize?: { name: string; kind: string; colors: CardColor[] };
 }
 
 export interface Member {

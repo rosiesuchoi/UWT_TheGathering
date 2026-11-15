@@ -17,6 +17,7 @@ import './styles/club.css';
 import './styles/nights.css';
 import './styles/members.css';
 import './styles/events.css';
+import './styles/prizebox.css';
 import './styles/join.css';
 
 import { fx } from './core/fx';

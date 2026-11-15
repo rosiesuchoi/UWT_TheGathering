@@ -25,6 +25,7 @@
     "owed": ["date"],
     "tone": "dusk",
     "glyph": "deck",
-    "rare": true
+    "rare": true,
+    "prize": { "name": "Mutant Menace", "kind": "Commander deck", "colors": ["dusk", "grove", "tide"] }
   }
 ]
