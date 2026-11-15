@@ -36,9 +36,6 @@ h1 em, h2 em { font-style: normal; color: var(--purple); }
 .tbd { display: inline-block; font-family: var(--f-m); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; border: 1px dashed currentColor; border-radius: 4px; padding: 1px 6px; opacity: .8; vertical-align: middle; }
 .owed { border: 1px dashed currentColor; border-radius: 8px; padding: 12px 16px; font-size: 15px; max-width: 56ch; }
 
-/* Placeholder marker for parts built in a later phase. Removed as sections land. */
-.stub { font-family: var(--f-m); font-size: 12.5px; border: 1px dashed currentColor; border-radius: 8px; padding: 10px 14px; width: fit-content; max-width: 100%; opacity: .7; }
-
 @media (max-width: 560px) {
   body { font-size: 16px; }
 }

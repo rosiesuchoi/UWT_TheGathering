@@ -1,0 +1,12 @@
+/* Join section: the visitor's foil card on a gold block, beside the invitation. */
+.join::after { content: ""; position: absolute; z-index: var(--z-bg); inset: 0 62% 0 0; background: var(--gold); clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%); }
+.recap { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 6px 32px; font-size: 15.5px; }
+.recap dt { font-family: var(--f-m); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--purple); }
+
+@media (max-width: 900px) {
+  .join::after { inset: 0 0 68% 0; clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%); }
+}
+@media (max-width: 560px) {
+  .recap { grid-template-columns: minmax(0, 1fr); }
+  .recap dd { margin-bottom: 8px; }
+}

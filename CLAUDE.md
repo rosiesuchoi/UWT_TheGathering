@@ -55,7 +55,12 @@ obvious placeholders and list them under "Content still owed" below.
 - Hold 60fps on a mid-range laptop, respect prefers-reduced-motion, and give
   phones a lighter fallback for heavy WebGL.
 - Fully responsive, keyboard navigable, readable contrast.
-- Deploy: GitHub Pages. The URL should read "mtguwt" (repo or org name).
+- Deploy: GitHub Pages. The club wanted "mtguwt" in the URL; the repository
+  it then chose is named UWT_TheGathering, so the default Pages address
+  would be rosiesuchoi.github.io/UWT_TheGathering. Settle this in Phase 8.
+- Repository: https://github.com/rosiesuchoi/UWT_TheGathering (remote
+  `origin`, branch `main`). Push at the end of each approved step.
+- Keep local machine paths and personal details out of committed files.
 
 ## Creative direction: Top Deck
 Bright and collectible. The card is the interface.
@@ -170,7 +175,8 @@ session.
 5. Sections - one at a time, each approved before the next:
    hero (done 2026-11-14), table + shuffle cutscene (done 2026-11-15),
    club (done 2026-11-15), nights (done 2026-11-15), members (done
-   2026-11-15), events (built 2026-11-15, awaiting approval), join
+   2026-11-15), events (done 2026-11-15), join (built 2026-11-15,
+   awaiting approval)
 6. Motion and 3D polish
 7. QA - real browser at desktop, tablet, phone; report what was measured
 8. Deploy

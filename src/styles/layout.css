@@ -27,7 +27,7 @@
 .dots::before { background-image: radial-gradient(rgba(27, 16, 51, .13) 1px, transparent 1.3px); background-size: 22px 22px; }
 .in { position: relative; max-width: var(--max); margin: 0 auto; }
 .body { display: flex; flex-direction: column; gap: 20px; }
-.body > p:not(.label):not(.stub) { max-width: 56ch; }
+.body > p:not(.label) { max-width: 56ch; }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
 /* A played card beside its text. Used by the club and join sections. */
@@ -43,8 +43,6 @@
 
 /* The hero and the table have their own files: hero.css, table.css. */
 
-/* Join */
-.join::after { content: ""; position: absolute; z-index: var(--z-bg); inset: 0 0 0 68%; background: var(--gold); clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); }
 
 /* Footer */
 .foot { --sec-bg: var(--ink); color: var(--paper); padding-block: 56px 96px; }
@@ -61,7 +59,6 @@
   .links.open a { padding: 12px 0; font-size: 17px; border-bottom: 1px solid rgba(27, 16, 51, .1); }
   .menu { display: block; }
   .split { grid-template-columns: minmax(0, 1fr); }
-  .join::after { display: none; }
 }
 @media (max-width: 560px) {
   .nav { gap: 10px; }

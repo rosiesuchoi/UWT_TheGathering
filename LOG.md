@@ -96,15 +96,31 @@ decided, what is next.
   checked by measurement only (it sits inside the screen with room to
   spare); the text below it was seen and reads correctly.
 
+- Club approved the events section. Built the last Phase 5 section: join.
+  - The visitor's foil card (100/100, "Your name here") on a gold block,
+    rocking when idle and following the pointer, beside the invitation, the
+    Discord button and a recap of the nights read from club.json.
+  - Removed the last "Phase 5" placeholder notes; every section is now real.
+- Check, in a real browser at 1280 and 375 wide: build and type-check pass,
+  no console errors, no sideways scroll, the card, recap and Discord link
+  are right, and both layouts match the mockup. The phone view of the
+  events pile was also seen this time and looks right.
+- Set the project up on GitHub at the club's request: added a README,
+  connected the repository as `origin` and pushed `main`. Before pushing,
+  removed a local folder path from this log and from an early preview
+  config, including from earlier commits, since the repository may be
+  public.
+
 **Open**
-- Approve the events section.
+- Approve the join section. That completes Phase 5.
 - Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.
 
 **Next**
-- Phase 5, last section: join (the visitor's foil card and the Discord
-  button). Then Phase 6, motion and 3D polish.
+- Phase 6, motion and 3D polish. Candidates so far: scroll-driven shuffle,
+  member card flip, and tuning speeds once someone has watched the site at
+  real speed.
 
 ## 2026-11-14 (Sat) - Discovery and creative direction
 
@@ -116,8 +132,8 @@ decided, what is next.
   (one persistent canvas), "More Than a Portfolio" (scenes that settle), and
   pokemon-cards-css (CSS foil and pointer tilt for member cards).
 - Got the rubric, club facts, Discord link and logo from the club.
-- Created the project at a local folder, outside OneDrive so npm
-  installs do not get synced.
+- Created the project in a local folder outside OneDrive, so npm installs
+  do not get synced.
 - Traced the logo into a vector mark (design/assets/logo-mark.svg) and a
   transparent PNG, since the original is a flat image on a purple square.
 - Built a board of three creative directions (design/concepts.html).

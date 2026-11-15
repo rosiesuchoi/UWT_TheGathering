@@ -140,14 +140,17 @@
       </div>
     </section>
 
-    <section class="sec join dots" id="join">
-      <div class="in">
+    <section class="sec join dots" id="join" data-reveal>
+      <div class="in split">
+        <!-- The visitor's card is added here by src/sections/join.ts -->
+        <div class="played r" id="joinCard" data-rv="card"></div>
         <div class="body">
-          <p class="label">Card 7 of 7</p>
-          <h2>The last card <em>is you.</em></h2>
-          <p class="lede">Come to a Thursday or Friday night, or say hello on Discord first.</p>
-          <div class="cta"><a class="btn btn-ink" data-discord href="#join">Join the Discord</a></div>
-          <p class="stub">Your foil card: Phase 5</p>
+          <p class="label" data-rv>Card 7 of 7</p>
+          <h2 data-rv>The last card <em>is you.</em></h2>
+          <p class="lede" data-rv>Come to a Thursday or Friday night, or say hello on Discord first.</p>
+          <div class="cta" data-rv><a class="btn btn-ink" data-discord href="#join">Join the Discord</a></div>
+          <!-- Filled from club.json by src/sections/join.ts -->
+          <dl class="recap" id="joinRecap" data-rv></dl>
         </div>
       </div>
     </section>

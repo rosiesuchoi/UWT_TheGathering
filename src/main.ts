@@ -14,12 +14,14 @@ import './styles/club.css';
 import './styles/nights.css';
 import './styles/members.css';
 import './styles/events.css';
+import './styles/join.css';
 
 import { fx } from './core/fx';
 import { ScrollTrigger, gsap, initScroll } from './core/scroll';
 import { initClub } from './sections/club';
 import { initEvents } from './sections/events';
 import { initHero } from './sections/hero';
+import { initJoin } from './sections/join';
 import { initMembers } from './sections/members';
 import { initNights } from './sections/nights';
 import { initTable } from './sections/table';
@@ -35,6 +37,7 @@ initClub();
 initNights();
 initMembers();
 initEvents();
+initJoin();
 // Reveals go last: they number the pieces each section has just built.
 initReveals();
 initDotsParallax();
