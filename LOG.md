@@ -307,8 +307,11 @@ decided, what is next.
 **Open**
 - Open the live site on a real phone and watch the first second and the
   shuffle. Add ?fps for a frame-rate readout.
-- Decide which address to hand out, and whether to keep or delete the
-  Vercel copy. Two live copies are fine as long as both keep deploying.
+- Decided by the owner: the GitHub Pages address is the club's official
+  link. index.html now names it as the canonical address, so search
+  engines list it and not the Vercel copy.
+- Optional: delete the Vercel project, and change the repository's
+  "About" website link on GitHub, which still points to the Vercel copy.
 - Decide whether to rename the repository to `mtguwt` for a shorter
   address (rosiesuchoi.github.io/mtguwt).
 - Decide what, if anything, the back of a member card shows.

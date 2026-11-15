@@ -61,6 +61,9 @@ obvious placeholders and list them under "Content still owed" below.
 - Deploy: GitHub Pages (owner's final decision, 2026-11-15, after a short
   try of Vercel). Live at https://rosiesuchoi.github.io/UWT_TheGathering/.
   The repository is public.
+- That address is the club's official link (owner's choice, 2026-11-15).
+  Use it in the README, the portfolio card and anything shared. index.html
+  names it in a `rel="canonical"` tag.
 - How it publishes: on every push to main, .github/workflows/deploy.yml
   builds the site and force-pushes dist/ to the `gh-pages` branch, which
   Pages serves. Never edit `gh-pages` by hand; it is replaced on each
@@ -76,8 +79,8 @@ obvious placeholders and list them under "Content still owed" below.
   ignored pushes while the repository was private and has deployed them
   since it went public (first seen with commit 2a34ec5). It builds with
   Vercel's defaults; there is no vercel.json. Its dashboard cannot be read
-  from this machine. The owner decides whether to keep it (it has "mtguwt"
-  in the address) or delete it.
+  from this machine. It is not the official link. The owner may keep it as
+  a spare or delete it.
 - Repository: https://github.com/rosiesuchoi/UWT_TheGathering (remote
   `origin`, branch `main`). Push at the end of each approved step.
 - Keep local machine paths and personal details out of committed files.
