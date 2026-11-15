@@ -60,13 +60,36 @@ decided, what is next.
   venue and map link, the reveal looks right mid-way and at rest. The map
   links were checked for the right address text but not opened.
 
+- Club approved the nights section. Built the fifth Phase 5 section: members.
+  - A binder page of foil cards built from members.json, with the last
+    pocket left open for the visitor (it links to the join section).
+  - members.json is still empty, so the binder shows eight placeholder cards
+    and a "Placeholder cards" tag. Both disappear on their own once the file
+    has real entries.
+  - A member's card takes the first color of their favorite commander, shows
+    several colors as a split pip, and uses their photo if one is given.
+  - Arrival: the page rises in and the cards drop into their pockets one by
+    one. Foil is faint at rest and brightens under the pointer.
+- Check, in a real browser at 1280 and 375 wide: build and type-check pass,
+  no console errors, no sideways scroll, placeholders render in a 3 by 3
+  page. Real entries were tested with four temporary test members (one
+  color, two colors, five colors, no colors, and one very long name): cards,
+  tones, split pips and the open pocket all rendered, long text clipped
+  cleanly, and the placeholder note went away. The test entries were removed
+  and members.json is back to empty. Member photos were not tested, since
+  there are none yet.
+- Not built: clicking a member card to flip it, which the mockup note
+  mentioned. There is nothing extra to show on the back yet. Needs a
+  decision from the club on what goes there.
+
 **Open**
-- Approve the nights section.
+- Approve the members section.
+- Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.
 
 **Next**
-- Phase 5, fifth section: members (the binder of foil cards).
+- Phase 5, sixth section: events (the raffle and the giveaway).
 
 ## 2026-11-14 (Sat) - Discovery and creative direction
 

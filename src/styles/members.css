@@ -1,0 +1,38 @@
+/* Members section: a binder page. Real binder pages hold nine cards in a
+   three by three grid, so the binder does too. */
+.members { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.binder { position: relative; background: var(--white); border: 1px solid #d5cbe9; border-radius: 16px; padding: clamp(12px, 2vw, 24px); padding-left: clamp(34px, 4.6vw, 60px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(8px, 1.6vw, 18px); box-shadow: 0 24px 48px rgba(27, 16, 51, .14); }
+/* Ring holes down the left edge. */
+.binder::before { content: ""; position: absolute; left: clamp(11px, 1.5vw, 20px); top: 0; bottom: 0; width: 16px; background: radial-gradient(circle, var(--paper-2) 0 6px, #b9add6 6.5px 7.5px, transparent 8px) center / 16px 33.33% repeat-y; }
+.pocket { background: var(--paper-2); border-radius: 10px; padding: 7%; min-width: 0; }
+
+/* Foil stays quiet across a full page of cards and wakes up under the pointer. */
+.pocket .c-foil { opacity: .2; transition: opacity .2s; }
+.pocket .c-glare { opacity: .35; transition: opacity .2s; }
+.pocket .card:hover .c-foil { opacity: .8; }
+.pocket .card:hover .c-glare { opacity: 1; }
+
+/* The last pocket is left open for the visitor. */
+.slotcard { border: 2px dashed var(--purple); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; text-decoration: none; color: var(--purple); transition: background-color .2s; }
+.slotcard:hover { background: rgba(75, 46, 131, .08); }
+.slotcard b { font-family: var(--f-d); font-weight: 400; text-transform: uppercase; font-size: clamp(18px, 2.2vw, 28px); line-height: 1; }
+.slotcard span { font-size: 14px; line-height: 1.3; }
+
+/* Arrival: after the page rises in, cards drop into their pockets one by one. */
+#members.rv-armed:not(.is-in) .pocket .card,
+#members.rv-armed:not(.is-in) .slotcard > * { opacity: 0; }
+#members.rv-armed.is-in .pocket .card { animation: pocket-in .5s cubic-bezier(.2, .8, .2, 1) backwards; animation-delay: calc(450ms + var(--i, 0) * 70ms); }
+#members.rv-armed.is-in .slotcard > * { animation: rv-rise .5s ease-out backwards; animation-delay: calc(450ms + var(--i, 0) * 70ms); }
+@keyframes pocket-in { from { opacity: 0; transform: translateY(-34px) scale(1.08); } }
+
+@media (max-width: 900px) {
+  .members { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .binder { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Keeps the last row full when the count is odd. */
+  .slotcard:nth-child(odd) { grid-column: span 2; padding: 22px 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pocket .c-foil, .pocket .c-glare, .slotcard { transition: none; }
+}

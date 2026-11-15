@@ -122,6 +122,13 @@ Bright and collectible. The card is the interface.
   onEnter() for one-off effects and the dotted-paper parallax.
 - Owed content shows as a dashed `.owed` box or `.tbd` tag. Search for both
   before launch.
+- Members: while members.json is `[]` the binder shows eight marked
+  placeholder cards. Each real entry is
+  `{ "name", "role", "commander", "colors": ["tide", ...], "photo": null }`.
+  `colors` uses chalk, tide, dusk, ember, grove (white, blue, black, red,
+  green); the first sets the card's look and several show as a split pip.
+  `photo` is a file name inside public/members/, or null for the silhouette.
+  Only add members who have agreed to appear on a public site.
 - design/ - concept board, approved mockup, logo sources. Reference only.
 
 ## Rules the code depends on
@@ -162,8 +169,8 @@ session.
 4. Foundation - done 2026-11-14
 5. Sections - one at a time, each approved before the next:
    hero (done 2026-11-14), table + shuffle cutscene (done 2026-11-15),
-   club (done 2026-11-15), nights (built 2026-11-15, awaiting approval),
-   members, events, join
+   club (done 2026-11-15), nights (done 2026-11-15), members (built
+   2026-11-15, awaiting approval), events, join
 6. Motion and 3D polish
 7. QA - real browser at desktop, tablet, phone; report what was measured
 8. Deploy

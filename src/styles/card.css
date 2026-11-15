@@ -12,6 +12,7 @@ button.card { appearance: none; border: 0; padding: 0; background: none; font: i
 .c-type { font-weight: 500; font-size: 4.5cqw; }
 .c-art { border-radius: 2cqw; background: var(--art); color: var(--glyph, #fff); display: grid; place-items: center; min-height: 0; }
 .c-art > svg, .c-art > .mark { width: 46%; height: auto; }
+.c-art > img { width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: inherit; }
 .c-text { display: block; background: var(--paper); border-radius: 2cqw; padding: 3cqw; font-size: 4.8cqw; line-height: 1.35; min-height: 23cqw; }
 .c-num { display: flex; justify-content: space-between; font-family: var(--f-m); font-size: 3.8cqw; letter-spacing: .08em; color: var(--gold-pale); }
 

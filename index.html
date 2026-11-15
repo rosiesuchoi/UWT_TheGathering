@@ -112,13 +112,17 @@
       </div>
     </section>
 
-    <section class="sec tint" id="members">
-      <div class="in">
+    <section class="sec tint" id="members" data-reveal>
+      <div class="in members">
         <div class="body">
-          <p class="label">Card 4 of 7</p>
-          <h2>Who is <em>at the table.</em></h2>
-          <p class="stub">The member binder: Phase 5</p>
+          <p class="label" data-rv>Card 4 of 7</p>
+          <h2 data-rv>Who is <em>at the table.</em></h2>
+          <p data-rv>Every member gets a card in the binder. Each card takes the colors of that member's favorite commander.</p>
+          <!-- Removed by src/sections/members.ts once members.json has entries. -->
+          <p id="membersNote" data-rv><span class="tbd">Placeholder cards</span> The member list comes later.</p>
         </div>
+        <!-- One pocket per member, built from members.json by src/sections/members.ts -->
+        <div class="binder" id="binder" data-rv></div>
       </div>
     </section>
 
