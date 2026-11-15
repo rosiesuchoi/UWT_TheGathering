@@ -10,10 +10,15 @@
 .tgrid { width: 100%; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
 .replay { font: 500 14px var(--f-m); background: none; border: 0; color: var(--cream); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; padding: 6px 0; width: fit-content; }
 
-/* Lamp light. It sits above the WebGL canvas, so it also warms the 3D deck. */
-.lamp { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; background: radial-gradient(circle 38vw at 66% 50%, rgba(255, 184, 77, .30), rgba(255, 184, 77, .08) 55%, transparent); animation: table-sway 7s ease-in-out infinite alternate; }
+/* Lamp light. It sits above the WebGL canvas, so it also warms the 3D deck.
+   It sways by itself (transform) and drifts toward the pointer (translate),
+   using --tx / --ty from src/sections/table.ts. */
+.lamp { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; background: radial-gradient(circle 38vw at 66% 50%, rgba(255, 184, 77, .30), rgba(255, 184, 77, .08) 55%, transparent); animation: table-sway 7s ease-in-out infinite alternate; translate: calc(var(--tx, 0) * 5vw) calc(var(--ty, 0) * 5vw); }
 
-.tbl { position: relative; container-type: inline-size; width: min(100%, 74svh, 700px); aspect-ratio: 1; justify-self: center; border-radius: 16%; background: radial-gradient(circle at 50% 45%, #4c2796, var(--felt) 55%, #2a1259); box-shadow: 0 0 0 12px #2e1c11, 0 0 0 15px rgba(255, 184, 77, .28), 0 40px 80px rgba(0, 0, 0, .6); }
+/* The table leans a little toward the pointer. It lies flat during the
+   cutscene, because cards are dealt to the exact spots measured on it. */
+.tbl { position: relative; container-type: inline-size; width: min(100%, 74svh, 700px); aspect-ratio: 1; justify-self: center; border-radius: 16%; background: radial-gradient(circle at 50% 45%, #4c2796, var(--felt) 55%, #2a1259); box-shadow: 0 0 0 12px #2e1c11, 0 0 0 15px rgba(255, 184, 77, .28), 0 40px 80px rgba(0, 0, 0, .6); transform: perspective(1400px) rotateX(calc(var(--ty, 0) * -6deg)) rotateY(calc(var(--tx, 0) * 7deg)); }
+.cutscene .tbl { transform: none; }
 .tbl::after { content: ""; position: absolute; inset: 3.2%; border: 1px dashed rgba(217, 184, 99, .55); border-radius: 14%; pointer-events: none; }
 .felt-mark { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 34%; opacity: .16; --mark: var(--gold-pale); }
 
@@ -76,5 +81,6 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .lamp, .mat.o { animation: none; }
+  .tbl { transform: none; }
   .tcard { transition: none; }
 }

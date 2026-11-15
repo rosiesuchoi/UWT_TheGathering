@@ -27,6 +27,7 @@ import { initNights } from './sections/nights';
 import { initTable } from './sections/table';
 import { applyClubContent, initNav } from './ui/chrome';
 import { initDotsParallax, initReveals } from './ui/motion';
+import { initTracker } from './ui/tracker';
 
 applyClubContent();
 initNav();
@@ -41,6 +42,7 @@ initJoin();
 // Reveals go last: they number the pieces each section has just built.
 initReveals();
 initDotsParallax();
+initTracker();
 
 // Section positions shift once the fonts arrive, so measure again then.
 void document.fonts.ready.then(() => ScrollTrigger.refresh());
@@ -57,4 +59,4 @@ async function start3D(): Promise<void> {
 void start3D();
 
 // Development only: lets a test pause or step animations from the console.
-if (import.meta.env.DEV) Object.assign(window, { __gsap: gsap });
+if (import.meta.env.DEV) Object.assign(window, { __gsap: gsap, __st: ScrollTrigger });

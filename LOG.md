@@ -111,16 +111,42 @@ decided, what is next.
   config, including from earlier commits, since the repository may be
   public.
 
+- Club approved the join section, completing Phase 5. Started Phase 6
+  (motion and 3D polish). First pass:
+  - Scrolling plays the shuffle. The first time a visitor scrolls from the
+    top into the table, the cutscene plays by itself, a little faster than
+    the clicked version. Once per browser tab. Trying to scroll on skips
+    it, as do click and Escape. It does not start when the visitor arrived
+    part-way down the page or clicked a link that travels past the table.
+  - A "N / 7 played" counter under the corner deck that follows the section
+    on screen (0, 1, 3, 4, 6, 7). Wide screens only.
+  - The 3D deck now has rounded card corners, a border that follows them,
+    and a soft shadow so it sits on the page.
+  - The table responds to the pointer: the lamp drifts toward it and the
+    table leans a few degrees. It lies flat during the cutscene.
+  - The hero card gives slightly under the click.
+- Check, in a real browser: build and type-check pass, no console errors.
+  At 1280 wide: scrolling into the table started the shuffle and it ran to a
+  clean end; a second visit in the same tab flipped the cards in instead; a
+  nav link that travels past the table did not start it; an early wheel
+  event was ignored and a later one skipped; the counter read 0, 0, 1, 3, 4,
+  6, 7, 7 going down and followed back up; the table's lean and the lamp's
+  drift both responded to a pointer. At 375 wide: no sideways scroll and the
+  counter is hidden. Still not watched at real speed, and frame rate is
+  still unmeasured (Phase 7).
+- Phase 6 work is committed locally and not yet pushed; it goes to GitHub
+  when approved.
+
 **Open**
-- Approve the join section. That completes Phase 5.
+- Approve the Phase 6 first pass, or say what else should be polished.
 - Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.
 
 **Next**
-- Phase 6, motion and 3D polish. Candidates so far: scroll-driven shuffle,
-  member card flip, and tuning speeds once someone has watched the site at
-  real speed.
+- More Phase 6 if the club wants it (member card flip, speed tuning after a
+  real-speed viewing), otherwise Phase 7: QA at desktop, tablet and phone
+  with measured performance, reduced motion and accessibility.
 
 ## 2026-11-14 (Sat) - Discovery and creative direction
 

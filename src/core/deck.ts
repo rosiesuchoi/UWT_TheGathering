@@ -5,11 +5,14 @@
 // Coordinates: stage.ts makes one world unit equal one CSS pixel at z = 0, so
 // a dealt card can land exactly on a DOM card.
 import {
-  BoxGeometry,
   CanvasTexture,
+  ExtrudeGeometry,
   Group,
   Mesh,
+  MeshBasicMaterial,
   MeshStandardMaterial,
+  PlaneGeometry,
+  Shape,
   SRGBColorSpace,
 } from 'three';
 import markUrl from '../assets/logo-mark.svg';
@@ -20,6 +23,7 @@ import type { Stage } from './stage';
 const CARD_W = 50;
 const CARD_H = 70; // 5:7, the real card ratio
 const CARD_T = 1.1;
+const CARD_R = 3.2; // corner radius, in the same units as the card
 const COUNT = 22;
 const HOME_TILT = -0.95; // leaning back in the corner, so the stack of edges shows
 const SHOW_TILT = -0.5; // facing the visitor more during the shuffle
@@ -39,7 +43,13 @@ function makeBackTexture(): CanvasTexture {
     ctx.fillRect(0, 0, c.width, c.height);
     ctx.strokeStyle = '#c9a23f';
     ctx.lineWidth = 22;
-    ctx.strokeRect(11, 11, c.width - 22, c.height - 22);
+    // The border follows the card's rounded corners.
+    const inset = 11;
+    const radius = (CARD_R / CARD_W) * c.width - inset;
+    ctx.beginPath();
+    if (typeof ctx.roundRect === 'function') ctx.roundRect(inset, inset, c.width - inset * 2, c.height - inset * 2, radius);
+    else ctx.rect(inset, inset, c.width - inset * 2, c.height - inset * 2);
+    ctx.stroke();
     if (img) {
       const w = c.width * 0.46;
       const h = (w * 910) / 720;
@@ -50,6 +60,10 @@ function makeBackTexture(): CanvasTexture {
   const tex = new CanvasTexture(c);
   tex.colorSpace = SRGBColorSpace;
   tex.anisotropy = 4;
+  // The card's faces are cut from a shape centered on zero, and their texture
+  // coordinates are that shape's own x and y. Map those onto the image.
+  tex.repeat.set(1 / CARD_W, 1 / CARD_H);
+  tex.offset.set(0.5, 0.5);
   const img = new Image();
   img.onload = () => {
     paint(img);
@@ -59,13 +73,56 @@ function makeBackTexture(): CanvasTexture {
   return tex;
 }
 
+/** A card with rounded corners: a rounded rectangle given a little thickness. */
+function makeCardGeometry(): ExtrudeGeometry {
+  const w = CARD_W / 2;
+  const h = CARD_H / 2;
+  const r = CARD_R;
+  const shape = new Shape();
+  shape.moveTo(-w + r, -h);
+  shape.lineTo(w - r, -h);
+  shape.quadraticCurveTo(w, -h, w, -h + r);
+  shape.lineTo(w, h - r);
+  shape.quadraticCurveTo(w, h, w - r, h);
+  shape.lineTo(-w + r, h);
+  shape.quadraticCurveTo(-w, h, -w, h - r);
+  shape.lineTo(-w, -h + r);
+  shape.quadraticCurveTo(-w, -h, -w + r, -h);
+  const geo = new ExtrudeGeometry(shape, { depth: CARD_T, bevelEnabled: false, curveSegments: 5 });
+  geo.translate(0, 0, -CARD_T / 2);
+  return geo;
+}
+
+/** A soft dark patch under the deck, so it sits on the page instead of floating. */
+function makeShadow(): Mesh {
+  const c = document.createElement('canvas');
+  c.width = 128;
+  c.height = 128;
+  const ctx = c.getContext('2d')!;
+  const g = ctx.createRadialGradient(64, 64, 6, 64, 64, 64);
+  g.addColorStop(0, 'rgba(10, 4, 24, 0.55)');
+  g.addColorStop(0.55, 'rgba(10, 4, 24, 0.22)');
+  g.addColorStop(1, 'rgba(10, 4, 24, 0)');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 128, 128);
+  const tex = new CanvasTexture(c);
+  const mesh = new Mesh(
+    new PlaneGeometry(CARD_W * 2.1, CARD_H * 1.9),
+    new MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false }),
+  );
+  mesh.position.set(0, -5, -2);
+  mesh.renderOrder = -1;
+  return mesh;
+}
+
 export function initDeck(stage: Stage): DeckFx {
   const group = new Group();
-  const geo = new BoxGeometry(CARD_W, CARD_H, CARD_T);
+  const geo = makeCardGeometry();
   const edge = new MeshStandardMaterial({ color: 0xe9e2f5, roughness: 0.9 });
-  const back = new MeshStandardMaterial({ map: makeBackTexture(), roughness: 0.55, metalness: 0.1 });
-  // Box faces: +x, -x, +y, -y, +z (toward the visitor), -z
-  const materials = [edge, edge, edge, edge, back, back];
+  const back = new MeshStandardMaterial({ map: makeBackTexture(), roughness: 0.5, metalness: 0.15 });
+  // An extruded shape has two material slots: its two faces, then its rim.
+  const materials = [back, edge];
+  group.add(makeShadow());
 
   /** Cards from the bottom of the stack to the top. Shuffling reorders this. */
   let order: Mesh[] = [];

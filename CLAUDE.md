@@ -153,6 +153,18 @@ Bright and collectible. The card is the interface.
   links, readable by screen readers) and only the flying deck is 3D. During
   it, html gets class `cutscene`, which lifts the canvas above everything.
 - The table layout assumes exactly two nights and two events.
+- When the cutscene plays: on a click of the hero card or "Replay the
+  shuffle" (always), and by itself the first time the visitor scrolls from
+  the top into the table (once per browser tab, remembered in
+  sessionStorage under `mtguwt:dealt`). It never auto-plays when the
+  visitor arrived part-way down the page or is travelling to an in-page
+  link. Click, Escape, or trying to scroll on all skip it.
+- The table leans toward the pointer (--tx / --ty on #table). It must lie
+  flat while cards are dealt, because their landing spots are measured on
+  it: `.cutscene .tbl { transform: none }`.
+- src/ui/tracker.ts - the "N / 7 played" counter under the corner deck.
+- Testing scroll logic in a hidden pane: `__st.update()` (dev only) forces
+  ScrollTrigger to re-check after a scripted scroll.
 - Testing animation: in dev, `window.__gsap` is exposed. Pause with
   `__gsap.globalTimeline.pause()` and set a timeline's `.time()` to inspect
   a frame. If the browser pane is hidden, frames only advance on capture.
@@ -175,9 +187,8 @@ session.
 5. Sections - one at a time, each approved before the next:
    hero (done 2026-11-14), table + shuffle cutscene (done 2026-11-15),
    club (done 2026-11-15), nights (done 2026-11-15), members (done
-   2026-11-15), events (done 2026-11-15), join (built 2026-11-15,
-   awaiting approval)
-6. Motion and 3D polish
+   2026-11-15), events (done 2026-11-15), join (done 2026-11-15)
+6. Motion and 3D polish - first pass built 2026-11-15, awaiting approval
 7. QA - real browser at desktop, tablet, phone; report what was measured
 8. Deploy
 
