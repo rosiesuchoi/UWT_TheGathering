@@ -394,8 +394,12 @@ decided, what is next.
     Safari, Firefox. The corners were placed by eye, so an edge may be off
     by a few pixels of the original photo.
 
+- Club approved the photo box. Pushed; the deploy run succeeded and the
+  live site serves it. On the live site all six photos load at full size,
+  no files fail, there are no console errors, the footer carries the new
+  Bethesda line, and a scripted drag turned the box.
+
 **Open**
-- Approve the photo box so it can go live.
 - Try the binder drag and the prize box by hand and on a phone.
 - Open the live site on a real phone and watch the first second and the
   shuffle. Add ?fps for a frame-rate readout.

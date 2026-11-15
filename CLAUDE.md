@@ -306,7 +306,7 @@ session.
    - A prize box for the giveaway that can be turned around, in the events
      section. First as an original drawing - approved and pushed
      2026-11-15. The club then sent photos of all six sides and asked for
-     the real box - built 2026-11-15, awaiting approval, not pushed.
+     the real box - approved and pushed 2026-11-15.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.
