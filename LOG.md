@@ -252,20 +252,39 @@ decided, what is next.
     missing from it.
   - Not verified: anything on the live site. No public address worked.
 
+- Owner added mtguwt.vercel.app to the project. THE SITE IS LIVE at
+  https://mtguwt.vercel.app. Checked there, in Chrome:
+  - The page, styles, scripts, fonts, favicon and robots.txt all load
+    (12 files, none failing), over HTTPS, with no console errors. The page
+    was ready in about 0.2 s on this connection.
+  - The live files have the same fingerprinted names as a fresh local
+    build, so the pages match the repository.
+  - At 1024 wide: clicking the hero card played the whole shuffle in real
+    time (riffle, deal, deck home) and ended with all seven cards on the
+    table, the overlay gone and focus on the table.
+  - At 375 wide: no sideways scroll, the menu button shows, three.js is not
+    loaded until the first scroll and is loaded after it.
+  - With ?reduce-motion: the hero card goes straight to the table, no
+    cutscene, no hidden cards.
+  - One phone-size capture taken right after load showed the hero part-way
+    through its entrance (headline in, card fan not yet). The next capture
+    was complete. Same capture quirk as before, but it has still not been
+    ruled out on a real phone.
+  - Not checked on the live site: a real phone, Safari, Firefox, frame rate.
+
 **Open**
-- Give the site a working address: add mtguwt.vercel.app under the Vercel
-  project's Settings > Domains, or register mtgforuwt.com. Then check the
-  live site.
-- Check in Vercel's Deployments list whether the pushes after the import
-  were deployed, blocked or skipped.
+- Open https://mtguwt.vercel.app on a real phone and watch the first second
+  and the shuffle. Add ?fps for a frame-rate readout.
+- Confirm that pushes to main reach the live site (see the next entry or
+  the Vercel Deployments list).
 - Replace the Discord invite with one that does not expire.
 - Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.
 
 **Next**
-- Once the Vercel project exists: check the live site, and add the address
-  to README.md and the portfolio card.
+- Portfolio card: title, the live link, and a short reflection.
+- Fill in the content the club still owes as it arrives.
 
 ## 2026-11-14 (Sat) - Discovery and creative direction
 

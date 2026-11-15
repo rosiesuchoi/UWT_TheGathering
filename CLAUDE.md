@@ -64,15 +64,14 @@ obvious placeholders and list them under "Content still owed" below.
   works at any address without changes.
 - The club wanted "mtguwt" in the URL. Naming the Vercel project `mtguwt`
   gives mtguwt.vercel.app (free when checked on 2026-11-15).
-- Status 2026-11-15: the Vercel project `mtguwt` exists and its production
-  build succeeded (seen in the owner's screenshot only). It has no working
-  public address yet. The domain attached to it, mtgforuwt.com, is not
-  registered (the .com registry has no record of it), mtguwt.vercel.app is
-  not attached to the project, and Vercel's generated addresses ask for a
-  Vercel sign-in. Fix: add mtguwt.vercel.app under the project's Settings >
-  Domains, or register the custom domain.
+- Live at https://mtguwt.vercel.app since 2026-11-15 (Vercel project
+  `mtguwt`). The project also lists mtgforuwt.com, which was not registered
+  when checked and does not resolve; ignore it unless the club buys it.
 - This machine is not signed in to Vercel, so deployments cannot be
-  inspected from here. Check the public address instead.
+  inspected from here. To tell which build is live, compare the file names
+  in the live page's source with dist/assets after `npm run build`, and
+  check that files under /assets/ are served with `immutable` caching (set
+  in vercel.json).
 - Repository: https://github.com/rosiesuchoi/UWT_TheGathering (remote
   `origin`, branch `main`). Push at the end of each approved step.
 - Keep local machine paths and personal details out of committed files.
@@ -233,9 +232,8 @@ session.
    2026-11-15), events (done 2026-11-15), join (done 2026-11-15)
 6. Motion and 3D polish - first pass done 2026-11-15
 7. QA - done 2026-11-15. Results are in LOG.md.
-8. Deploy - switched to Vercel 2026-11-15. The project is built on Vercel
-   but has no working public address yet (see Constraints). Once it has
-   one, check the live site.
+8. Deploy - live on Vercel 2026-11-15 at https://mtguwt.vercel.app. Checks
+   are in LOG.md.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.

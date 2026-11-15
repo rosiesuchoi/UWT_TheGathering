@@ -3,6 +3,8 @@
 The showcase website for a new Magic: The Gathering club at the University of
 Washington Tacoma. We play Commander on Thursdays and Fridays at 6 PM.
 
+Live site: https://mtguwt.vercel.app
+
 It is a static site: a card-themed page with a 3D deck that shuffles and deals
 onto a table, built with Vite, TypeScript, three.js, GSAP and Lenis.
 
