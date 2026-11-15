@@ -201,19 +201,44 @@ decided, what is next.
   - The site with JavaScript off. Headings and text are in the page, but
     cards, nights, members and events are built by script.
 
-- QA changes are committed locally and not yet pushed.
+- Club approved the QA pass; pushed it. Started Phase 8 (deploy).
+  - Added .github/workflows/deploy.yml: on every push to main, GitHub
+    builds the site and publishes it to GitHub Pages. It can also be run by
+    hand from the Actions tab.
+  - Checked before pushing it: a fresh clone of the repository installs and
+    builds with nothing but the committed files; the lockfile includes the
+    Linux builds of the native tools the build machine needs; all 79 file
+    references in the source match their file names exactly, including
+    letter case (the build machine is Linux, where case matters); and the
+    build, served from a /UWT_TheGathering/ sub-address like the one Pages
+    uses, loads every file from under that address with no errors.
+  - NOT LIVE YET. The repository is private, and GitHub Pages on a free
+    account only publishes public repositories. Two settings on GitHub are
+    needed, and only the repository owner can change them: make the
+    repository public (or confirm the account has GitHub Pro), and set
+    Settings > Pages > Source to "GitHub Actions". Until then the workflow's
+    deploy step fails; the first push of the workflow will show one failed
+    run.
+  - Not verified: the workflow itself has not been seen running. The
+    repository is private, so its Actions results cannot be read from here.
+  - Noted for the owner before going public: every commit carries the
+    author's email address, which becomes visible in a public repository.
+    No local paths or personal details are in the files or their history.
 
 **Open**
-- Approve the QA pass.
+- Make the repository public and turn on Pages (see above), then check the
+  live site.
+- Decide the web address. As named, the site will be at
+  rosiesuchoi.github.io/UWT_TheGathering. Renaming the repository to
+  `mtguwt` gives rosiesuchoi.github.io/mtguwt with no code change.
 - Replace the Discord invite with one that does not expire.
 - Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.
 
 **Next**
-- Phase 8: deploy to GitHub Pages. Settle the web address first (the
-  repository name gives rosiesuchoi.github.io/UWT_TheGathering; the club
-  wanted "mtguwt" in it).
+- Once Pages is on: re-run the deploy, check the live site, and add the
+  address to README.md and the portfolio card.
 
 ## 2026-11-14 (Sat) - Discovery and creative direction
 

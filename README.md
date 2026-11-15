@@ -41,6 +41,21 @@ A member entry looks like this:
 black, red and green. `photo` is a file name inside `public/members/`, or
 `null`. Only add members who have agreed to appear on a public site.
 
+## Publish it
+
+Every push to the `main` branch is built and published to GitHub Pages by
+`.github/workflows/deploy.yml`. Editing a content file on GitHub and saving
+it to `main` is enough to update the live site a minute or two later.
+
+One-time setup, by the repository owner:
+
+1. The repository must be public (GitHub Pages does not publish private
+   repositories on a free account).
+2. In Settings > Pages, set Source to "GitHub Actions".
+
+To publish again without changing anything: Actions > Deploy site > Run
+workflow.
+
 ## How the project is organized
 
 - `CLAUDE.md`: the project brief, rules and code map.
