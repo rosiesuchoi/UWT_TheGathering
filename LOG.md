@@ -82,14 +82,29 @@ decided, what is next.
   mentioned. There is nothing extra to show on the back yet. Needs a
   decision from the club on what goes there.
 
+- Club approved the members section. Built the sixth Phase 5 section: events.
+  - The raffle and giveaway cards in a loose pile with the gold-framed rare
+    on top, beside one entry per event built from events.json.
+  - Each entry names what the club still owes ("prizes and how to enter:
+    owed", "date: owed"). Those tags follow the `owed` list in events.json
+    and vanish as it empties; a `date` shows in bold once set.
+  - Arrival: the raffle card lands, the giveaway drops on top, and a gold
+    flash marks the rare.
+- Check, in a real browser: build and type-check pass, no console errors, no
+  sideways scroll at 1280 or 375 wide; at 1280 the pile, both entries and
+  the owed tags look right mid-reveal and at rest. At 375 the pile was
+  checked by measurement only (it sits inside the screen with room to
+  spare); the text below it was seen and reads correctly.
+
 **Open**
-- Approve the members section.
+- Approve the events section.
 - Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.
 
 **Next**
-- Phase 5, sixth section: events (the raffle and the giveaway).
+- Phase 5, last section: join (the visitor's foil card and the Discord
+  button). Then Phase 6, motion and 3D polish.
 
 ## 2026-11-14 (Sat) - Discovery and creative direction
 

@@ -1,0 +1,24 @@
+/* Events section: the two event cards in a loose pile, with the rare on top.
+   Laid out for two events, like the middle of the table. */
+.events { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
+.pile { position: relative; width: min(100%, 440px); aspect-ratio: 1 / 1.02; justify-self: center; }
+.pile .card { position: absolute; width: 56%; }
+.pile .card:nth-child(1) { left: 2%; top: 14%; rotate: -9deg; }
+.pile .card:nth-child(2) { right: 2%; top: 3%; rotate: 6deg; }
+.event-list { display: flex; flex-direction: column; gap: 28px; margin-top: 32px; }
+.event { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid rgba(241, 237, 249, .3); padding-top: 18px; max-width: 54ch; }
+.event .label { color: var(--gold-pale); }
+.event h3 { font-size: 24px; line-height: 1.2; }
+
+/* Arrival: the first card lands, then the rare drops on top with a gold flash. */
+.pile::after { content: ""; position: absolute; inset: -12%; pointer-events: none; opacity: 0; background: radial-gradient(circle at 64% 40%, rgba(240, 220, 156, .95), rgba(240, 220, 156, .35) 30%, transparent 58%); mix-blend-mode: screen; }
+#events.rv-armed:not(.is-in) .pile .card { opacity: 0; }
+#events.rv-armed.is-in .pile .card:nth-child(1) { animation: pile-drop .6s cubic-bezier(.2, .8, .2, 1) .15s backwards; }
+#events.rv-armed.is-in .pile .card:nth-child(2) { animation: pile-drop .6s cubic-bezier(.2, .8, .2, 1) .6s backwards; }
+#events.rv-armed.is-in .pile::after { animation: pile-flash .8s ease-out 1.05s; }
+@keyframes pile-drop { from { opacity: 0; transform: translateY(-46px) scale(1.14); } }
+@keyframes pile-flash { 0% { opacity: 0; transform: scale(.6); } 18% { opacity: .9; } 100% { opacity: 0; transform: scale(1.25); } }
+
+@media (max-width: 900px) {
+  .events { grid-template-columns: minmax(0, 1fr); }
+}
