@@ -43,8 +43,8 @@
       <div class="hero-in">
         <div class="hero-copy">
           <p class="label" data-club-name>MTG at UWT</p>
-          <h1>Shuffle up. <em>Draw seven.</em></h1>
-          <p class="sub">Commander every Thursday and Friday, 6 PM.</p>
+          <h1 data-edit="hero-title">Shuffle up. <em>Draw seven.</em></h1>
+          <p class="sub" data-edit="hero-sub">Commander every Thursday and Friday, 6 PM.</p>
         </div>
         <div class="fan" id="heroFan">
           <div class="cardback b1"><span class="mark"></span></div>
@@ -60,8 +60,8 @@
       <div class="in tgrid">
         <div class="body">
           <p class="label">The table</p>
-          <h2>Pull up a chair. <em>We start at six.</em></h2>
-          <p>Seven cards are on the table. Six of them tell you about the club. The open seat is yours.</p>
+          <h2 data-edit="table-title">Pull up a chair. <em>We start at six.</em></h2>
+          <p data-edit="table-text">Seven cards are on the table. Six of them tell you about the club. The open seat is yours.</p>
           <div class="cta"><a class="btn btn-gold" data-discord href="#join">Take your seat on Discord</a></div>
           <button class="replay" type="button" id="replayBtn">Replay the shuffle</button>
         </div>
@@ -92,8 +92,8 @@
         <div class="played" id="clubCard" data-rv="card"></div>
         <div class="body">
           <p class="label" data-rv>Card 1 of 7</p>
-          <h2 data-rv>A new Commander club <em>at UW Tacoma.</em></h2>
-          <p data-rv>We are a brand new club at the University of Washington Tacoma. We play Commander twice a week, run a raffle every week, and give away a deck at the end of the quarter.</p>
+          <h2 data-rv data-edit="club-title">A new Commander club <em>at UW Tacoma.</em></h2>
+          <p data-rv data-edit="club-text">We are a brand new club at the University of Washington Tacoma. We play Commander twice a week, run a raffle every week, and give away a deck at the end of the quarter.</p>
           <!-- Replaced by club.json "blurb" once the officers write it. -->
           <p class="owed" id="clubBlurb" data-rv><span class="tbd">Owed</span> Two or three sentences from the officers, in your own words: why the club started and who it is for.</p>
           <div data-rv>
@@ -113,7 +113,7 @@
       <div class="in">
         <div class="body">
           <p class="label" data-rv>Cards 2 and 3 of 7</p>
-          <h2 data-rv>Two nights a week. <em>Both at 6 PM.</em></h2>
+          <h2 data-rv data-edit="nights-title">Two nights a week. <em>Both at 6 PM.</em></h2>
         </div>
         <!-- One block per night, built from club.json by src/sections/nights.ts -->
         <div class="nights" id="nightsList"></div>
@@ -124,8 +124,8 @@
       <div class="in members">
         <div class="body">
           <p class="label" data-rv>Card 4 of 7</p>
-          <h2 data-rv>Who is <em>at the table.</em></h2>
-          <p data-rv>Every member gets a card in the binder. Each card takes the colors of that member's favorite commander.</p>
+          <h2 data-rv data-edit="members-title">Who is <em>at the table.</em></h2>
+          <p data-rv data-edit="members-text">Every member gets a card in the binder. Each card takes the colors of that member's favorite commander.</p>
           <!-- Removed by src/sections/members.ts once members.json has entries. -->
           <p id="membersNote" data-rv><span class="tbd">Placeholder cards</span> The member list comes later.</p>
         </div>
@@ -141,7 +141,7 @@
         <div>
           <div class="body">
             <p class="label" data-rv>Cards 5 and 6 of 7</p>
-            <h2 data-rv>Two ways <em>to win.</em></h2>
+            <h2 data-rv data-edit="events-title">Two ways <em>to win.</em></h2>
           </div>
           <div class="event-list" id="eventList"></div>
         </div>
@@ -154,8 +154,8 @@
         <div class="played r" id="joinCard" data-rv="card"></div>
         <div class="body">
           <p class="label" data-rv>Card 7 of 7</p>
-          <h2 data-rv>The last card <em>is you.</em></h2>
-          <p class="lede" data-rv>Come to a Thursday or Friday night, or say hello on Discord first.</p>
+          <h2 data-rv data-edit="join-title">The last card <em>is you.</em></h2>
+          <p class="lede" data-rv data-edit="join-lede">Come to a Thursday or Friday night, or say hello on Discord first.</p>
           <!-- Signs the visitor's own card. The name is kept in their browser
                only; see src/ui/visitor.ts and src/sections/join.ts. -->
           <form class="signup" id="signForm" data-rv>
@@ -180,7 +180,7 @@
       <div class="foot-top">
         <a class="brand" href="#top"><span class="badge"><span class="mark"></span></span><span class="brand-name" data-club-name>MTG at UWT</span></a>
         <div><span class="label">Play</span><ul id="footNights"></ul></div>
-        <div><span class="label">Find us</span><ul><li><a data-discord href="#join">Discord</a></li><li><a href="#members">Members</a></li><li><a href="#events">Events</a></li></ul></div>
+        <div><span class="label">Find us</span><ul><li><a data-discord href="#join">Discord</a></li><li><a href="#members">Members</a></li><li><a href="#events">Events</a></li><li><button class="linkbtn" type="button" data-admin-open>Officer sign-in</button></li></ul></div>
       </div>
       <p class="legal"><span data-club-name>MTG at UWT</span> is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &copy;Wizards of the Coast LLC. Fallout and related logos are trademarks of Bethesda Softworks LLC. The prize photos show the product as sold; the club is not affiliated with or endorsed by either company.</p>
     </div>

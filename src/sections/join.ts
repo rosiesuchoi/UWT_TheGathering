@@ -41,6 +41,23 @@ function initSignup(): void {
   show(visitorName());
 }
 
+/** When and where, one more time, right under the button. */
+export function refreshJoinRecap(): void {
+  const recap = document.getElementById('joinRecap');
+  if (!recap) return;
+  recap.replaceChildren(
+    ...club.nights.map((n) => {
+      const row = document.createElement('div');
+      const term = document.createElement('dt');
+      term.textContent = `${n.day}, ${n.time}`;
+      const detail = document.createElement('dd');
+      detail.textContent = n.venue;
+      row.append(term, detail);
+      return row;
+    }),
+  );
+}
+
 export function initJoin(): void {
   // The 100th card: foil, with the visitor's name on it once they sign.
   const mount = document.getElementById('joinCard');
@@ -53,20 +70,5 @@ export function initJoin(): void {
   }
 
   initSignup();
-
-  // When and where, one more time, right under the button.
-  const recap = document.getElementById('joinRecap');
-  if (recap) {
-    recap.replaceChildren(
-      ...club.nights.map((n) => {
-        const row = document.createElement('div');
-        const term = document.createElement('dt');
-        term.textContent = `${n.day}, ${n.time}`;
-        const detail = document.createElement('dd');
-        detail.textContent = n.venue;
-        row.append(term, detail);
-        return row;
-      }),
-    );
-  }
+  refreshJoinRecap();
 }

@@ -31,6 +31,9 @@ export interface Club {
   city: string;
   format: string;
   discord: string;
+  /** GitHub repository ("owner/name") and branch the admin panel saves to. */
+  repo: string;
+  branch: string;
   /** Officer-written intro. Null until provided. */
   blurb: string | null;
   nights: Night[];

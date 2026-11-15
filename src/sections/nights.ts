@@ -57,3 +57,6 @@ export function initNights(): void {
   if (!list) return;
   list.replaceChildren(...club.nights.map(nightBlock));
 }
+
+/** Build the blocks again from club.json, for the admin panel's live preview. */
+export const refreshNights = initNights;

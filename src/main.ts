@@ -30,9 +30,12 @@ import { initMembers } from './sections/members';
 import { initNights } from './sections/nights';
 import { initTable } from './sections/table';
 import { applyClubContent, initNav } from './ui/chrome';
+import { applyTextEdits } from './ui/edits';
 import { initDotsParallax, initOffscreenPause, initReveals } from './ui/motion';
 import { initTracker } from './ui/tracker';
 
+// Words the officers have edited replace the text in index.html first.
+applyTextEdits();
 applyClubContent();
 initNav();
 initScroll();
@@ -91,6 +94,23 @@ if (window.matchMedia('(max-width: 700px)').matches) {
   events.forEach((name) => window.addEventListener(name, go, { passive: true }));
 } else {
   begin3D();
+}
+
+// Officer panel. It loads in its own chunk, only when the footer button is
+// pressed, so visitors never download it. See src/admin/admin.ts.
+const ADMIN_RESUME = 'mtguwt:admin-open';
+function openAdmin(): void {
+  void import('./admin/admin').then((m) => m.openAdmin());
+}
+document.querySelectorAll('[data-admin-open]').forEach((btn) => btn.addEventListener('click', openAdmin));
+try {
+  // After "Discard" the page reloads itself, then reopens the panel.
+  if (sessionStorage.getItem(ADMIN_RESUME)) {
+    sessionStorage.removeItem(ADMIN_RESUME);
+    openAdmin();
+  }
+} catch {
+  // Storage blocked: the officer presses the button again.
 }
 
 // Add ?fps to the address to see a frame-rate readout.

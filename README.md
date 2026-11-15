@@ -49,6 +49,29 @@ Visitors can type their name into the join section to see their own card in
 the binder. That name is saved in their browser only. It does not reach
 anyone else, so a new member still needs an officer to add them here.
 
+## Edit the site live (officers)
+
+Instead of editing files, officers can change the site from the page itself.
+Scroll to the footer and press **Officer sign-in**.
+
+1. Make a GitHub token: the sign-in box has a link. Choose **Only select
+   repositories**, pick this repository, and set **Contents** to **Read and
+   write**. Set an expiry. Copy the token GitHub shows once.
+2. Paste it into the sign-in box. It stays in your browser (this tab only,
+   unless you tick "Keep me signed in on this device") and goes only to
+   GitHub. Anyone who has it can change the site, so never share it.
+3. Click any heading or paragraph and type. **Accent color** colors the
+   selected words. **Members** and **Club and nights** open forms for the
+   binder cards and the two nights.
+4. Press **Save changes**. It makes one commit on `main`, and the site
+   republishes in about a minute. **Discard** throws the edits away.
+
+If a save says a file changed on GitHub, someone else saved first (or your own
+save is still publishing): reload the page and redo the edit.
+
+Not editable here: events, photos, and adding or removing nights. Those are
+still edited in `src/content/`.
+
 ## Publish it
 
 The site is hosted on GitHub Pages. Every push to the `main` branch is built

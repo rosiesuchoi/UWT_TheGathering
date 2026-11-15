@@ -80,6 +80,11 @@ function build(): SiteCard[] {
 
 export const siteCards: SiteCard[] = build();
 
+/** Rebuild the cards from club.json and events.json after the admin panel edits them. Same array, new contents. */
+export function rebuildSiteCards(): void {
+  siteCards.splice(0, siteCards.length, ...build());
+}
+
 export function siteCard(slot: string): SiteCard | undefined {
   return siteCards.find((c) => c.slot === slot);
 }

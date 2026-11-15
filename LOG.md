@@ -399,7 +399,54 @@ decided, what is next.
   no files fail, there are no console errors, the footer carries the new
   Bethesda line, and a scripted drag turned the box.
 
+- Club asked for an admin sign-in so officers can edit words, replace or
+  remove member cards and edit the two nights on the live page, with a save
+  button that commits to GitHub. Built it; NOT PUSHED.
+  - Design decision: the site has no server, so there is no password
+    sign-in. An officer pastes a fine-grained GitHub token (this repository,
+    Contents read and write) and GitHub checks it. This changes the project
+    scope ("no auth") and is recorded in CLAUDE.md.
+  - Footer button "Officer sign-in" loads the panel as its own chunk (18 kB,
+    7 kB compressed) only when pressed. The main bundle grew by about 0.6 kB
+    compressed for the edited-words support.
+  - Editing: 12 headings and paragraphs are marked data-edit; click and
+    type; Accent color toggles the colored phrase; one paragraph per box,
+    pasted text is plain, formatting keys do nothing. Members panel: add,
+    rename, set role and commander, tick colors, move earlier or later,
+    remove with an undo. Club and nights panel: club name and official
+    flag, Discord link, club intro, and both nights (day, time, venue,
+    short name, address, confirmed flag).
+  - Save is one commit with every changed file and is not forced. A
+    save is refused if a file on GitHub differs from what the page was
+    built from.
+  - Checked in Chrome on the dev server against a PRETEND GitHub (the page's
+    fetch replaced by a stub, so no real GitHub call was made with any real
+    token): bad token, read-only token and good token each give the right
+    message; edits count up and Save is off with none; empty day, bad
+    Discord link and empty text are refused before any call; a save sends
+    exactly: read branch, read each changed file, one tree, one commit with
+    the old head as parent, one non-forced branch update; the files written
+    are valid and end in a newline; a second save writes only text.json and
+    keeps the earlier edits; a changed remote file blocks the save and keeps
+    the edits; an offline save keeps the edits and a retry works; saved text
+    comes back on a fresh load, and hostile saved text (script, style, img
+    with onerror, javascript: link, nested em, line breaks) is flattened to
+    plain text and em with nothing run; Discard reloads and reopens the
+    panel; a rejected remembered token is dropped and the sign-in box shows;
+    a token kept for the tab skips the box on the next press; Escape closes
+    the side panel and returns focus; Sign out clears the token and returns
+    to the normal page with no panel files loaded; at 375 wide the bar is 16
+    percent of the screen, the side panel is full width and clear of it, and
+    there is no sideways scroll.
+  - NOT checked: a real save with a real token (the pretend GitHub could
+    differ from the real API in small ways), real typing on a phone, Safari
+    and Firefox, a screen reader, whether GitHub honors the pre-filled
+    token link (the steps are written out beside it in case it does not).
+  - Not covered: events text, photos, adding or removing nights.
+
 **Open**
+- Approve the officer panel so it can go live, then run the first real save
+  with a real token and a harmless edit.
 - Try the binder drag and the prize box by hand and on a phone.
 - Open the live site on a real phone and watch the first second and the
   shuffle. Add ?fps for a frame-rate readout.

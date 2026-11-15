@@ -19,7 +19,10 @@ This is Artifact 5 for TCSS 490 (Autumn 2026).
 ## Scope
 - In: static front-end site with three.js 3D moments, parallax, scroll-driven
   animation, and sections for the club, members and events.
-- Out: no backend, no auth, no database, no store or payments.
+- Out: no backend, no database, no store or payments. The site has no
+  accounts of its own. The one exception, added at the club's request on
+  2026-11-15: an officer panel that signs in with a GitHub token (GitHub does
+  the checking) and saves edits as a commit. It is still no server.
 - Content lives in local data files (members.json, events.json, club.json) so
   officers can update it without touching components.
 
@@ -161,6 +164,38 @@ Bright and collectible. The card is the interface.
   onEnter() for one-off effects and the dotted-paper parallax.
 - Owed content shows as a dashed `.owed` box or `.tbd` tag. Search for both
   before launch.
+- Officer panel (src/admin/, src/styles/admin.css, src/ui/edits.ts). The
+  footer's "Officer sign-in" button loads src/admin/admin.ts as its own
+  chunk, so visitors never download it. There is no server and no password:
+  an officer pastes a fine-grained GitHub token (this repository only,
+  Contents: Read and write) and GitHub decides whether it may write. The
+  token is kept in that browser (this tab only, or the device if ticked),
+  never in the repository, and goes only to api.github.com.
+  - Three things can be edited: words (any element with `data-edit="key"` in
+    index.html; edits live in src/content/text.json as { key: html }),
+    members (members.json), and club details and the two nights (club.json).
+  - Save makes ONE commit on `main` with all changed files (git trees API),
+    so it is one deploy. Nothing is forced: if the branch moved, GitHub
+    refuses. Before committing, each changed file on GitHub must still equal
+    what the page was built from, or the save stops with "changed on GitHub
+    since this page loaded" (so two officers cannot overwrite each other).
+    A save made a minute ago also trips this until the site republishes.
+  - Edited words are stored as text plus <em> only, and rebuilt from text
+    nodes on load, never inserted as markup (see ui/edits.ts). Keep it so.
+    Names typed by visitors and officers always go in with textContent.
+  - Add a new editable text by putting `data-edit="a-unique-key"` on an
+    element in index.html whose content is plain text and <em>. Do not put
+    it on elements that JS fills from JSON (cards, nights, the club blurb);
+    those have their own fields in the panels.
+  - The live preview in the panels redraws the members binder, the nights
+    section, the footer, the club blurb and the join recap. The hero card
+    and table cards update after the site republishes.
+  - Anyone with a token that can write to the repository can change the
+    site, and also its code. Treat officer tokens like keys. Tokens should
+    expire (the sign-in link asks for 90 days).
+  - Not covered: events, photos, adding or removing nights, new sections.
+  - Tested only against a pretend GitHub in the browser (every call
+    mocked). A real save needs a real token and has not been run.
 - src/ui/visitor.ts - the visitor's own name for the 100/100 card. The join
   section has a form that sets it; the hero, table, join and binder cards
   all show it. It is kept in localStorage (`mtguwt:visitor`) in that
@@ -307,6 +342,10 @@ session.
      section. First as an original drawing - approved and pushed
      2026-11-15. The club then sent photos of all six sides and asked for
      the real box - approved and pushed 2026-11-15.
+   - Officer panel: sign in with a GitHub token, edit words, members, club
+     details and the two nights, and save as one commit that deploys by
+     itself - built 2026-11-15, awaiting approval, not pushed. Never run
+     against real GitHub yet.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.

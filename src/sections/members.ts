@@ -451,6 +451,29 @@ function render(): void {
   sync();
 }
 
+/** Build the pages again from members.json, for the admin panel's live preview. Stays on the same page. */
+export function refreshMembers(): void {
+  if (!stage) return;
+  binder?.classList.add('settled');
+  render();
+  updateMembersNote();
+}
+
+/** The note under the heading says what is still owed. */
+function updateMembersNote(): void {
+  const note = document.getElementById('membersNote');
+  if (!note) return;
+  if (members.length === 0) return;
+  if (members.every((m) => m.commander)) {
+    note.remove();
+  } else {
+    const tag = document.createElement('span');
+    tag.className = 'tbd';
+    tag.textContent = 'Owed';
+    note.replaceChildren(tag, ' Favorite commanders and photos are still to come.');
+  }
+}
+
 export function initMembers(): void {
   binder = document.getElementById('binder');
   if (!binder) return;
@@ -492,16 +515,5 @@ export function initMembers(): void {
     if (name) stage?.querySelector('.pocket.mine')?.classList.add('just-in');
   });
 
-  // The note under the heading says what is still owed.
-  const note = document.getElementById('membersNote');
-  if (note && members.length > 0) {
-    if (members.every((m) => m.commander)) {
-      note.remove();
-    } else {
-      const tag = document.createElement('span');
-      tag.className = 'tbd';
-      tag.textContent = 'Owed';
-      note.replaceChildren(tag, ' Favorite commanders and photos are still to come.');
-    }
-  }
+  updateMembersNote();
 }
