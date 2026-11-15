@@ -13,5 +13,14 @@
 .rv-armed.is-in [data-rv="card-r"] { animation: rv-card-r .9s cubic-bezier(.2, .8, .2, 1) backwards; animation-delay: calc(var(--rv, 0) * 90ms); }
 @keyframes rv-card-r { from { opacity: 0; transform: perspective(900px) translate3d(22%, -14%, 0) rotateY(75deg) rotateZ(12deg) scale(.8); } }
 
+/* Looping animations rest while their section is off screen (set by
+   motion.ts). The loops are named one by one: a catch-all selector here made
+   the browser re-check every element on the page and cost more than it saved. */
+[data-offscreen] .lamp,
+[data-offscreen] .mat.o,
+[data-offscreen] .card.idle .face,
+[data-offscreen] .card.idle .c-foil,
+[data-offscreen] .herocard::after { animation-play-state: paused; }
+
 /* Dotted paper drifts with --dp, set by motion.ts. */
 .dots::before { background-position: 0 calc(var(--dp, 0) * 1px); }

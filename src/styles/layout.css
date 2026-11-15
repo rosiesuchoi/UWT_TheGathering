@@ -71,6 +71,7 @@
 }
 @media (max-width: 560px) {
   .nav { gap: 10px; }
-  .brand-name { display: none; }
-  .foot .brand-name { display: inline; }
+  /* No room for the name beside the buttons. Hidden from sight only, so the
+     home link still has a name for screen readers. */
+  .nav .brand-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }

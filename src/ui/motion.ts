@@ -29,6 +29,23 @@ export function initReveals(): void {
   });
 }
 
+/**
+ * Looping animations (the lamp, the pulsing seat, a rocking card) keep
+ * costing work even when their section is scrolled out of sight. This pauses
+ * them while a section is off screen. See [data-offscreen] in motion.css.
+ */
+export function initOffscreenPause(): void {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        entry.target.toggleAttribute('data-offscreen', !entry.isIntersecting);
+      });
+    },
+    { rootMargin: '10% 0px' },
+  );
+  document.querySelectorAll('main > section').forEach((section) => observer.observe(section));
+}
+
 /** The dotted paper drifts slower than the page, which gives the sections depth. */
 export function initDotsParallax(): void {
   if (reducedMotion) return;

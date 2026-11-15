@@ -28,7 +28,11 @@ export interface CardOptions {
   /** 'a' needs href. 'button' is for cards that trigger something on the page. */
   as?: 'div' | 'a' | 'button';
   href?: string;
-  /** Accessible name for links and buttons. Defaults to the card name. */
+  /**
+   * Extra words for screen readers, said after the card's own text. Use it
+   * to say what a button does. The card's visible text is always part of its
+   * name, so voice control users can say what they see.
+   */
   label?: string;
   className?: string;
 }
@@ -46,7 +50,6 @@ export function createCard(data: CardData, options: CardOptions = {}): HTMLEleme
   card.className = ['card', `tone-${data.tone}`, data.rare ? 'rare' : '', options.className ?? ''].filter(Boolean).join(' ');
   if (card instanceof HTMLAnchorElement && options.href) card.href = options.href;
   if (card instanceof HTMLButtonElement) card.type = 'button';
-  if (tag !== 'div') card.setAttribute('aria-label', options.label ?? data.name);
 
   // Spans throughout, so the same markup is valid inside a <button>.
   const face = span('face');
@@ -71,11 +74,14 @@ export function createCard(data: CardData, options: CardOptions = {}): HTMLEleme
   const type = span('c-type');
   type.append(span('', data.type));
 
+  // The collector line is decoration; reading "UWT 001/100" aloud helps no one.
   const num = span('c-num');
+  num.setAttribute('aria-hidden', 'true');
   num.append(span('', data.set ?? 'UWT'), span('', data.number));
 
   face.append(name, art, type, span('c-text', data.text), num);
   if (data.foil) face.append(span('c-foil'), span('c-glare'));
   card.append(face);
+  if (options.label) card.append(span('sr-only', `. ${options.label}`));
   return card;
 }

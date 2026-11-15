@@ -25,4 +25,8 @@ export interface DeckFx {
   reset(): void;
 }
 
-export const fx: { deck: DeckFx | null } = { deck: null };
+export const fx: {
+  deck: DeckFx | null;
+  /** Set while the 3D chunk is being fetched and started. Resolves either way. */
+  loading: Promise<void> | null;
+} = { deck: null, loading: null };

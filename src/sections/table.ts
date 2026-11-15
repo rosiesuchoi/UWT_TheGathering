@@ -159,14 +159,33 @@ export function dealIn(): void {
     document.getElementById('table')?.focus({ preventScroll: true });
     return;
   }
-  const deck = fx.deck;
-  if (deck) {
-    void playCutscene(deck);
+  if (fx.deck) {
+    void playCutscene(fx.deck);
     return;
   }
-  // 3D is not available (still loading, or no WebGL): go there and flip the cards in.
-  centerTable();
-  reveal();
+  // No 3D: go to the table and flip the cards in.
+  const plain = (): void => {
+    centerTable();
+    reveal();
+  };
+  // If 3D is on its way (on a phone it starts loading with this very tap),
+  // give it a moment, then play the shuffle. If it does not arrive in time,
+  // or there is no WebGL, use the plain version.
+  if (!fx.loading) {
+    plain();
+    return;
+  }
+  playing = true;
+  const hint = document.querySelector('.deal-hint');
+  const hintText = hint?.textContent ?? '';
+  if (hint) hint.textContent = 'Shuffling up...';
+  const patience = new Promise<void>((resolve) => window.setTimeout(resolve, 1500));
+  void Promise.race([fx.loading, patience]).then(() => {
+    playing = false;
+    if (hint) hint.textContent = hintText;
+    if (fx.deck) void playCutscene(fx.deck);
+    else plain();
+  });
 }
 
 /**

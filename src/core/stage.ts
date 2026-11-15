@@ -26,6 +26,12 @@ export interface Stage {
   onFrame(fn: (time: number, delta: number) => void): void;
   /** Run a callback after every resize. Also runs once right away. */
   onResize(fn: (width: number, height: number) => void): void;
+  /**
+   * Ask for the scene to be drawn on the next frame. The scene is only drawn
+   * when something has changed, so a still page costs the graphics card
+   * nothing. Anything that moves a 3D object must call this.
+   */
+  invalidate(): void;
   /** Convert a viewport position in CSS pixels to world x/y. */
   toWorld(clientX: number, clientY: number): { x: number; y: number };
 }
@@ -52,6 +58,9 @@ export function initStage(canvas: HTMLCanvasElement): Stage | null {
   const size = { width: 0, height: 0 };
   const frameFns: Array<(time: number, delta: number) => void> = [];
   const resizeFns: Array<(width: number, height: number) => void> = [];
+  let dirty = true;
+  /** Frames actually drawn. Read by the ?fps readout and by tests. */
+  let drawn = 0;
 
   function resize(): void {
     size.width = window.innerWidth;
@@ -64,6 +73,7 @@ export function initStage(canvas: HTMLCanvasElement): Stage | null {
     camera.position.z = size.height / 2 / Math.tan((FOV * Math.PI) / 360);
     camera.updateProjectionMatrix();
     resizeFns.forEach((fn) => fn(size.width, size.height));
+    dirty = true;
   }
   window.addEventListener('resize', resize);
   resize();
@@ -72,8 +82,12 @@ export function initStage(canvas: HTMLCanvasElement): Stage | null {
   gsap.ticker.add((time, deltaMs) => {
     const delta = deltaMs / 1000;
     frameFns.forEach((fn) => fn(time, delta));
+    if (!dirty) return;
+    dirty = false;
     renderer.render(scene, camera);
+    drawn++;
   });
+  if (import.meta.env.DEV) Object.assign(window, { __stage: { drawn: () => drawn, info: () => renderer.info.render } });
 
   return {
     scene,
@@ -84,6 +98,9 @@ export function initStage(canvas: HTMLCanvasElement): Stage | null {
     onResize: (fn) => {
       resizeFns.push(fn);
       fn(size.width, size.height);
+    },
+    invalidate: () => {
+      dirty = true;
     },
     toWorld: (clientX, clientY) => ({ x: clientX - size.width / 2, y: size.height / 2 - clientY }),
   };

@@ -7,6 +7,10 @@
   <meta name="description" content="A new Magic: The Gathering club at the University of Washington Tacoma. Commander every Thursday and Friday at 6 PM.">
   <meta name="theme-color" content="#32096b">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <!-- The headline and text fonts are fetched straight away, not after the
+       stylesheet has been read, so the headline settles sooner. -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/node_modules/@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2">
   <!-- Marks that scripts run, so entrance animations may hide their start state. -->
   <script>document.documentElement.classList.add('js');</script>
 </head>

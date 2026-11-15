@@ -137,16 +137,83 @@ decided, what is next.
 - Phase 6 work is committed locally and not yet pushed; it goes to GitHub
   when approved.
 
+- Club approved the Phase 6 pass; pushed it. Ran Phase 7 (QA). Everything
+  below was measured, on the production build unless noted.
+
+  **Lighthouse** (headless Chrome on the development laptop, three runs
+  each, performance / accessibility / best practices / SEO):
+  - Phone preset (slow 4G, CPU slowed 4x): start 87 / 96 / 100 / 91, end
+    99-100 / 100 / 100 / 100. First paint 1.3-1.4 s, largest paint 3.4 s ->
+    1.3-1.4 s, main thread blocked 250 ms -> 30-110 ms, layout shift 0,
+    page weight 373 -> 219 KiB.
+  - Desktop preset: start 99 / 100 / 100 / 91, end 94-96 / 100 / 100 / 100.
+    First and largest paint 0.3-0.4 s, blocked 160-200 ms, layout shift 0,
+    page weight 360 KiB.
+  - The desktop performance number fell a few points while paint times
+    improved (largest paint 0.8 s -> 0.4 s). The page now paints earlier, so
+    more of the unchanged startup work is counted as "after first paint".
+  - The phone score describes the first load before any touch. three.js
+    then loads on the first touch, and that cost is not in the score.
+
+  **Fixed because of QA**
+  - Headline painted late on phones: its fade-in hid it for most of a
+    second. It now rises without fading.
+  - three.js startup blocked slow phones for about a second after the page
+    appeared. Phones now load it on first touch.
+  - Bug: after a full, unskipped shuffle the corner deck never returned to
+    rest. It stopped swaying and turning, and redrew every frame.
+  - Accessibility: the hero card's accessible name did not include its
+    visible text; the home link had no name on phones.
+  - Reduced motion left staggered pieces appearing late; delays now zero.
+  - The scene now draws only when something changed.
+  - Styles 23 -> 9.6 kB compressed (Latin-only display fonts). Added
+    robots.txt. The hero hint no longer wraps at tablet width.
+
+  **Layout** at 320, 375, 768, 1024, 1280 and 1440 wide, every section
+  revealed: no sideways scroll, nothing sticking out, no clipped text.
+  Smallest text 11 px (the small capital labels).
+
+  **Reduced motion** (forced with ?reduce-motion; the system setting could
+  not be changed in the test browser): no hidden content, table shown at
+  once and flat, the hero card goes to the table with no cutscene and focus
+  lands there, the 3D scene drew once and then stayed still.
+
+  **Keyboard and structure**: 27 focusable elements, all named; tab order
+  follows the page; one h1, then h2 and h3 with no skipped level; one each
+  of header, nav, main, footer; no duplicate ids; all 7 external links open
+  safely in a new tab.
+
+  **3D cost** (dev build, this laptop's real graphics card): three.js
+  starts in about 63 ms (load 43, canvas 18, deck 2.5). One frame is 45
+  draw calls and 2,026 triangles. Resting on a phone-sized screen: 0 frames
+  drawn over 180 ticks.
+
+  **Links**: both map links answer. The Discord invite is valid but
+  EXPIRES 2026-11-30, before the show and tell on December 7.
+
+  **Not measured**
+  - Frame rate during the shuffle and while scrolling. The test browser
+    pane was hidden, so frames only advanced on capture. Use ?fps on a real
+    screen.
+  - Any real phone or tablet. Phone results are emulation on a laptop.
+  - Browsers other than Chrome (Safari and Firefox untested).
+  - A real screen reader. Names and structure were checked by tools only.
+  - The site with JavaScript off. Headings and text are in the page, but
+    cards, nights, members and events are built by script.
+
+- QA changes are committed locally and not yet pushed.
+
 **Open**
-- Approve the Phase 6 first pass, or say what else should be polished.
+- Approve the QA pass.
+- Replace the Discord invite with one that does not expire.
 - Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
   raffle details, giveaway date, member list.
 
 **Next**
-- More Phase 6 if the club wants it (member card flip, speed tuning after a
-  real-speed viewing), otherwise Phase 7: QA at desktop, tablet and phone
-  with measured performance, reduced motion and accessibility.
+- Phase 8: deploy to GitHub Pages. Settle the web address first (the
+  repository name gives rosiesuchoi.github.io/UWT_TheGathering; the club
+  wanted "mtguwt" in it).
 
 ## 2026-11-14 (Sat) - Discovery and creative direction
 

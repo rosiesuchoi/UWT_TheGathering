@@ -38,6 +38,8 @@ Never invent real-sounding facts about the club. Where content is missing, use
 obvious placeholders and list them under "Content still owed" below.
 
 ## Content still owed
+- A Discord invite that does not expire. The one in club.json was checked on
+  2026-11-15: valid, but it expires 2026-11-30, before the show and tell.
 - Member list (names, roles, favorite commanders, photos). Coming last.
 - Official club name as it should appear on the site.
 - Confirmation of the two venue addresses.
@@ -168,6 +170,30 @@ Bright and collectible. The card is the interface.
 - Testing animation: in dev, `window.__gsap` is exposed. Pause with
   `__gsap.globalTimeline.pause()` and set a timeline's `.time()` to inspect
   a frame. If the browser pane is hidden, frames only advance on capture.
+- Performance rules that came out of QA, each backed by a measurement:
+  - Screens 700px wide or less load three.js on the first touch, scroll or
+    key press, not at page load (main.ts). At load it blocked a slow phone
+    for about a second.
+  - The scene is drawn only when something changed. Anything that moves a
+    3D object must call `stage.invalidate()`. On phones the resting deck
+    does not sway, so a still page draws nothing.
+  - The hero headline must not fade in from invisible. It is the largest
+    element on the first screen and the fade delayed "largest paint" from
+    1.4 s to 3.5 s in the phone test. It rises without fading.
+  - The headline and text fonts are preloaded in index.html. Display, mono
+    and handwriting fonts ship Latin only.
+  - Looping animations pause while their section is off screen. Add new
+    loops to the [data-offscreen] list in motion.css. Do not use a
+    catch-all selector there.
+- A timeline handed to `run()` in table.ts gets its onComplete replaced.
+  Put end-of-timeline work in a `.call()` step, never in the timeline's own
+  onComplete (this once left the deck stuck after a full shuffle).
+- Reduced motion zeroes animation delays as well as durations.
+- Test switches, usable on any build: add `?reduce-motion` to force reduced
+  motion, `?fps` for a frame-rate readout.
+- Card links and buttons take their accessible name from their visible
+  text. Extra words for screen readers go in the `label` option, which adds
+  hidden text; do not use aria-label on cards.
 - three.js is loaded with a dynamic import so the text shows first. Keep
   three imports out of main.ts and anything main.ts imports statically.
 - The mockup is the visual spec. When building a section, port its markup
@@ -188,8 +214,8 @@ session.
    hero (done 2026-11-14), table + shuffle cutscene (done 2026-11-15),
    club (done 2026-11-15), nights (done 2026-11-15), members (done
    2026-11-15), events (done 2026-11-15), join (done 2026-11-15)
-6. Motion and 3D polish - first pass built 2026-11-15, awaiting approval
-7. QA - real browser at desktop, tablet, phone; report what was measured
+6. Motion and 3D polish - first pass done 2026-11-15
+7. QA - done 2026-11-15, awaiting approval. Results are in LOG.md.
 8. Deploy
 
 Verify by running the site and looking at it. If something is not working or

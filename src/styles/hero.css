@@ -33,18 +33,24 @@
 .herocard:active { scale: .97; }
 /* A soft ring that pulses out from the card: "this is clickable". */
 .herocard::after { content: ""; position: absolute; inset: -3%; border-radius: 7% / 5%; border: 2px solid var(--gold-pale); opacity: 0; animation: hero-ring 2.8s ease-out 1.6s infinite; pointer-events: none; }
-.deal-hint { position: absolute; right: 11cqw; width: min(27cqw, 44svh); bottom: 3.2cqw; text-align: center; color: var(--paper); font-size: clamp(11px, 1.2cqw, 15px); }
+/* Centered under the fan and kept on one line, even when it is wider than the card. */
+.deal-hint { position: absolute; right: 11cqw; width: min(27cqw, 44svh); bottom: 3.2cqw; display: flex; justify-content: center; white-space: nowrap; color: var(--paper); font-size: clamp(11px, 1.2cqw, 15px); }
 
 /* Entrance. With JS on, pieces wait hidden until src/sections/hero.ts adds
    .is-ready, then play once. Without JS nothing is hidden. */
 .js .hero:not(.is-ready) .fan > *,
-.js .hero:not(.is-ready) .hero-copy > *,
 .js .hero:not(.is-ready) .deal-hint { opacity: 0; animation: hero-failsafe 0s 4s forwards; }
 /* If the script never arrives, show everything anyway after a few seconds. */
 @keyframes hero-failsafe { to { opacity: 1; } }
-.hero.is-ready .hero-copy > * { animation: hero-rise .7s cubic-bezier(.2, .7, .2, 1) backwards; }
-.hero.is-ready .hero-copy > :nth-child(2) { animation-delay: .08s; }
-.hero.is-ready .hero-copy > :nth-child(3) { animation-delay: .16s; }
+/* The words do not wait for the script: the headline is the first thing a
+   visitor reads, so it starts rising the moment the page paints. */
+.hero-copy > * { animation: hero-rise .7s cubic-bezier(.2, .7, .2, 1) backwards; }
+.hero-copy > :nth-child(3) { animation-delay: .16s; }
+/* The headline rises but does not fade. Browsers time "largest paint" from
+   when the biggest element is first visible, and a fade from invisible
+   pushed that back by nearly a second (measured with Lighthouse). */
+.hero-copy > h1 { animation-name: hero-rise-solid; animation-delay: .08s; }
+@keyframes hero-rise-solid { from { translate: 0 24px; } }
 .hero.is-ready .herocard { animation: hero-drop .8s cubic-bezier(.2, .8, .2, 1) .15s backwards; }
 .hero.is-ready .fan .b2 { animation: hero-fan .7s cubic-bezier(.2, .8, .2, 1) .6s backwards; }
 .hero.is-ready .fan .b1 { animation: hero-fan .85s cubic-bezier(.2, .8, .2, 1) .7s backwards; }

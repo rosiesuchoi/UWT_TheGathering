@@ -17,7 +17,7 @@ import {
 } from 'three';
 import markUrl from '../assets/logo-mark.svg';
 import type { DealTarget, DeckFx } from './fx';
-import { ScrollTrigger, gsap, reducedMotion } from './scroll';
+import { gsap, onScrollProgress, reducedMotion } from './scroll';
 import type { Stage } from './stage';
 
 const CARD_W = 50;
@@ -33,7 +33,7 @@ const TAU = Math.PI * 2;
 const jitter = (index: number): number => Math.sin(index * 12.9898) * 0.03;
 
 /** Draw the card back (ink, gold border, gold mark) to a texture. */
-function makeBackTexture(): CanvasTexture {
+function makeBackTexture(onReady: () => void): CanvasTexture {
   const c = document.createElement('canvas');
   c.width = 500;
   c.height = 700;
@@ -68,6 +68,7 @@ function makeBackTexture(): CanvasTexture {
   img.onload = () => {
     paint(img);
     tex.needsUpdate = true;
+    onReady();
   };
   img.src = markUrl;
   return tex;
@@ -119,7 +120,7 @@ export function initDeck(stage: Stage): DeckFx {
   const group = new Group();
   const geo = makeCardGeometry();
   const edge = new MeshStandardMaterial({ color: 0xe9e2f5, roughness: 0.9 });
-  const back = new MeshStandardMaterial({ map: makeBackTexture(), roughness: 0.5, metalness: 0.15 });
+  const back = new MeshStandardMaterial({ map: makeBackTexture(() => stage.invalidate()), roughness: 0.5, metalness: 0.15 });
   // An extruded shape has two material slots: its two faces, then its rim.
   const materials = [back, edge];
   group.add(makeShadow());
@@ -146,11 +147,13 @@ export function initDeck(stage: Stage): DeckFx {
       card.scale.setScalar(1);
       card.visible = true;
     });
+    stage.invalidate();
   }
   function placeHome(): void {
     group.position.set(home.x, home.y, 0);
     group.scale.setScalar(home.scale);
     group.rotation.set(HOME_TILT, 0, spin.turn * TAU);
+    stage.invalidate();
   }
   restack();
 
@@ -164,17 +167,25 @@ export function initDeck(stage: Stage): DeckFx {
 
   if (!reducedMotion) {
     // Scroll turns the deck once over the length of the page.
-    ScrollTrigger.create({
-      start: 0,
-      end: 'max',
-      onUpdate: (self) => {
-        spin.turn = self.progress;
-      },
+    onScrollProgress((progress) => {
+      spin.turn = progress;
     });
     stage.onFrame((time) => {
-      if (!idle) return;
-      group.rotation.z = spin.turn * TAU + Math.sin(time * 0.8) * 0.05;
-      group.position.z = Math.sin(time * 1.3) * 3;
+      if (!idle) {
+        // The cutscene is moving cards every frame.
+        stage.invalidate();
+        return;
+      }
+      // On wide screens the resting deck sways a little, which means drawing
+      // every frame. On phones it only turns with the scroll, so a still
+      // page draws nothing and saves battery.
+      const sways = stage.size.width >= 700;
+      const turn = spin.turn * TAU + (sways ? Math.sin(time * 0.8) * 0.05 : 0);
+      const lift = sways ? Math.sin(time * 1.3) * 3 : 0;
+      if (turn === group.rotation.z && lift === group.position.z) return;
+      group.rotation.z = turn;
+      group.position.z = lift;
+      stage.invalidate();
     });
   }
 
@@ -262,15 +273,16 @@ export function initDeck(stage: Stage): DeckFx {
   function goHome(): gsap.core.Timeline {
     const fly = { duration: 0.6, ease: 'power3.inOut' };
     return gsap
-      .timeline({
-        onComplete: () => {
-          restack();
-          idle = true;
-        },
-      })
+      .timeline()
       .to(group.position, { x: home.x, y: home.y, z: 0, ...fly }, 0)
       .to(group.scale, { x: home.scale, y: home.scale, z: home.scale, ...fly }, 0)
-      .to(group.rotation, { x: HOME_TILT, y: 0, z: spin.turn * TAU, ...fly }, 0);
+      .to(group.rotation, { x: HOME_TILT, y: 0, z: spin.turn * TAU, ...fly }, 0)
+      // Back to rest. This is a step inside the timeline, not its onComplete
+      // callback, because the caller replaces onComplete to know when it ends.
+      .call(() => {
+        restack();
+        idle = true;
+      });
   }
 
   function reset(): void {
