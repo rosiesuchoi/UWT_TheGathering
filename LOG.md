@@ -363,8 +363,13 @@ decided, what is next.
   - Not checked: the feel of a real drag by hand or touch (all scripted),
     a real phone, Safari, Firefox.
 
+- Club approved the prize box. Pushed; the deploy run succeeded and the
+  live site serves it. On the live site all six sides are present, no
+  files fail, there are no console errors, and a scripted drag turned the
+  box to its spine.
+
 **Open**
-- Approve the prize box so it can go live.
+- Try the binder drag and the prize box by hand and on a phone.
 - Open the live site on a real phone and watch the first second and the
   shuffle. Add ?fps for a frame-rate readout.
 - Decided by the owner: the GitHub Pages address is the club's official

@@ -288,7 +288,7 @@ session.
      turn by drag - built 2026-11-15, awaiting approval, not pushed.
      Approved and pushed 2026-11-15.
    - A prize box for the giveaway that can be turned around, in the events
-     section - built 2026-11-15, awaiting approval, not pushed. The club
+     section - approved and pushed 2026-11-15. The club
      chose an original drawing over the real product box (2026-11-15),
      which keeps the no-official-art rule. Do not add photos of the real
      packaging.
