@@ -239,8 +239,25 @@ decided, what is next.
   - Not verified: a build on Vercel. The same build command passed from a
     fresh clone on this machine.
 
+- Owner imported the repository into Vercel as project `mtguwt`. Their
+  screenshot shows a production deployment marked Ready, built in 7 seconds
+  with 2 build warnings (not seen from here).
+  - NOT REACHABLE BY THE PUBLIC YET. Checked from this machine:
+    mtgforuwt.com, the domain attached to the project, does not resolve and
+    the .com registry has no record of it; mtguwt.vercel.app returns "not
+    found"; the two generated addresses redirect to a Vercel sign-in.
+  - The deployment in the screenshot was built from the commit before the
+    switch to Vercel and is marked "Stale", so the newest push may not have
+    deployed. The pages are identical; only vercel.json (cache settings) is
+    missing from it.
+  - Not verified: anything on the live site. No public address worked.
+
 **Open**
-- Import the repository into Vercel (see above), then check the live site.
+- Give the site a working address: add mtguwt.vercel.app under the Vercel
+  project's Settings > Domains, or register mtgforuwt.com. Then check the
+  live site.
+- Check in Vercel's Deployments list whether the pushes after the import
+  were deployed, blocked or skipped.
 - Replace the Discord invite with one that does not expire.
 - Decide what, if anything, the back of a member card shows.
 - Still owed by the club: official name, address confirmation, blurb,
