@@ -25,6 +25,8 @@ decided, what is next.
     for https://rosiesuchoi.github.io/UWT_TheGathering. Decoded from the
     rendered PNG with a QR reader: it returns exactly that address. If the
     site moves to a custom domain, remake qr.svg and the PNG.
+    The printed web address under the QR was then removed at the club's
+    request; the QR alone remains.
 - Club asked for the entire site to be editable, including text, so the
   site can be handed to other members who do not code. Built it; approved
   and pushed (commit 1fe09e4). The deploy run succeeded; the live page serves
