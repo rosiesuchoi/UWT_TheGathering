@@ -19,6 +19,12 @@ decided, what is next.
   claims. Inspiration from Awwwards' typography picks: oversized type, an
   accent word, dark lamp-lit scenes. Not pushed (not part of the site).
   Re-render: Chrome headless, command at the bottom of friday.html.
+  - Revised at the club's request: cards, Discord link and the 40 life
+    totals removed; calmer full-bleed design (felt-purple gradient, grain,
+    faint club mark, left-aligned type). Added a QR code (design/flyer/qr.svg)
+    for https://rosiesuchoi.github.io/UWT_TheGathering. Decoded from the
+    rendered PNG with a QR reader: it returns exactly that address. If the
+    site moves to a custom domain, remake qr.svg and the PNG.
 - Club asked for the entire site to be editable, including text, so the
   site can be handed to other members who do not code. Built it; approved
   and pushed (commit 1fe09e4). The deploy run succeeded; the live page serves
