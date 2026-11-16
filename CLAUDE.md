@@ -35,9 +35,13 @@ This is Artifact 5 for TCSS 490 (Autumn 2026).
   the same day: valid, never expires). The server is named "UW the
   Gathering".
 - Logo: gold crown-W on purple. Original in design/assets/logo-original.webp.
-- Venue addresses found in online directories, NOT yet confirmed by the club:
-  Iruda Cafe, 4916 Center St, Tacoma. Silver King Games & Hobby, 5442 S Tacoma
-  Way, Tacoma, WA 98409.
+- Venue addresses, found in online directories and confirmed by the club
+  (told to the owner, entered in the officer panel 2026-11-15): Iruda Cafe,
+  4916 Center St, Tacoma. Silver King Games & Hobby, 5442 S Tacoma Way,
+  Tacoma, WA 98409.
+- Club name on the site: "MTG @ UWT", confirmed by the club (set in the
+  officer panel 2026-11-15). The Discord server and repository are still
+  named "UW the Gathering".
 
 Never invent real-sounding facts about the club. Where content is missing, use
 obvious placeholders and list them under "Content still owed" below.
@@ -48,9 +52,6 @@ obvious placeholders and list them under "Content still owed" below.
   say "to be announced" until then. The rest of the member list is owed too.
 - The giveaway date. Until then the prize box's back says "Date to be
   announced".
-- Official club name as it should appear on the site. The site says "MTG at
-  UWT"; the Discord server and the repository say "UW the Gathering".
-- Confirmation of the two venue addresses.
 - Whether there is a vector (SVG/AI) version of the logo.
 - Event photos, once the club has some.
 
@@ -194,8 +195,8 @@ Bright and collectible. The card is the interface.
     site, and also its code. Treat officer tokens like keys. Tokens should
     expire (the sign-in link asks for 90 days).
   - Not covered: events, photos, adding or removing nights, new sections.
-  - Tested only against a pretend GitHub in the browser (every call
-    mocked). A real save needs a real token and has not been run.
+  - Built and tested against a pretend GitHub (every call mocked); the
+    owner's first real save on 2026-11-15 then worked.
 - src/ui/visitor.ts - the visitor's own name for the 100/100 card. The join
   section has a form that sets it; the hero, table, join and binder cards
   all show it. It is kept in localStorage (`mtguwt:visitor`) in that
@@ -344,8 +345,8 @@ session.
      the real box - approved and pushed 2026-11-15.
    - Officer panel: sign in with a GitHub token, edit words, members, club
      details and the two nights, and save as one commit that deploys by
-     itself - built, approved and pushed 2026-11-15. Never run
-     against real GitHub yet: the first real save is still to do.
+     itself - built, approved and pushed 2026-11-15. First real save
+     with a real token worked 2026-11-15 (two commits, both deployed).
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.

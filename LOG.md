@@ -408,6 +408,13 @@ decided, what is next.
     and stylesheet are served (200), and the page carries the footer button
     and the 12 editable keys. Not yet done: a real sign-in and save with a
     real token. The first real save should be a harmless edit by an officer.
+  - First real save, by the owner with a real token: worked. Two commits
+    landed on main (club and nights; one text edit plus members), both
+    deployed, and the live bundle carries the new blurb and intro text. The
+    club confirmed the club name "MTG @ UWT" and both venue addresses; the
+    owner entered them (name and address flags set to confirmed). The four
+    officers got a color each. Typos left in the owner's text ("give aways",
+    the blurb's last sentence) for them to fix in the panel.
   - Design decision: the site has no server, so there is no password
     sign-in. An officer pastes a fine-grained GitHub token (this repository,
     Contents read and write) and GitHub checks it. This changes the project
