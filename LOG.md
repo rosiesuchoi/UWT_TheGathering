@@ -401,7 +401,13 @@ decided, what is next.
 
 - Club asked for an admin sign-in so officers can edit words, replace or
   remove member cards and edit the two nights on the live page, with a save
-  button that commits to GitHub. Built it; NOT PUSHED.
+  button that commits to GitHub. Built it; approved and pushed (commit
+  4e26533).
+  - Live check: the deploy run succeeded; the live page's main bundle is
+    the same file as a local build (index-m9GA3Dei.js), the panel chunk
+    and stylesheet are served (200), and the page carries the footer button
+    and the 12 editable keys. Not yet done: a real sign-in and save with a
+    real token. The first real save should be a harmless edit by an officer.
   - Design decision: the site has no server, so there is no password
     sign-in. An officer pastes a fine-grained GitHub token (this repository,
     Contents read and write) and GitHub checks it. This changes the project

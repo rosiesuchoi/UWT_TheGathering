@@ -344,8 +344,8 @@ session.
      the real box - approved and pushed 2026-11-15.
    - Officer panel: sign in with a GitHub token, edit words, members, club
      details and the two nights, and save as one commit that deploys by
-     itself - built 2026-11-15, awaiting approval, not pushed. Never run
-     against real GitHub yet.
+     itself - built, approved and pushed 2026-11-15. Never run
+     against real GitHub yet: the first real save is still to do.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.
