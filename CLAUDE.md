@@ -136,7 +136,9 @@ Bright and collectible. The card is the interface.
 
 ## Code map
 - index.html - all section markup and headings. Static text lives here.
-- src/content/*.json - club, events and members data. index.ts holds the types.
+- src/content/*.json - club, events, members, cards (words on the club,
+  members and visitor cards) and text (edited page words) data. index.ts
+  holds the types.
 - src/styles/tokens.css - every color, font and layer. Change values here only.
 - src/styles/base.css, layout.css - reset, type, nav, section shells, footer.
 - src/core/scroll.ts - Lenis on GSAP's ticker, ScrollTrigger, scrollToTarget().
@@ -168,13 +170,40 @@ Bright and collectible. The card is the interface.
 - Officer panel (src/admin/, src/styles/admin.css, src/ui/edits.ts). The
   footer's "Officer sign-in" button loads src/admin/admin.ts as its own
   chunk, so visitors never download it. There is no server and no password:
-  an officer pastes a fine-grained GitHub token (this repository only,
-  Contents: Read and write) and GitHub decides whether it may write. The
-  token is kept in that browser (this tab only, or the device if ticked),
-  never in the repository, and goes only to api.github.com.
-  - Three things can be edited: words (any element with `data-edit="key"` in
-    index.html; edits live in src/content/text.json as { key: html }),
-    members (members.json), and club details and the two nights (club.json).
+  an officer pastes a GitHub token and GitHub decides whether it may write.
+  The token is kept in that browser (this tab only, or the device if
+  ticked), never in the repository, and goes only to api.github.com.
+  - Which token: the repository belongs to a personal account, and GitHub
+    does not let a fine-grained token reach a repository owned by someone
+    else's personal account (invited collaborators). So officers who were
+    invited use a classic token with the `public_repo` scope (the sign-in
+    box says how); only the owner, or members of an organization that owns
+    the repository, can use the safer fine-grained kind. Moving the
+    repository into a GitHub organization would fix that but changes the
+    public address (Pages does not redirect), so it is the club's decision.
+  - To hand the site on: the owner adds the person under the repository's
+    Settings, Collaborators (write access); they accept the email, make a
+    token and sign in. Removing the collaborator ends their access.
+  - What can be edited, all in one panel ("Edit details") or on the page:
+    every heading, paragraph and label marked `data-edit="key"` in
+    index.html (typed right on the page; edits live in
+    src/content/text.json as { key: html }); words inside links and
+    buttons (marked `data-edit-in="panel"`, edited in the "Buttons and
+    links" tab because typing in a link would follow it); members with
+    photos (members.json, public/members/); club details, the browser tab
+    title and search description, and the two nights (club.json); the
+    events' words, date and owed list (events.json); and the words on the
+    club, members and visitor cards (cards.json). The legal notice in the
+    footer is deliberately not editable: the fan content rules require it.
+  - A member photo is shrunk in the browser (longest side 720 px, WebP, or
+    JPEG where WebP cannot be written), named from the member's name plus
+    a random suffix, and committed as a binary blob with the same save, in
+    public/members/. Replaced or removed photos stay in the repository as
+    orphans; they are small. New photo files skip the conflict check.
+  - The page title and meta description in index.html are replaced at build
+    time from club.json (`pageTitle`, `pageDescription`) by a small plugin
+    in vite.config.ts, so search engines see them. Edit club.json, not the
+    <title> in index.html (which is only the fallback).
   - Save makes ONE commit on `main` with all changed files (git trees API),
     so it is one deploy. Nothing is forced: if the branch moved, GitHub
     refuses. Before committing, each changed file on GitHub must still equal
@@ -187,16 +216,29 @@ Bright and collectible. The card is the interface.
   - Add a new editable text by putting `data-edit="a-unique-key"` on an
     element in index.html whose content is plain text and <em>. Do not put
     it on elements that JS fills from JSON (cards, nights, the club blurb);
-    those have their own fields in the panels.
-  - The live preview in the panels redraws the members binder, the nights
-    section, the footer, the club blurb and the join recap. The hero card
-    and table cards update after the site republishes.
+    those have their own fields in the panels. If the element is, or sits
+    inside, a link or button, also add `data-edit-in="panel"` and a label
+    for it in src/admin/textpanel.ts. Skip the Commander facts' numbers
+    (`data-count`): the count-up animation owns them.
+  - The live preview in the panels redraws the members binder (with the
+    picked photo), the nights section, the footer, the club blurb, the
+    join recap, the event entries (text only; the prize boxes are left
+    alone) and the tab title. The hero card and table cards update after
+    the site republishes.
+  - Each content file is a "doc" in admin.ts: the object is edited in
+    place, compared to a snapshot of how it was built, and saved if it
+    changed. To make another JSON file editable, add a doc there, a panel
+    in panels.ts and a tab in admin.ts.
   - Anyone with a token that can write to the repository can change the
     site, and also its code. Treat officer tokens like keys. Tokens should
     expire (the sign-in link asks for 90 days).
-  - Not covered: events, photos, adding or removing nights, new sections.
+  - Not covered: event photos and the prize box, adding or removing nights
+    or events (the table has room for exactly two of each), card colors and
+    pictures, new sections, the Commander facts' numbers, the legal notice.
   - Built and tested against a pretend GitHub (every call mocked); the
-    owner's first real save on 2026-11-15 then worked.
+    owner's first real save on 2026-11-15 then worked. The photo upload
+    (blob, then tree, in the same commit) and the classic-token sign-in
+    have only been tested against the pretend GitHub.
 - src/ui/visitor.ts - the visitor's own name for the 100/100 card. The join
   section has a form that sets it; the hero, table, join and binder cards
   all show it. It is kept in localStorage (`mtguwt:visitor`) in that

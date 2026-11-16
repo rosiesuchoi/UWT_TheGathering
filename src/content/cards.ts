@@ -2,7 +2,7 @@
 // seventh is the visitor's. They are built from club.json and events.json, so
 // editing those files changes the cards everywhere they appear.
 import type { CardData } from '../ui/card';
-import { club, events } from './index';
+import { cardTexts, club, events } from './index';
 
 export interface SiteCard extends CardData {
   /** Slot on the table this card is dealt to. See index.html, [data-card]. */
@@ -20,10 +20,7 @@ function build(): SiteCard[] {
     {
       slot: 'club',
       href: '#club',
-      label: 'the club',
-      name: 'The Club',
-      type: `Club · ${club.city}`,
-      text: `A new ${club.format} club at UW ${club.city}.`,
+      ...cardTexts.club,
       tone: 'gold',
       glyph: 'mark',
     },
@@ -40,10 +37,7 @@ function build(): SiteCard[] {
     {
       slot: 'members',
       href: '#members',
-      label: 'members',
-      name: 'Members',
-      type: `People · UW ${club.city}`,
-      text: 'Who is at the table.',
+      ...cardTexts.members,
       tone: 'grove',
       glyph: 'people',
     },
@@ -68,8 +62,8 @@ function build(): SiteCard[] {
     href: '#join',
     label: '',
     name: 'Your name here',
-    type: `Member · ${club.format}`,
-    text: 'This card is yours.',
+    type: cardTexts.you.type,
+    text: cardTexts.you.text,
     number: '100/100',
     tone: 'foil',
     glyph: 'plus',

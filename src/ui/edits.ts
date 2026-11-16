@@ -76,3 +76,10 @@ export function applyTextEdits(): void {
     if (typeof html === 'string' && html !== '' && html.length <= MAX_TEXT) setHtml(el, html);
   });
 }
+
+/**
+ * Photos an officer has picked but not saved yet, by file name. The admin
+ * panel puts a temporary address here so the binder can show the picture
+ * straight away. Empty for visitors.
+ */
+export const photoPreviews = new Map<string, string>();

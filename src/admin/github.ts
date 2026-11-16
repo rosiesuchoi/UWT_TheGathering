@@ -52,7 +52,7 @@ async function call(token: string, path: string, init: RequestInit = {}, accept 
   if (res.status === 401) throw new GitHubError('GitHub did not accept that token. It may be mistyped, expired or revoked.', 401);
   if (res.status === 403 || res.status === 404) {
     throw new GitHubError(
-      `That token cannot reach ${club.repo}. Make a fine-grained token for this repository with "Contents: Read and write".`,
+      `That token cannot reach ${club.repo}. You need write access to the repository, and a token that allows it: see the steps in the sign-in box.`,
       res.status,
     );
   }
@@ -76,7 +76,8 @@ export async function verifyToken(token: string): Promise<string> {
   return me.login;
 }
 
-export interface FileChange {
+/** A text file that already exists. Checked against GitHub before it is replaced. */
+export interface TextChange {
   path: string;
   content: string;
   /** What this file should look like on GitHub right now, if nobody else has touched it. */
@@ -84,6 +85,14 @@ export interface FileChange {
   /** Turn the text GitHub has into the same shape as `expected`. */
   normalize: (raw: string) => string;
 }
+
+/** A new binary file, such as a member's photo. Its name is unique, so nothing to check. */
+export interface BinaryAdd {
+  path: string;
+  base64: string;
+}
+
+export type FileChange = TextChange | BinaryAdd;
 
 /** Commit all the changes as one commit on the branch. */
 export async function commitFiles(token: string, files: FileChange[], message: string): Promise<SavedCommit> {
@@ -95,6 +104,7 @@ export async function commitFiles(token: string, files: FileChange[], message: s
   // this page was built from.
   const stale: string[] = [];
   for (const file of files) {
+    if ('base64' in file) continue;
     const res = await call(token, `/repos/${repo}/contents/${file.path}?ref=${head}`, {}, 'application/vnd.github.raw+json');
     let remote: string;
     try {
@@ -107,12 +117,22 @@ export async function commitFiles(token: string, files: FileChange[], message: s
   if (stale.length > 0) throw new ConflictError(stale);
 
   const headCommit = await json<{ tree: { sha: string } }>(token, `/repos/${repo}/git/commits/${head}`);
+  // Binary files go up first as blobs; text goes straight into the tree.
+  const entries: Array<{ path: string; mode: string; type: string; content?: string; sha?: string }> = [];
+  for (const f of files) {
+    if ('base64' in f) {
+      const blob = await json<{ sha: string }>(token, `/repos/${repo}/git/blobs`, {
+        method: 'POST',
+        body: JSON.stringify({ content: f.base64, encoding: 'base64' }),
+      });
+      entries.push({ path: f.path, mode: '100644', type: 'blob', sha: blob.sha });
+    } else {
+      entries.push({ path: f.path, mode: '100644', type: 'blob', content: f.content });
+    }
+  }
   const tree = await json<{ sha: string }>(token, `/repos/${repo}/git/trees`, {
     method: 'POST',
-    body: JSON.stringify({
-      base_tree: headCommit.tree.sha,
-      tree: files.map((f) => ({ path: f.path, mode: '100644', type: 'blob', content: f.content })),
-    }),
+    body: JSON.stringify({ base_tree: headCommit.tree.sha, tree: entries }),
   });
   const commit = await json<{ sha: string; html_url: string }>(token, `/repos/${repo}/git/commits`, {
     method: 'POST',

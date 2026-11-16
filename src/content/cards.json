@@ -1,0 +1,5 @@
+{
+  "club": { "label": "the club", "name": "The Club", "type": "Club · Tacoma", "text": "A new Commander club at UW Tacoma." },
+  "members": { "label": "members", "name": "Members", "type": "People · UW Tacoma", "text": "Who is at the table." },
+  "you": { "type": "Member · Commander", "text": "This card is yours." }
+}

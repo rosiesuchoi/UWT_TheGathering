@@ -1,5 +1,5 @@
 // Hero: the fan of cards. Styles are in src/styles/hero.css.
-import { club } from '../content';
+import { cardTexts, club } from '../content';
 import { ScrollTrigger, gsap, reducedMotion } from '../core/scroll';
 import { createCard } from '../ui/card';
 import { attachTilt } from '../ui/tilt';
@@ -17,7 +17,7 @@ export function initHero(): void {
   const card = createCard(
     {
       name: 'Your name here',
-      type: `Member · ${club.format}`,
+      type: cardTexts.you.type,
       text: [days, time, club.city].filter(Boolean).join(', ') + '.',
       number: '100/100',
       set: '',

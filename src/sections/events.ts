@@ -13,14 +13,19 @@ function el<K extends keyof HTMLElementTagNameMap>(tag: K, className: string, te
   return node;
 }
 
-function eventEntry(event: ClubEvent): HTMLElement {
-  const entry = el('div', 'event');
-  entry.dataset.rv = '';
+/** The label, title and paragraph of one entry. */
+function entryText(event: ClubEvent): HTMLElement[] {
   const text = el('p', '', `${event.text} `);
   if (event.date) text.append(el('strong', '', event.date));
   // Whatever the club has not supplied yet is named, so it cannot be missed.
   if (event.owed.length > 0) text.append(' ', el('span', 'tbd', `${event.owed.join(' and ')}: owed`));
-  entry.append(el('p', 'label', event.cadence), el('h3', '', event.title), text);
+  return [el('p', 'label', event.cadence), el('h3', '', event.title), text];
+}
+
+function eventEntry(event: ClubEvent): HTMLElement {
+  const entry = el('div', 'event');
+  entry.dataset.rv = '';
+  entry.append(...entryText(event));
   // An event that gives something away shows it, as a box that can be turned.
   const prize = createPrizeBox(event);
   if (prize) {
@@ -45,4 +50,34 @@ export function initEvents(): void {
   });
   pile.replaceChildren(...cards);
   list.replaceChildren(...events.map(eventEntry));
+}
+
+/**
+ * Redraw the words after the admin panel edits events.json: the pile's cards
+ * and each entry's label, title and paragraph. The prize boxes are left alone,
+ * so they keep their place and do not reload their photos.
+ */
+export function refreshEvents(): void {
+  const pile = document.getElementById('eventPile');
+  const list = document.getElementById('eventList');
+  if (!pile || !list) return;
+  if (list.children.length !== events.length) {
+    initEvents();
+    return;
+  }
+  const cards = events.flatMap((_, i) => {
+    const data = siteCard(`event-${i}`);
+    if (!data) return [];
+    const card = createCard(data);
+    attachTilt(card);
+    return [card];
+  });
+  pile.replaceChildren(...cards);
+  events.forEach((event, i) => {
+    const entry = list.children[i];
+    if (!entry) return;
+    // The first three children are the label, title and paragraph.
+    Array.from(entry.children).slice(0, 3).forEach((c) => c.remove());
+    entry.prepend(...entryText(event));
+  });
 }

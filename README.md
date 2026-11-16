@@ -26,10 +26,13 @@ Then open http://localhost:5173.
 All club content lives in three files in `src/content/`. Edit them and the
 site updates everywhere that content appears.
 
-- `club.json`: the club name, Discord link, intro blurb, and the nights
-  (day, time, venue, address).
+- `club.json`: the club name, browser tab title, Discord link, intro blurb,
+  and the nights (day, time, venue, address).
 - `events.json`: the raffle and the giveaway. Remove an item from an event's
   `owed` list once you have filled that detail in.
+- `cards.json`: the words on the club, members and visitor cards.
+- `text.json`: edited headings and paragraphs (written by the officer panel).
+- Member photos go in `public/members/`.
 - `members.json`: one entry per member. While it is empty, the site shows
   placeholder cards.
 
@@ -51,26 +54,56 @@ anyone else, so a new member still needs an officer to add them here.
 
 ## Edit the site live (officers)
 
-Instead of editing files, officers can change the site from the page itself.
+Nobody needs to touch code. Officers change the site from the page itself.
 Scroll to the footer and press **Officer sign-in**.
 
-1. Make a GitHub token: the sign-in box has a link. Choose **Only select
-   repositories**, pick this repository, and set **Contents** to **Read and
-   write**. Set an expiry. Copy the token GitHub shows once.
-2. Paste it into the sign-in box. It stays in your browser (this tab only,
-   unless you tick "Keep me signed in on this device") and goes only to
-   GitHub. Anyone who has it can change the site, so never share it.
-3. Click any heading or paragraph and type. **Accent color** colors the
-   selected words. **Members** and **Club and nights** open forms for the
-   binder cards and the two nights.
-4. Press **Save changes**. It makes one commit on `main`, and the site
-   republishes in about a minute. **Discard** throws the edits away.
+### Getting access
+
+The site's owner adds you once: on GitHub, the repository's **Settings**,
+then **Collaborators**, then **Add people**, with your GitHub user name
+(write access). GitHub emails you an invitation; accept it. To take someone's
+access away, remove them from the same list.
+
+Then sign in:
+
+1. Make a GitHub token. The sign-in box has the steps and a link. If you
+   were invited, use the first option: a classic token with `public_repo`,
+   a 90-day expiry. (GitHub does not allow the safer fine-grained kind for a
+   repository that belongs to another person's account.) The owner can use
+   the second option, a fine-grained token for this repository only.
+2. Paste the token into the sign-in box. It stays in your browser (this tab
+   only, unless you tick "Keep me signed in on this device") and goes only to
+   GitHub. Anyone who has it can change the site, so never share it, and
+   delete it at github.com/settings/tokens when you are done.
+
+### Editing
+
+- **Headings, paragraphs and labels:** click and type right on the page.
+  **Accent color** colors the selected words.
+- **Edit details** opens a panel with a tab for each of these:
+  - **Members**: add, rename, reorder or remove people, set their colors,
+    and add a photo (pick a picture; it is shrunk for you).
+  - **Club and nights**: club name, browser tab title, search description,
+    Discord link, intro, and both nights.
+  - **Events**: the raffle and the giveaway's words, the date once it is
+    known, and the "still owed" list.
+  - **Cards**: the words on the club, members and visitor cards.
+  - **Buttons and links**: the words on buttons, menu links and a few
+    handwritten labels.
+- **Save changes** makes one commit on `main`, and the site republishes in
+  about a minute. **Discard** throws the edits away.
 
 If a save says a file changed on GitHub, someone else saved first (or your own
 save is still publishing): reload the page and redo the edit.
 
-Not editable here: events, photos, and adding or removing nights. Those are
-still edited in `src/content/`.
+Not editable here: the prize box and event photos, adding or removing a night
+or an event (the table has room for exactly two of each), the legal notice in
+the footer, and new sections. Those are edited in `src/` by someone who codes.
+
+A possible later step: move the repository into a GitHub organization the
+club owns. Then every officer could use the safer fine-grained token, and
+more than one person could own the site. It changes the site's public
+address, so it is the club's decision.
 
 ## Publish it
 

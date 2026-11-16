@@ -1,6 +1,8 @@
 {
   "name": "MTG @ UWT",
   "nameConfirmed": true,
+  "pageTitle": "MTG at UWT | Commander in Tacoma",
+  "pageDescription": "A new Magic: The Gathering club at the University of Washington Tacoma. Commander every Thursday and Friday at 6 PM.",
   "school": "University of Washington Tacoma",
   "city": "Tacoma",
   "format": "Commander",

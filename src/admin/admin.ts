@@ -1,13 +1,15 @@
 // The officer panel: sign in with a GitHub token, edit words on the page, edit
-// members and the club's nights, and save everything as one commit.
+// members (with photos), the club, its nights, events and cards, and save
+// everything as one commit.
 //
 // This file is loaded only when someone presses "Officer sign-in" (see
 // main.ts), so visitors never download it. There is no server: GitHub checks
 // the token, and a token without write access to the repository cannot save.
 // Styles are in src/styles/admin.css.
 import '../styles/admin.css';
-import { club, members } from '../content';
+import { cardTexts, club, events, members } from '../content';
 import { rebuildSiteCards } from '../content/cards';
+import { refreshEvents } from '../sections/events';
 import { refreshJoinRecap } from '../sections/join';
 import { refreshMembers } from '../sections/members';
 import { refreshNights } from '../sections/nights';
@@ -15,13 +17,19 @@ import { applyClubContent } from '../ui/chrome';
 import { cleanHtml, MAX_TEXT, textDefaults, textOverrides } from '../ui/edits';
 import { button, el } from './dom';
 import { ConflictError, GitHubError, commitFiles, verifyToken, type FileChange } from './github';
-import { clubPanel, membersPanel, validateContent } from './panels';
+import { PHOTO_DIR, markSaved, takePending } from './photos';
+import { cardsPanel, clubPanel, eventsPanel, membersPanel, validateContent } from './panels';
+import { wordsPanel } from './textpanel';
 
 const TOKEN_KEY = 'mtguwt:admin-token';
 /** Set when the page reloads itself (Discard), so the panel reopens by itself. */
 export const RESUME_KEY = 'mtguwt:admin-open';
-const TOKEN_URL =
+// Fine-grained token: only for people who own the repository (or whose organization does).
+const FINE_TOKEN_URL =
   'https://github.com/settings/personal-access-tokens/new?name=MTG+site+editor&description=Edit+the+MTG+at+UWT+site&expires_in=90&contents=write';
+// Classic token: GitHub does not let a fine-grained token reach a repository that belongs to
+// another person's account, so invited officers use this one.
+const CLASSIC_TOKEN_URL = 'https://github.com/settings/tokens/new?scopes=public_repo&description=MTG+site+editor';
 
 // ---- The token ------------------------------------------------------------
 
@@ -57,14 +65,28 @@ const sortKeys = (o: Record<string, string>): Record<string, string> =>
 const normText = (o: Record<string, string>): string => JSON.stringify(sortKeys(o));
 const pretty = (o: unknown): string => `${JSON.stringify(o, null, 2)}\n`;
 
-let snapClub = JSON.stringify(club);
-let snapMembers = JSON.stringify(members);
 let savedText: Record<string, string> = { ...textOverrides };
 let snapText = normText(savedText);
 
-const PATH_CLUB = 'src/content/club.json';
-const PATH_MEMBERS = 'src/content/members.json';
 const PATH_TEXT = 'src/content/text.json';
+
+/** One JSON file of content that the panels edit in place. */
+interface Doc {
+  path: string;
+  label: string;
+  data: unknown;
+  /** The content as this page was built, or as last saved. */
+  snap: string;
+}
+const doc = (path: string, label: string, data: unknown): Doc => ({ path, label, data, snap: JSON.stringify(data) });
+const clubDoc = doc('src/content/club.json', 'club and nights', club);
+const membersDoc = doc('src/content/members.json', 'members', members);
+const docs: Doc[] = [
+  clubDoc,
+  membersDoc,
+  doc('src/content/events.json', 'events', events),
+  doc('src/content/cards.json', 'cards', cardTexts),
+];
 
 /** Every edited text box as { key: html }, including saved edits that are still in place. */
 function currentText(): Record<string, string> {
@@ -84,8 +106,8 @@ function currentText(): Record<string, string> {
 
 interface Diff {
   words: string[];
-  members: boolean;
-  club: boolean;
+  /** The content files that changed. */
+  docs: Doc[];
   text: Record<string, string>;
 }
 
@@ -95,13 +117,12 @@ function diff(): Diff {
   const words = [...keys].filter((k) => text[k] !== savedText[k]);
   return {
     words,
-    members: JSON.stringify(members) !== snapMembers,
-    club: JSON.stringify(club) !== snapClub,
+    docs: docs.filter((x) => JSON.stringify(x.data) !== x.snap),
     text,
   };
 }
 
-const countOf = (d: Diff): number => d.words.length + (d.members ? 1 : 0) + (d.club ? 1 : 0);
+const countOf = (d: Diff): number => d.words.length + d.docs.length;
 
 // ---- State ----------------------------------------------------------------
 
@@ -176,6 +197,8 @@ function changed(): void {
     refreshJoinRecap();
     refreshBlurb();
     refreshMembers();
+    refreshEvents();
+    document.title = club.pageTitle;
   }, 150);
 }
 
@@ -194,8 +217,11 @@ function insertPlain(text: string): void {
   sel.addRange(range);
 }
 
+/** Words typed right on the page. Words inside links and buttons are edited in the panel instead. */
 function textBoxes(): HTMLElement[] {
-  return Array.from(document.querySelectorAll<HTMLElement>('[data-edit]'));
+  return Array.from(document.querySelectorAll<HTMLElement>('[data-edit]')).filter(
+    (node) => node.dataset.editIn !== 'panel' && !node.closest('a, button'),
+  );
 }
 
 function onBeforeInput(e: InputEvent): void {
@@ -285,6 +311,39 @@ function toggleAccent(): void {
 
 // ---- Panels ---------------------------------------------------------------
 
+const TABS: Array<{ id: string; label: string; build: (onChange: () => void) => HTMLElement }> = [
+  { id: 'members', label: 'Members', build: membersPanel },
+  { id: 'club', label: 'Club and nights', build: clubPanel },
+  { id: 'events', label: 'Events', build: eventsPanel },
+  { id: 'cards', label: 'Cards', build: cardsPanel },
+  { id: 'words', label: 'Buttons and links', build: wordsPanel },
+];
+let lastTab = 'members';
+
+/** One side panel with a row of sections to pick from. */
+function detailsPanel(onChange: () => void): HTMLElement {
+  const root = el('div');
+  const tabs = el('div', 'adm-tabs');
+  tabs.setAttribute('role', 'group');
+  tabs.setAttribute('aria-label', 'What to edit');
+  const body = el('div');
+  const buttons = new Map<string, HTMLButtonElement>();
+  const show = (id: string): void => {
+    const tab = TABS.find((t) => t.id === id) ?? TABS[0]!;
+    lastTab = tab.id;
+    buttons.forEach((b, key) => b.setAttribute('aria-pressed', String(key === tab.id)));
+    body.replaceChildren(tab.build(onChange));
+  };
+  TABS.forEach((t) => {
+    const b = button(t.label, 'adm-tab', () => show(t.id));
+    buttons.set(t.id, b);
+    tabs.append(b);
+  });
+  root.append(tabs, body);
+  show(lastTab);
+  return root;
+}
+
 function closeDrawer(): void {
   if (!drawer) return;
   drawer.hidden = true;
@@ -332,13 +391,12 @@ async function save(): Promise<void> {
     return;
   }
 
-  const files: FileChange[] = [];
-  if (d.club) {
-    files.push({ path: PATH_CLUB, content: pretty(club), expected: snapClub, normalize: (raw) => JSON.stringify(JSON.parse(raw)) });
-  }
-  if (d.members) {
-    files.push({ path: PATH_MEMBERS, content: pretty(members), expected: snapMembers, normalize: (raw) => JSON.stringify(JSON.parse(raw)) });
-  }
+  const files: FileChange[] = d.docs.map((x) => ({
+    path: x.path,
+    content: pretty(x.data),
+    expected: x.snap,
+    normalize: (raw: string) => JSON.stringify(JSON.parse(raw)),
+  }));
   if (d.words.length > 0) {
     files.push({
       path: PATH_TEXT,
@@ -348,19 +406,28 @@ async function save(): Promise<void> {
     });
   }
 
-  const parts: string[] = [];
-  if (d.words.length > 0) parts.push(`${d.words.length} text edit${d.words.length === 1 ? '' : 's'}`);
-  if (d.members) parts.push('members');
-  if (d.club) parts.push('club and nights');
-  const message = `Edit site content: ${parts.join(', ')}\n\nSaved from the officer panel by ${login}.`;
-
   saving = true;
   update();
   say('Saving to GitHub…');
   try {
+    // Pictures picked for members go up as new files, in the same commit.
+    let photoNames: string[] = [];
+    if (d.docs.includes(membersDoc)) {
+      const photos = await takePending(new Set(members.flatMap((m) => (m.photo ? [m.photo] : []))));
+      photoNames = photos.map((p) => p.name);
+      photos.forEach((p) => files.push({ path: `${PHOTO_DIR}${p.name}`, base64: p.base64 }));
+    }
+    const parts: string[] = [];
+    if (d.words.length > 0) parts.push(`${d.words.length} text edit${d.words.length === 1 ? '' : 's'}`);
+    d.docs.forEach((x) => parts.push(x.label));
+    if (photoNames.length > 0) parts.push(`${photoNames.length} photo${photoNames.length === 1 ? '' : 's'}`);
+    const message = `Edit site content: ${parts.join(', ')}\n\nSaved from the officer panel by ${login}.`;
+
     const commit = await commitFiles(token, files, message);
-    snapClub = JSON.stringify(club);
-    snapMembers = JSON.stringify(members);
+    d.docs.forEach((x) => {
+      x.snap = JSON.stringify(x.data);
+    });
+    markSaved(photoNames);
     savedText = d.text;
     snapText = normText(savedText);
     saving = false;
@@ -416,17 +483,16 @@ function enterEditMode(): void {
   who.append(infoEl);
 
   const actions = el('div', 'adm-actions');
-  const membersBtn = button('Members', 'adm-btn', () => openDrawer('Members', membersPanel, membersBtn));
-  const clubBtn = button('Club and nights', 'adm-btn', () => openDrawer('Club and nights', clubPanel, clubBtn));
-  membersBtn.setAttribute('aria-expanded', 'false');
-  clubBtn.setAttribute('aria-expanded', 'false');
+  const detailsBtn = button('Edit details', 'adm-btn', () => openDrawer('Edit details', detailsPanel, detailsBtn));
+  detailsBtn.setAttribute('aria-expanded', 'false');
+  detailsBtn.title = 'Members and photos, club details, nights, events, cards, buttons and links';
   const accent = button('Accent color', 'adm-btn', toggleAccent);
   // Pressing it must not take the selection away from the words.
   accent.addEventListener('mousedown', (e) => e.preventDefault());
   accent.title = 'Select words in a heading, then press this to color them (or uncolor them)';
   saveBtn = button('Save changes', 'adm-btn adm-primary', () => void save());
   discardBtn = button('Discard', 'adm-btn', discard);
-  actions.append(membersBtn, clubBtn, accent, saveBtn, discardBtn, button('Sign out', 'adm-btn', signOut));
+  actions.append(detailsBtn, accent, saveBtn, discardBtn, button('Sign out', 'adm-btn', signOut));
 
   statusEl = el('p', 'adm-status');
   statusEl.setAttribute('role', 'status');
@@ -447,7 +513,7 @@ function enterEditMode(): void {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && drawer && !drawer.hidden) closeDrawer();
   });
-  say('Click or tap any heading or paragraph to edit it.');
+  say('Click or tap any heading or paragraph to edit it. Press Edit details for everything else.');
   update();
 }
 
@@ -463,27 +529,37 @@ function buildSignIn(): HTMLDialogElement {
   const title = el('p', 'adm-title', 'Officer sign-in');
   title.id = 'admSignTitle';
 
-  const steps = el('ol', 'adm-steps');
-  const s1 = el('li');
-  const link = el('a', '', 'Open the GitHub token page');
-  link.href = TOKEN_URL;
-  link.target = '_blank';
-  link.rel = 'noopener';
-  s1.append(link, ' and sign in to GitHub if it asks.');
-  const s2 = el('li');
-  s2.append(
-    'Choose ',
-    el('b', '', 'Only select repositories'),
-    ' and pick ',
-    el('b', '', club.repo.split('/')[1] ?? club.repo),
-    '. Under Permissions open Repository permissions and set ',
-    el('b', '', 'Contents'),
-    ' to ',
-    el('b', '', 'Read and write'),
-    '. Press Generate token.',
-  );
-  const s3 = el('li', '', 'Copy the token that GitHub shows once and paste it below.');
-  steps.append(s1, s2, s3);
+  const repoName = club.repo.split('/')[1] ?? club.repo;
+  const newTab = (href: string, text: string): HTMLAnchorElement => {
+    const a = el('a', '', text);
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    return a;
+  };
+
+  // Most officers are invited to the repository, and GitHub only lets a classic
+  // token reach a repository that belongs to someone else's account.
+  const invited = el('details', 'adm-way');
+  invited.open = true;
+  invited.append(el('summary', '', 'I was invited to the repository (most officers)'));
+  const invitedSteps = el('ol', 'adm-steps');
+  const i1 = el('li');
+  i1.append('Accept the invitation to ', el('b', '', club.repo), ' that GitHub emailed you. If you cannot find it, ask the person who runs the club site to send it again.');
+  const i2 = el('li');
+  i2.append(newTab(CLASSIC_TOKEN_URL, 'Open the GitHub token page'), ' and sign in if it asks. Set ', el('b', '', 'Expiration'), ' to 90 days and leave ', el('b', '', 'public_repo'), ' ticked. Press Generate token.');
+  invitedSteps.append(i1, i2, el('li', '', 'Copy the token that GitHub shows once and paste it below.'));
+  invited.append(invitedSteps, el('p', 'adm-hint', 'This kind of token can change any public repository you can write to, so keep it private, use the shortest expiry that suits you, and delete it at github.com/settings/tokens when you are done.'));
+
+  const owner = el('details', 'adm-way');
+  owner.append(el('summary', '', 'I own the repository, or it belongs to my organization'));
+  const ownerSteps = el('ol', 'adm-steps');
+  const o1 = el('li');
+  o1.append(newTab(FINE_TOKEN_URL, 'Open the GitHub token page'), ' and sign in if it asks.');
+  const o2 = el('li');
+  o2.append('Choose ', el('b', '', 'Only select repositories'), ' and pick ', el('b', '', repoName), '. Under Permissions open Repository permissions and set ', el('b', '', 'Contents'), ' to ', el('b', '', 'Read and write'), '. Press Generate token.');
+  ownerSteps.append(o1, o2, el('li', '', 'Copy the token that GitHub shows once and paste it below.'));
+  owner.append(ownerSteps, el('p', 'adm-hint', 'This kind of token can only touch this one repository, so it is the safer choice when it is available.'));
 
   const label = el('label', '', 'GitHub token');
   label.htmlFor = 'admToken';
@@ -493,7 +569,7 @@ function buildSignIn(): HTMLDialogElement {
   input.autocomplete = 'off';
   input.spellcheck = false;
   input.required = true;
-  input.placeholder = 'github_pat_…';
+  input.placeholder = 'Paste the token here';
 
   const remember = el('label', 'adm-check');
   const rememberBox = el('input');
@@ -517,7 +593,8 @@ function buildSignIn(): HTMLDialogElement {
       'adm-note',
       'Only people who can change the club\'s GitHub repository can edit the site. There is no password here: you sign in with a GitHub token, and GitHub checks it.',
     ),
-    steps,
+    invited,
+    owner,
     label,
     input,
     remember,

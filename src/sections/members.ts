@@ -11,6 +11,7 @@
 import { members, type CardColor, type Member } from '../content';
 import { gsap, reducedMotion } from '../core/scroll';
 import { createCard, type CardData, type CardTone } from '../ui/card';
+import { photoPreviews } from '../ui/edits';
 import { attachTilt } from '../ui/tilt';
 import { onVisitorName, visitorName } from '../ui/visitor';
 
@@ -75,7 +76,7 @@ function memberCard(member: Member, index: number): CardData {
     number: number(index),
     tone,
     glyph: 'person',
-    image: member.photo ? `${import.meta.env.BASE_URL}members/${member.photo}` : undefined,
+    image: member.photo ? (photoPreviews.get(member.photo) ?? `${import.meta.env.BASE_URL}members/${member.photo}`) : undefined,
     foil: true,
   };
 }

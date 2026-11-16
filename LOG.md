@@ -6,6 +6,46 @@ decided, what is next.
 ## 2026-11-15 (Sun) - The table and the shuffle cutscene
 
 **Done**
+- Club asked for the entire site to be editable, including text, so the
+  site can be handed to other members who do not code. Built it; NOT PUSHED.
+  - Audit: before this, 12 headings and paragraphs, members, the club and
+    nights were editable. Not editable: the labels, buttons, menu and footer
+    words, events, the words on the table's cards, the page title, member
+    photos.
+  - Now editable: 26 more words typed on the page (labels, the Commander
+    facts' captions, footer headings); 16 words inside links and buttons
+    (menu, Discord buttons, replay, the table's handwriting, footer links),
+    edited in a "Buttons and links" tab because typing in a link would follow
+    it; events (title, description, date, owed list, card words); the words
+    on the club, members and visitor cards (new cards.json); the browser tab
+    title and search description (club.json, written into the page HTML at
+    build time by a small Vite plugin so search engines see it); member
+    photos (picked, shrunk to 720 px WebP in the browser, uploaded in the
+    same commit as a binary blob).
+  - The bar now has one "Edit details" button that opens a panel with five
+    tabs, so the phone bar stays small (about 18% of the screen at 375x812).
+  - Handing on: found and checked in GitHub's documentation that a
+    fine-grained token cannot reach a repository owned by someone else's
+    personal account. Invited officers therefore use a classic token with
+    `public_repo`; the sign-in box now offers both routes. The README says
+    how the owner adds and removes officers. Moving the repository into a
+    GitHub organization would give every officer the safer token but
+    changes the public address; left for the club to decide.
+  - Not editable on purpose: the legal notice (fan content rules), the
+    Commander facts' numbers (the count-up animation owns them), and adding
+    or removing a night or event (the table fits exactly two of each).
+  - Checked in the browser against a pretend GitHub (every call stubbed):
+    26 words inline and 16 in the panel; edits in every tab appear on the
+    page as typed (event date and cleared owed tag, button words, tab
+    title); one save sent one commit with five JSON files plus the photo as
+    a blob (webp, base64), nothing forced; a text file as a "photo" is
+    refused with a plain message; sign-in box shows both token routes;
+    a visitor's page loads no panel code and has nothing editable; no sideways
+    scroll at 375 wide. Production build passes type-check.
+  - Not checked: a real save with a photo or a classic token, a real phone,
+    Safari and Firefox, a screen reader. Whether a classic token's `public_repo`
+    scope is enough for a collaborator to write through the git data API is
+    expected from GitHub's docs but not run here.
 - Club approved the hero. Built the second Phase 5 section: the table.
   - The Pod Night table from the mockup: felt, four seats, swaying lamp,
     pulsing open seat with its Discord button, and seven cards that each

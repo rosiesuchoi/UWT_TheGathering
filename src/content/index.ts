@@ -2,6 +2,7 @@
 // those files; nothing here needs to change when content changes.
 import clubData from './club.json';
 import eventsData from './events.json';
+import cardsData from './cards.json';
 import membersData from './members.json';
 
 /** One of the five accent colors a card can take. */
@@ -27,6 +28,9 @@ export interface Night {
 export interface Club {
   name: string;
   nameConfirmed: boolean;
+  /** The browser tab's title and the description search engines show. */
+  pageTitle: string;
+  pageDescription: string;
   school: string;
   city: string;
   format: string;
@@ -85,6 +89,23 @@ export interface Member {
   photo: string | null;
 }
 
+/** The words on one of the table's cards. */
+export interface CardWords {
+  /** Handwritten label under the card on the table. */
+  label: string;
+  name: string;
+  type: string;
+  text: string;
+}
+
+/** Words for the cards that are not built from a night or an event. */
+export interface CardTexts {
+  club: CardWords;
+  members: CardWords;
+  you: { type: string; text: string };
+}
+
 export const club = clubData as Club;
+export const cardTexts = cardsData as CardTexts;
 export const events = eventsData as ClubEvent[];
 export const members = membersData as Member[];
