@@ -6,6 +6,19 @@ decided, what is next.
 ## 2026-11-15 (Sun) - The table and the shuffle cutscene
 
 **Done**
+- Friday event flyer for the club's event page (its photo slot asks for a
+  2:1 image, 2000 x 1000 px recommended, with faces and text near the
+  centre). Source: design/flyer/friday.html; picture:
+  design/flyer/friday-flyer.png (2000 x 1000). Top Deck look on the lit table
+  from concept B: huge Anton "FRIDAY", "Commander night" in the Friday teal,
+  the site's own cards (Friday 003/100, Raffle 005/100, the foil 100/100) and
+  card backs, 40-life scribble, gold raffle seal. Everything that matters
+  sits in the middle 1000 px, so a square crop keeps it. Facts only from
+  club.json: Fridays 6 PM, Silver King Games & Hobby with its address, the
+  weekly raffle, the Discord link. No date, price or "newcomers welcome"
+  claims. Inspiration from Awwwards' typography picks: oversized type, an
+  accent word, dark lamp-lit scenes. Not pushed (not part of the site).
+  Re-render: Chrome headless, command at the bottom of friday.html.
 - Club asked for the entire site to be editable, including text, so the
   site can be handed to other members who do not code. Built it; approved
   and pushed (commit 1fe09e4). The deploy run succeeded; the live page serves

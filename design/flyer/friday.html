@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Friday Commander Night flyer, 2000 x 1000</title>
+<!--
+  Event photo for the Friday night. 2000 x 1000 px (2:1), the size the event
+  page asks for. The important words stay inside the middle 1000 px so a square
+  crop keeps them. Render to PNG with Chrome headless (command at the bottom of this file).
+  Facts come from club.json: Fridays 6 PM, Silver King Games & Hobby, the weekly
+  raffle, the Discord link. Nothing here is invented.
+-->
+<style>
+@font-face { font-family: "Anton"; src: url("../../node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Hanken"; src: url("../../node_modules/@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+@font-face { font-family: "JetBrains Mono"; src: url("../../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Caveat"; src: url("../../node_modules/@fontsource/caveat/files/caveat-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+
+:root {
+  --paper: #f1edf9; --ink: #1b1033; --purple: #4b2e83; --gold: #c9a23f; --gold-pale: #f0dc9c;
+  --gold-foil: linear-gradient(135deg, #b08a34, #f4e3ad 42%, #d9b863 60%, #9c7626);
+  --espresso: #17100c; --felt: #3d1d7a; --lamp: #ffb84d; --cream: #f3e7d3; --friday: #39d0c0; --tide: #2f7de1;
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 2000px; height: 1000px; overflow: hidden; background: var(--espresso); }
+body { position: relative; font-family: "Hanken", system-ui, sans-serif; color: var(--cream); }
+
+/* ---- The room: dark wood, a lit felt table ---- */
+.room { position: absolute; inset: 0; background: radial-gradient(60% 90% at 50% 40%, #2a1c14, var(--espresso) 78%); }
+.table { position: absolute; left: 70px; top: 50px; width: 1860px; height: 900px; border-radius: 150px;
+  background: radial-gradient(60% 70% at 50% 42%, #5a2fb5 0%, var(--felt) 48%, #26104f 100%);
+  box-shadow: 0 0 0 16px #2e1c11, 0 0 0 20px rgba(255, 184, 77, .35), 0 40px 100px rgba(0, 0, 0, .7), inset 0 0 160px rgba(10, 4, 24, .6); }
+.table::after { content: ""; position: absolute; inset: 0; border-radius: inherit; opacity: .5;
+  background: radial-gradient(rgba(243, 231, 211, .16) 1.2px, transparent 1.6px) 0 0 / 26px 26px; }
+.lamp { position: absolute; inset: 0; mix-blend-mode: screen; pointer-events: none;
+  background: radial-gradient(circle 620px at 50% 38%, rgba(255, 184, 77, .42), rgba(255, 184, 77, .12) 55%, transparent); }
+.vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 120% at 50% 45%, transparent 55%, rgba(0, 0, 0, .55)); }
+
+/* ---- Centre column: everything that matters sits in x 500-1500 ---- */
+.center { position: absolute; left: 500px; top: 0; width: 1000px; height: 1000px; display: flex; flex-direction: column; align-items: center; }
+.head { margin-top: 78px; display: flex; align-items: center; gap: 22px; }
+.head img { width: 56px; height: auto; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .5)); }
+.head b { font-family: "Anton"; font-weight: 400; font-size: 44px; letter-spacing: .06em; color: var(--cream); }
+.head span { font-family: "JetBrains Mono"; font-weight: 500; font-size: 22px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-pale); padding-left: 22px; border-left: 2px solid rgba(240, 220, 156, .5); }
+
+.friday { position: relative; margin-top: 8px; font-family: "Anton"; font-weight: 400; font-size: 336px; line-height: .98; letter-spacing: .01em; text-transform: uppercase;
+  color: var(--cream);
+  text-shadow: 0 5px 0 #d8c9ae, 0 10px 0 #b9a98d, 0 15px 0 #8f7f66, 0 20px 0 #5d4f3b, 0 44px 64px rgba(0, 0, 0, .55); }
+.sub { margin-top: 22px; font-family: "Anton"; font-size: 96px; line-height: 1; letter-spacing: .16em; text-transform: uppercase; color: var(--friday); text-shadow: 0 0 40px rgba(57, 208, 192, .4), 0 5px 0 rgba(0, 0, 0, .35); }
+.hand { margin-top: 8px; font-family: "Caveat"; font-weight: 600; font-size: 68px; line-height: 1; color: var(--lamp); rotate: -2.5deg; text-shadow: 0 3px 18px rgba(255, 184, 77, .4); }
+
+.chips { margin-top: 26px; width: 1000px; display: grid; grid-template-columns: 190px 1fr 270px; gap: 16px; }
+.chip { background: var(--cream); color: var(--ink); border-radius: 26px; padding: 20px 26px; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 8px 0 #b9a98d, 0 22px 40px rgba(0, 0, 0, .5); }
+.chip small { font-family: "JetBrains Mono"; font-weight: 500; font-size: 17px; letter-spacing: .18em; text-transform: uppercase; color: var(--purple); margin-bottom: 4px; }
+.chip strong { font-family: "Anton"; font-weight: 400; font-size: 64px; line-height: 1; letter-spacing: .02em; }
+.chip .venue { font-weight: 800; font-size: 35px; white-space: nowrap; line-height: 1.08; letter-spacing: -.01em; }
+.chip .addr { font-weight: 500; font-size: 22px; white-space: nowrap; margin-top: 4px; color: #3a2a5c; }
+.chip.time { background: var(--friday); } .chip.time small { color: #0b3b37; }
+.chip.raffle strong { font-size: 38px; line-height: 1.02; }
+
+.join { margin-top: 28px; font-family: "JetBrains Mono"; font-weight: 500; font-size: 25px; letter-spacing: .12em; text-transform: uppercase; color: var(--cream); display: flex; align-items: center; gap: 18px; }
+.join i { display: block; width: 12px; height: 12px; background: var(--lamp); border-radius: 50%; box-shadow: 0 0 16px var(--lamp); }
+.join b { color: var(--lamp); font-weight: 500; text-transform: none; letter-spacing: .06em; }
+
+/* ---- Sticker ---- */
+.seal { position: absolute; left: 1590px; top: 690px; width: 230px; height: 230px; rotate: 12deg; filter: drop-shadow(0 14px 22px rgba(0, 0, 0, .5)); }
+
+/* ---- Cards, same anatomy as the site (5:7, name bar, art, type bar, text, number) ---- */
+.card { position: absolute; aspect-ratio: 5 / 7; container-type: inline-size; }
+.face { position: absolute; inset: 0; border-radius: 5cqw; background: var(--frame, var(--ink)); padding: 4cqw; display: grid; grid-template-rows: auto 1fr auto auto auto; gap: 2.4cqw; overflow: hidden; box-shadow: 0 5cqw 11cqw rgba(0, 0, 0, .55); }
+.c-name, .c-type { background: var(--paper); color: var(--ink); border-radius: 2cqw; display: flex; align-items: center; justify-content: space-between; gap: 2cqw; padding: 1.6cqw 3cqw; line-height: 1.2; min-width: 0; }
+.c-name { font-weight: 700; font-size: 6.4cqw; } .c-type { font-weight: 500; font-size: 4.5cqw; }
+.c-pip { flex: none; width: 5cqw; height: 5cqw; border-radius: 50%; background: var(--pip, var(--gold)); border: 1px solid rgba(27, 16, 51, .35); }
+.c-art { border-radius: 2cqw; background: var(--art); color: var(--glyph, #fff); display: grid; place-items: center; min-height: 0; }
+.c-art svg { width: 46%; height: auto; }
+.c-text { background: var(--paper); color: var(--ink); border-radius: 2cqw; padding: 3cqw; font-size: 4.8cqw; line-height: 1.35; min-height: 23cqw; }
+.c-num { display: flex; justify-content: space-between; font-family: "JetBrains Mono"; font-weight: 500; font-size: 3.8cqw; letter-spacing: .08em; color: var(--gold-pale); }
+.tone-tide { --pip: var(--tide); --art: linear-gradient(160deg, #7dbbff, #1b4fa8); }
+.tone-chalk { --pip: #fff8e1; --art: linear-gradient(160deg, #fffdf3, #e6d7a8); --glyph: var(--ink); }
+.tone-foil { --pip: conic-gradient(#ff5050, #ffe15a, #50ffaa, #50aaff, #c86eff, #ff5050); --art: linear-gradient(135deg, #ffd1d1, #fff3b8, #c9ffdf, #c5e2ff, #e6ccff); --glyph: var(--ink); }
+.rare { --frame: var(--gold-foil); } .rare .c-num { color: var(--ink); }
+.foil { position: absolute; inset: 0; mix-blend-mode: color-dodge; opacity: .8; background: linear-gradient(115deg, transparent 12%, rgba(255, 80, 80, .55) 28%, rgba(255, 225, 90, .55) 40%, rgba(80, 255, 170, .55) 52%, rgba(80, 170, 255, .55) 63%, rgba(200, 110, 255, .55) 74%, transparent 88%); }
+.glare { position: absolute; inset: 0; mix-blend-mode: overlay; background: radial-gradient(circle at 30% 22%, rgba(255, 255, 255, .7), transparent 46%); }
+.back { background: var(--ink); border: 5px solid var(--gold); border-radius: 6% / 4.3%; display: grid; place-items: center; box-shadow: 0 30px 60px rgba(0, 0, 0, .6); }
+.back img { width: 46%; height: auto; }
+
+.c1 { width: 280px; left: 66px; top: 110px; rotate: -9deg; }
+.c2 { width: 280px; left: 200px; top: 462px; rotate: 6deg; }
+.c3 { width: 320px; left: 1610px; top: 130px; rotate: 7deg; }
+.b1 { width: 280px; left: 1560px; top: 250px; rotate: -8deg; }
+.b2 { width: 260px; left: 250px; top: 110px; rotate: 9deg; }
+
+.life { position: absolute; font-family: "Caveat"; font-weight: 600; font-size: 150px; line-height: 1; color: rgba(243, 231, 211, .28); }
+</style>
+</head>
+<body>
+<div class="room"></div>
+<div class="table"></div>
+<div class="lamp"></div>
+
+<!-- left: two cards from the site's table -->
+<div class="card back b2"><img src="../assets/logo-mark.svg" alt=""></div>
+<div class="card c1"><div class="face tone-tide">
+  <div class="c-name"><span>Friday</span><i class="c-pip"></i></div>
+  <div class="c-art"><svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,4 90,27 90,73 50,96 10,73 10,27" fill="currentColor"/><path d="M50 24 77 68H23ZM50 4v20M90 27 77 68M10 27l13 41M50 96 23 68M50 96l27-28M10 73l13-5M90 73l-13-5M10 27l40-3M90 27l-40-3" fill="none" stroke="rgba(0,0,0,.45)" stroke-width="2.5" stroke-linejoin="round"/></svg></div>
+  <div class="c-type"><span>Night · Silver King</span></div>
+  <div class="c-text">Fridays, 6 PM.</div>
+  <div class="c-num"><span>MTG @ UWT</span><span>003/100</span></div>
+</div></div>
+<div class="card c2"><div class="face tone-chalk">
+  <div class="c-name"><span>Raffle</span><i class="c-pip"></i></div>
+  <div class="c-art"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M10 30h80v13a8 8 0 0 0 0 16v13H10V59a8 8 0 0 0 0-16z" fill="currentColor"/><path d="M64 35v32" stroke="rgba(255,255,255,.75)" stroke-width="3" stroke-dasharray="5 5"/></svg></div>
+  <div class="c-type"><span>Event · Weekly</span></div>
+  <div class="c-text">A raffle every week, with prizes.</div>
+  <div class="c-num"><span>MTG @ UWT</span><span>005/100</span></div>
+</div></div>
+
+<!-- right: the foil card, always 100/100 -->
+<div class="card back b1"><img src="../assets/logo-mark.svg" alt=""></div>
+<div class="card c3"><div class="face tone-foil rare">
+  <div class="c-name"><span>Your name here</span><i class="c-pip"></i></div>
+  <div class="c-art"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" aria-hidden="true"><rect x="16" y="16" width="68" height="68" rx="12" stroke-dasharray="10 10"/><path d="M50 34v32M34 50h32"/></svg></div>
+  <div class="c-type"><span>Member · Commander</span></div>
+  <div class="c-text">Pull up a chair. This seat is yours.</div>
+  <div class="c-num"><span>MTG @ UWT</span><span>100/100</span></div>
+  <div class="foil"></div><div class="glare"></div>
+</div></div>
+
+<!-- Commander starts at 40 life -->
+<div class="life" style="left:58px; top:800px; rotate:-8deg; font-size:120px">40</div>
+<div class="life" style="left:1500px; top:700px; rotate:6deg;display:none">40</div>
+
+<div class="center">
+  <div class="head"><img src="../assets/logo-mark.svg" alt=""><b>MTG @ UWT</b><span>UW Tacoma Commander club</span></div>
+  <div class="friday">Friday</div>
+  <div class="sub">Commander night</div>
+  <div class="hand">Shuffle up. Draw seven.</div>
+  <div class="chips">
+    <div class="chip time"><small>Every Friday</small><strong>6 PM</strong></div>
+    <div class="chip"><small>Where</small><div class="venue">Silver King Games &amp; Hobby</div><div class="addr">5442 S Tacoma Way, Tacoma, WA 98409</div></div>
+    <div class="chip raffle"><small>Every week</small><strong>Raffle with prizes</strong></div>
+  </div>
+  <div class="join"><i></i>Join the Discord <b>discord.gg/kbevMqAuxD</b></div>
+</div>
+
+<svg class="seal" viewBox="0 0 240 240" aria-hidden="true">
+  <defs><path id="ring" d="M120,120 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs>
+  <circle cx="120" cy="120" r="116" fill="url(#g)"/>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b08a34"/><stop offset=".42" stop-color="#f4e3ad"/><stop offset=".6" stop-color="#d9b863"/><stop offset="1" stop-color="#9c7626"/></linearGradient>
+  <circle cx="120" cy="120" r="104" fill="none" stroke="#1b1033" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>
+  <text font-family="JetBrains Mono" font-weight="500" font-size="19" letter-spacing="4.2" fill="#1b1033"><textPath href="#ring" startOffset="0">WEEKLY RAFFLE · PRIZES EVERY WEEK ·</textPath></text>
+  <text x="120" y="140" text-anchor="middle" font-family="Anton" font-size="58" fill="#1b1033">RAFFLE</text>
+</svg>
+
+<div class="vignette"></div>
+</body>
+</html>
+<!--
+README. To make the PNG:
+  & "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=2000,1000 --virtual-time-budget=4000 --screenshot="friday-flyer.png" "file:///.../design/flyer/friday.html"
+-->
