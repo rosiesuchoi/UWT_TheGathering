@@ -1,6 +1,38 @@
 [
-  { "name": "Rosie Choi", "role": "President", "commander": null, "colors": [], "photo": null },
-  { "name": "Jeremiah Celestra", "role": "Vice President", "commander": null, "colors": [], "photo": null },
-  { "name": "Jacob Caperon", "role": "Secretary", "commander": null, "colors": [], "photo": null },
-  { "name": "Emmet Meenk", "role": "Treasurer", "commander": null, "colors": [], "photo": null }
+  {
+    "name": "Rosie Choi",
+    "role": "President",
+    "commander": null,
+    "colors": [
+      "chalk"
+    ],
+    "photo": null
+  },
+  {
+    "name": "Jeremiah Celestra",
+    "role": "Vice President",
+    "commander": null,
+    "colors": [
+      "tide"
+    ],
+    "photo": null
+  },
+  {
+    "name": "Jacob Caperon",
+    "role": "Secretary",
+    "commander": null,
+    "colors": [
+      "dusk"
+    ],
+    "photo": null
+  },
+  {
+    "name": "Emmet Meenk",
+    "role": "Treasurer",
+    "commander": null,
+    "colors": [
+      "grove"
+    ],
+    "photo": null
+  }
 ]
