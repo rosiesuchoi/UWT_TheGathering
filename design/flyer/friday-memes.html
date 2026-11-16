@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Friday Commander Night flyer, 2000 x 1000 (with in-jokes)</title>
+<!--
+  Event photo for the Friday night. 2000 x 1000 px (2:1), the size the event
+  page asks for. The words that matter stay inside the middle 1000 px so a
+  square crop keeps them; the logo watermark and the QR code sit outside it.
+  Facts come from club.json: Fridays 6 PM, Silver King Games & Hobby, the weekly
+  raffle. The QR code (qr.svg) points at the club site. Nothing here is invented.
+  Render to PNG with Chrome headless (command at the bottom of this file).
+-->
+<style>
+@font-face { font-family: "Anton"; src: url("../../node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Hanken"; src: url("../../node_modules/@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+@font-face { font-family: "JetBrains Mono"; src: url("../../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Caveat"; src: url("../../node_modules/@fontsource/caveat/files/caveat-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+
+:root {
+  --ink: #1b1033; --gold: #c9a23f; --gold-pale: #f0dc9c; --espresso: #17100c; --felt: #3d1d7a;
+  --lamp: #ffb84d; --cream: #f3e7d3; --friday: #39d0c0;
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 2000px; height: 1000px; overflow: hidden; background: var(--espresso); }
+body { position: relative; font-family: "Hanken", system-ui, sans-serif; color: var(--cream); }
+
+/* Full-bleed: deep felt purple fading to dark wood, one warm lamp, fine grain. */
+.bg { position: absolute; inset: 0;
+  background:
+    radial-gradient(900px 620px at 50% 30%, rgba(255, 184, 77, .20), transparent 70%),
+    radial-gradient(1500px 900px at 50% 48%, #3b1c78 0%, #26114f 45%, #130a22 80%, var(--espresso) 100%); }
+.grain { position: absolute; inset: 0; opacity: .5; mix-blend-mode: overlay; pointer-events: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .55 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>"); }
+.vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(130% 120% at 50% 45%, transparent 55%, rgba(0, 0, 0, .5)); }
+
+/* The club mark, huge and faint, bleeding off the left edge. */
+.mark { position: absolute; left: -150px; top: 90px; height: 860px; opacity: .07; filter: saturate(.8); }
+
+/* ---- Words: left-aligned column, x 520 to 1480 ---- */
+.col { position: absolute; left: 520px; top: 0; width: 960px; height: 1000px; display: flex; flex-direction: column; justify-content: center; }
+.eyebrow { display: flex; align-items: center; gap: 18px; font-family: "JetBrains Mono"; font-weight: 500; font-size: 21px; letter-spacing: .26em; text-transform: uppercase; color: var(--gold-pale); }
+.eyebrow img { width: 44px; height: auto; }
+.eyebrow i { display: block; width: 64px; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); }
+
+.friday { margin-top: 26px; margin-left: -10px; font-family: "Anton"; font-weight: 400; font-size: 340px; line-height: .9; letter-spacing: .005em; text-transform: uppercase;
+  background: linear-gradient(180deg, #fffaf0 10%, #f3e7d3 55%, #cdbb9c 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .45)); }
+.sub { margin-top: 20px; display: flex; align-items: baseline; gap: 28px; }
+.sub b { font-family: "Anton"; font-weight: 400; font-size: 84px; letter-spacing: .22em; white-space: nowrap; text-transform: uppercase; color: var(--friday); line-height: 1; }
+.sub span { font-family: "Caveat"; font-weight: 600; font-size: 56px; color: var(--lamp); line-height: 1; rotate: -2deg; translate: 0 -4px; }
+
+.rule { margin-top: 48px; height: 1px; background: linear-gradient(90deg, rgba(240, 220, 156, .75), rgba(240, 220, 156, .12)); }
+.facts { margin-top: 30px; display: grid; grid-template-columns: 220px 1fr 250px; gap: 0; }
+.fact { padding-right: 34px; }
+.fact + .fact { padding-left: 34px; border-left: 1px solid rgba(240, 220, 156, .25); }
+.fact small { display: block; font-family: "JetBrains Mono"; font-weight: 500; font-size: 17px; letter-spacing: .24em; text-transform: uppercase; color: var(--gold-pale); opacity: .85; margin-bottom: 10px; }
+.fact strong { display: block; font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: -.01em; color: #fffaf0; white-space: nowrap; }
+.fact p { margin-top: 6px; font-weight: 500; font-size: 23px; color: rgba(243, 231, 211, .78); white-space: nowrap; }
+.fact.t strong { font-family: "Anton"; font-weight: 400; font-size: 62px; letter-spacing: .02em; color: var(--friday); line-height: 1; }
+
+.fine { margin-top: 40px; display: flex; justify-content: space-between; font-family: "JetBrains Mono"; font-weight: 500; font-size: 16px; letter-spacing: .08em; white-space: nowrap; color: var(--gold-pale); opacity: .6; }
+
+/* ---- QR: a quiet cream tile on the right ---- */
+.qr { position: absolute; left: 1590px; top: 330px; width: 290px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.tile { width: 290px; height: 290px; padding: 28px; border-radius: 28px; background: var(--cream); box-shadow: 0 0 0 1px rgba(255, 255, 255, .25) inset, 0 30px 60px rgba(0, 0, 0, .5), 0 0 80px rgba(255, 184, 77, .18); }
+.tile img { width: 100%; height: 100%; display: block; }
+.qr strong { font-family: "Anton"; font-weight: 400; font-size: 40px; letter-spacing: .12em; text-transform: uppercase; color: #fffaf0; text-align: center; line-height: 1.05; }
+.qr em { font-style: normal; font-family: "JetBrains Mono"; font-weight: 500; font-size: 16px; letter-spacing: .06em; color: var(--gold-pale); opacity: .85; text-align: center; margin-top: -8px; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<img class="mark" src="../assets/logo-mark.svg" alt="">
+<div class="grain"></div>
+
+<div class="col">
+  <div class="eyebrow"><img src="../assets/logo-mark.svg" alt="">MTG @ UWT</div>
+  <div class="friday">Friday</div>
+  <div class="sub"><b>Commander night</b></div>
+  <div class="rule"></div>
+  <div class="facts">
+    <div class="fact t"><small>Every Friday</small><strong>6 PM</strong></div>
+    <div class="fact"><small>Where</small><strong>Silver King Games &amp; Hobby</strong><p>5442 S Tacoma Way, Tacoma, WA 98409</p></div>
+    <div class="fact"><small>Every week</small><strong>Raffle</strong><p>with prizes*</p></div>
+  </div>
+  <div class="fine"><span>No take-backs. Mulligans negotiable. Politics encouraged.</span><span>*Sadly, not a Black Lotus.</span></div>
+</div>
+
+<div class="qr">
+  <div class="tile"><img src="qr.svg" alt="QR code for the MTG @ UWT website"></div>
+  <strong>Scan for<br>details</strong>
+</div>
+
+<div class="vignette"></div>
+</body>
+</html>
+<!--
+To make the PNG:
+  & "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=2000,1000 --virtual-time-budget=5000 --allow-file-access-from-files --screenshot="friday-flyer.png" "file:///.../design/flyer/friday.html"
+To remake qr.svg: npm i qrcode in a scratch folder, then QRCode.toString(url, { type: 'svg', margin: 0, errorCorrectionLevel: 'M', color: { dark: '#1b1033', light: '#0000' } }).
+-->

@@ -32,6 +32,12 @@ decided, what is next.
     separated by Canva's layer tool): "MTG @ UWT - Friday Commander Night
     flyer". Canva swapped some fonts, so it is close to, not identical to,
     friday-flyer.png (which stays the master).
+  - Optional in-joke version (design/flyer/friday-memes.html and
+    friday-flyer-memes.png): two small touches in faint fine print. "No
+    take-backs. Mulligans negotiable. Politics encouraged." and "*Sadly,
+    not a Black Lotus." after the raffle's "with prizes". Words only, no
+    card art. The clean flyer remains the default; the Canva copy is the
+    clean one.
 - Club asked for the entire site to be editable, including text, so the
   site can be handed to other members who do not code. Built it; approved
   and pushed (commit 1fe09e4). The deploy run succeeded; the live page serves
