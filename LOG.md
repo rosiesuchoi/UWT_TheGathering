@@ -27,6 +27,11 @@ decided, what is next.
     site moves to a custom domain, remake qr.svg and the PNG.
     The printed web address under the QR was then removed at the club's
     request; the QR alone remains.
+  - Also removed the "UW Tacoma Commander club" line. Pushed into the
+    club's Canva account as an editable design (text, QR and background
+    separated by Canva's layer tool): "MTG @ UWT - Friday Commander Night
+    flyer". Canva swapped some fonts, so it is close to, not identical to,
+    friday-flyer.png (which stays the master).
 - Club asked for the entire site to be editable, including text, so the
   site can be handed to other members who do not code. Built it; approved
   and pushed (commit 1fe09e4). The deploy run succeeded; the live page serves
