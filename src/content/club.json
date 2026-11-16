@@ -1,13 +1,13 @@
 {
-  "name": "MTG at UWT",
-  "nameConfirmed": false,
+  "name": "MTG @ UWT",
+  "nameConfirmed": true,
   "school": "University of Washington Tacoma",
   "city": "Tacoma",
   "format": "Commander",
   "discord": "https://discord.gg/kbevMqAuxD",
   "repo": "rosiesuchoi/UWT_TheGathering",
   "branch": "main",
-  "blurb": null,
+  "blurb": "We created this space for everyone to be able to express your play style and enjoy your time with friends and making new friends! Not only that but doing our best to making sure you have the best magic experience for uwt.",
   "nights": [
     {
       "id": "thu",
@@ -16,7 +16,7 @@
       "venue": "Iruda Cafe",
       "venueShort": "Iruda Cafe",
       "address": "4916 Center St, Tacoma",
-      "addressConfirmed": false,
+      "addressConfirmed": true,
       "tone": "ember",
       "glyph": "cup"
     },
@@ -27,7 +27,7 @@
       "venue": "Silver King Games & Hobby",
       "venueShort": "Silver King",
       "address": "5442 S Tacoma Way, Tacoma, WA 98409",
-      "addressConfirmed": false,
+      "addressConfirmed": true,
       "tone": "tide",
       "glyph": "d20"
     }
