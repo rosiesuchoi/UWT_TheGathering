@@ -7,7 +7,10 @@ decided, what is next.
 
 **Done**
 - Club asked for the entire site to be editable, including text, so the
-  site can be handed to other members who do not code. Built it; NOT PUSHED.
+  site can be handed to other members who do not code. Built it; approved
+  and pushed (commit 1fe09e4). The deploy run succeeded; the live page serves
+  the same bundle as a local build, the panel chunk loads (200), and the
+  page carries the panel-only words.
   - Audit: before this, 12 headings and paragraphs, members, the club and
     nights were editable. Not editable: the labels, buttons, menu and footer
     words, events, the words on the table's cards, the page title, member
