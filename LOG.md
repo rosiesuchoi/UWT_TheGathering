@@ -41,7 +41,9 @@ decided, what is next.
   - Added the club's accessibility notice to the main flyer (two small
     lines under the details, with mtgclub@uw.edu). The club's wording had
     "it's"; the flyer says "its", the correct word. The notice is not on the
-    in-joke version or in the Canva copy yet. QR re-checked: still decodes.
+    in-joke version. QR re-checked: still decodes. The Canva design was
+    updated in place with the same notice (as an editable text box; Canva
+    cannot bold just the email, and uses its own font for that box).
 - Club asked for the entire site to be editable, including text, so the
   site can be handed to other members who do not code. Built it; approved
   and pushed (commit 1fe09e4). The deploy run succeeded; the live page serves
