@@ -5,10 +5,10 @@
     "cardName": "Raffle",
     "cadence": "Every week",
     "cadenceShort": "Weekly",
-    "text": "A raffle every week, with prizes to win.",
+    "text": "A raffle every week, with prizes to win.\nJoin for Commander and get a free ticket for UW students!",
     "cardText": "A raffle every week, with prizes.",
     "date": null,
-    "owed": ["prizes", "how to enter"],
+    "owed": [],
     "tone": "chalk",
     "glyph": "ticket",
     "rare": false
@@ -19,13 +19,27 @@
     "cardName": "Giveaway",
     "cadence": "End of the quarter",
     "cadenceShort": "End of quarter",
-    "text": "At the end of the quarter we give away a Mutant Menace Commander deck.",
+    "text": "At the end of the quarter we will give away the Mutant Menace Commander deck.",
     "cardText": "Mutant Menace deck giveaway.",
-    "date": null,
-    "owed": ["date"],
+    "date": "12/18/26",
+    "owed": [],
     "tone": "dusk",
     "glyph": "deck",
     "rare": true,
-    "prize": { "name": "Mutant Menace", "kind": "Commander deck", "colors": ["dusk", "grove", "tide"], "photos": "mutant-menace", "size": [1, 0.78, 0.24] }
+    "prize": {
+      "name": "Mutant Menace",
+      "kind": "Commander deck",
+      "colors": [
+        "dusk",
+        "grove",
+        "tide"
+      ],
+      "photos": "mutant-menace",
+      "size": [
+        1,
+        0.78,
+        0.24
+      ]
+    }
   }
 ]
