@@ -38,6 +38,10 @@ decided, what is next.
     not a Black Lotus." after the raffle's "with prizes". Words only, no
     card art. The clean flyer remains the default; the Canva copy is the
     clean one.
+  - Added the club's accessibility notice to the main flyer (two small
+    lines under the details, with mtgclub@uw.edu). The club's wording had
+    "it's"; the flyer says "its", the correct word. The notice is not on the
+    in-joke version or in the Canva copy yet. QR re-checked: still decodes.
 - Club asked for the entire site to be editable, including text, so the
   site can be handed to other members who do not code. Built it; approved
   and pushed (commit 1fe09e4). The deploy run succeeded; the live page serves

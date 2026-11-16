@@ -8,7 +8,7 @@
   page asks for. The words that matter stay inside the middle 1000 px so a
   square crop keeps them; the logo watermark and the QR code sit outside it.
   Facts come from club.json: Fridays 6 PM, Silver King Games & Hobby, the weekly
-  raffle. The QR code (qr.svg) points at the club site. Nothing here is invented.
+  raffle, and the accessibility notice (wording from the club). The QR code (qr.svg) points at the club site. Nothing here is invented.
   Render to PNG with Chrome headless (command at the bottom of this file).
 -->
 <style>
@@ -59,6 +59,9 @@ body { position: relative; font-family: "Hanken", system-ui, sans-serif; color: 
 .fact p { margin-top: 6px; font-weight: 500; font-size: 23px; color: rgba(243, 231, 211, .78); white-space: nowrap; }
 .fact.t strong { font-family: "Anton"; font-weight: 400; font-size: 62px; letter-spacing: .02em; color: var(--friday); line-height: 1; }
 
+.access { margin-top: 38px; font-weight: 500; font-size: 18px; line-height: 1.5; color: rgba(243, 231, 211, .74); max-width: 960px; }
+.access b { font-weight: 700; color: #fffaf0; }
+
 /* ---- QR: a quiet cream tile on the right ---- */
 .qr { position: absolute; left: 1590px; top: 330px; width: 290px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
 .tile { width: 290px; height: 290px; padding: 28px; border-radius: 28px; background: var(--cream); box-shadow: 0 0 0 1px rgba(255, 255, 255, .25) inset, 0 30px 60px rgba(0, 0, 0, .5), 0 0 80px rgba(255, 184, 77, .18); }
@@ -82,6 +85,7 @@ body { position: relative; font-family: "Hanken", system-ui, sans-serif; color: 
     <div class="fact"><small>Where</small><strong>Silver King Games &amp; Hobby</strong><p>5442 S Tacoma Way, Tacoma, WA 98409</p></div>
     <div class="fact"><small>Every week</small><strong>Raffle</strong><p>with prizes</p></div>
   </div>
+  <p class="access">The University of Washington is committed to providing access and accommodation in its services, programs, and activities. To make a request connected to a disability or health condition, contact <b>mtgclub@uw.edu</b> in advance.</p>
 </div>
 
 <div class="qr">
