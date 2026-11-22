@@ -1,0 +1,77 @@
+/* Star Trek theme extras: the opening, and the occasional Easter eggs.
+   Loaded only together with the Star Trek theme (see src/ui/extras/trk.ts).
+   Everything here is decorative, aria-hidden, and ignores the pointer, except
+   the opening, which any click or key skips. Nothing flashes more than three
+   times a second. All of it is skipped under reduced motion (the module is
+   told not to start it). The colors are fixed on purpose: these layers sit
+   outside the themed parts of the page.
+
+   The starship is our own drawing: an arrowhead hull with twin engines. It is
+   not the Enterprise and carries no registry, insignia or logo. */
+
+/* ---- The opening ---------------------------------------------------------- */
+.trek-intro { position: fixed; inset: 0; z-index: 120; overflow: hidden; cursor: pointer; background: radial-gradient(70% 60% at 50% 55%, #0b1b3d, #03060f 70%); animation: trek-in .22s ease-out both; }
+.trek-intro.is-out { animation: trek-out .5s ease-in both; pointer-events: none; }
+.trek-intro.is-skip { animation-duration: .2s; }
+@keyframes trek-in { from { opacity: 0; } }
+@keyframes trek-out { to { opacity: 0; } }
+
+/* Two layers of stars. At warp each is stretched sideways, which turns the dots into streaks. */
+.trek-stars { position: absolute; inset: -5% -60%; opacity: .95; background-size: 220px 200px;
+  background-image: radial-gradient(1.6px 1.6px at 20px 30px, #fff, transparent), radial-gradient(2.2px 2.2px at 140px 90px, #cfeaff, transparent), radial-gradient(1.6px 1.6px at 80px 160px, #fff, transparent), radial-gradient(1.6px 1.6px at 190px 40px, #ffe9b8, transparent);
+  animation: trek-warp 1.45s cubic-bezier(.65, 0, .9, .5) .15s both; }
+.trek-stars.b { background-size: 340px 300px; opacity: .8;
+  background-image: radial-gradient(2px 2px at 60px 70px, #fff, transparent), radial-gradient(1.6px 1.6px at 200px 140px, #bfe3ff, transparent), radial-gradient(2.6px 2.6px at 130px 30px, #fff, transparent); }
+@keyframes trek-warp { 0% { transform: scaleX(1); } 55% { transform: scaleX(1.15); } 100% { transform: scaleX(16); } }
+
+/* The ship glides in from the lower left, hangs a moment, then jumps to warp. */
+.trek-ship { position: absolute; left: 50%; top: 50%; width: min(78vw, 760px); height: auto; translate: -50% -50%; filter: drop-shadow(0 0 24px rgba(127, 224, 230, .45)); animation: trek-fly 1.5s linear .1s both; }
+@keyframes trek-fly {
+  0% { transform: translate3d(-62vw, 16vh, 0) scale(.3) rotate(-9deg); opacity: 0; animation-timing-function: cubic-bezier(.2, .7, .3, 1); }
+  14% { opacity: 1; }
+  58% { transform: translate3d(0, 0, 0) scale(1) rotate(-2deg); animation-timing-function: linear; }
+  74% { transform: translate3d(5vw, -2vh, 0) scale(1.06) rotate(-1deg); animation-timing-function: cubic-bezier(.7, 0, 1, .5); }
+  100% { transform: translate3d(110vw, -9vh, 0) scale(6, .45) rotate(0); opacity: 0; }
+}
+.trek-streak { position: absolute; left: 0; right: 0; top: 50%; height: 3px; opacity: 0; background: linear-gradient(90deg, transparent, #bfe9ff 40%, #fff 60%, transparent); animation: trek-streak .5s ease-out 1.05s both; }
+@keyframes trek-streak { 0% { opacity: 0; transform: scaleX(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: scaleX(1); } }
+
+/* One white-blue flash while the ship leaves. The page changes underneath it. */
+.trek-flash { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 50% 50%, #fff 0%, #cfeaff 40%, rgba(127, 224, 230, 0) 85%); animation: trek-flash .5s ease-out 1.25s both; }
+@keyframes trek-flash { 0% { opacity: 0; } 35% { opacity: 1; } 100% { opacity: 0; } }
+
+/* The ring that pops out over the new page. It is separate, so it outlasts the fade. */
+.trek-pop { position: fixed; left: 50%; top: 50%; z-index: 121; width: 40vmin; aspect-ratio: 1; border-radius: 50%; pointer-events: none; translate: -50% -50%; border: 3px solid rgba(127, 224, 230, .9); box-shadow: 0 0 40px 8px rgba(127, 224, 230, .5), inset 0 0 40px 8px rgba(127, 224, 230, .4); animation: trek-ring .85s cubic-bezier(.1, .7, .2, 1) both; }
+@keyframes trek-ring { from { opacity: .95; transform: scale(.1); } to { opacity: 0; transform: scale(3.4); } }
+
+/* ---- Easter eggs ---------------------------------------------------------- */
+/* Warp: stars streak out from the middle of the screen. */
+.trek-warp { position: fixed; inset: -20%; z-index: 110; pointer-events: none;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0 1.6deg, rgba(207, 234, 255, .85) 1.6deg 1.9deg, transparent 1.9deg 3.7deg), repeating-conic-gradient(from 1deg at 50% 50%, transparent 0 2.4deg, rgba(255, 233, 184, .7) 2.4deg 2.6deg, transparent 2.6deg 5.3deg);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 8%, #000 55%); mask-image: radial-gradient(circle at 50% 50%, transparent 8%, #000 55%);
+  animation: trek-warp-egg 1.8s ease-in both; }
+@keyframes trek-warp-egg { 0% { opacity: 0; transform: scale(.4); } 25% { opacity: .85; } 100% { opacity: 0; transform: scale(2.6); } }
+
+/* Red alert: the edges of the screen pulse red, three times. */
+.trek-red { position: fixed; inset: 0; z-index: 110; pointer-events: none; box-shadow: inset 0 0 120px 30px rgba(255, 36, 36, .7); animation: trek-red 2.7s ease-in-out both; }
+.trek-red::after { content: "RED ALERT"; position: absolute; top: 84px; left: 50%; translate: -50% 0; font: 500 13px/1 var(--f-m); letter-spacing: .32em; color: #ffc4c4; text-shadow: 0 0 12px rgba(255, 36, 36, .9); }
+@keyframes trek-red { 0%, 100% { opacity: 0; } 10% { opacity: 1; } 25% { opacity: .15; } 40% { opacity: 1; } 55% { opacity: .15; } 70% { opacity: 1; } }
+
+/* Transporter: a card shimmers away in a column of light, then comes back. */
+.card.trek-beam { animation: trek-dematerialize 1.9s ease-in-out both; }
+.card.trek-beam .face::after { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; transform: translateY(105%);
+  background: repeating-linear-gradient(90deg, rgba(160, 235, 255, .95) 0 2px, transparent 2px 7px), linear-gradient(0deg, transparent, rgba(160, 235, 255, .6) 50%, transparent);
+  -webkit-mask-image: linear-gradient(0deg, transparent, #000 35%, #000 65%, transparent); mask-image: linear-gradient(0deg, transparent, #000 35%, #000 65%, transparent);
+  animation: trek-beam-sweep 1.9s ease-in-out both; }
+@keyframes trek-dematerialize { 0%, 100% { opacity: 1; filter: none; } 35%, 55% { opacity: .12; filter: brightness(2.2) saturate(1.5); } }
+@keyframes trek-beam-sweep { 0% { transform: translateY(105%); } 38% { transform: translateY(-105%); } 55% { transform: translateY(-105%); } 95% { transform: translateY(105%); } 100% { transform: translateY(105%); } }
+
+/* Vulcan salute. */
+.trek-vulcan { position: fixed; left: 50%; bottom: 12vh; z-index: 110; pointer-events: none; translate: -50% 0; display: grid; justify-items: center; gap: 6px; padding: 14px 28px 16px; border-radius: 22px; background: rgba(3, 6, 15, .78); box-shadow: 0 0 0 1px rgba(127, 224, 230, .35), 0 18px 50px rgba(0, 0, 0, .45); animation: trek-vulcan 3s ease-out both; }
+.trek-hand { font-size: 84px; line-height: 1; filter: drop-shadow(0 0 18px rgba(127, 224, 230, .7)); }
+.trek-words { font: 600 34px/1 var(--f-h); color: #ffd98a; text-shadow: 0 0 16px rgba(255, 184, 77, .6), 0 2px 0 rgba(0, 0, 0, .5); }
+@keyframes trek-vulcan { 0% { opacity: 0; transform: translateY(40px) scale(.7); } 18% { opacity: 1; transform: none; } 80% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-20px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .trek-intro, .trek-egg { display: none; }
+}

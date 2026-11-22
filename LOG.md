@@ -3,6 +3,65 @@
 Newest entry first. One entry per working session: what was done, what was
 decided, what is next.
 
+## 2026-11-22 (Sun) - Star Trek opening and Easter eggs
+
+The club held back the push of the set themes ("not yet") to work on them one at
+a time, starting with Star Trek. Built on top of the unpushed theme commit and
+committed locally; nothing is pushed.
+
+**Done**
+- When a visitor picks Star Trek, an opening plays: a starship glides in, jumps
+  to warp, a white-blue flash fills the screen, the page changes to the Star Trek
+  colors under it, a ring pops out, and the cover fades (about 2 seconds). A
+  press or any key skips it; the page still changes.
+- Four Easter eggs while the theme is on, now and then: warp streaks, red alert
+  (the screen's edges pulse red three times), a card on screen shimmers away in a
+  transporter beam and returns, and a Vulcan salute with "Live long and prosper."
+- The starship is our own drawing and is not the Enterprise. The club asked for
+  the Enterprise; that design is Paramount's, so I drew an arrowhead hull with
+  twin engines instead (a first sketch came out too close to the real ship and
+  was redrawn). No registry, insignia or logo. If the club wants the real one it
+  needs Paramount's permission first. Recorded in CLAUDE.md.
+- A general slot for this: src/ui/extras/<code>.ts, registered in themes.ts, loads
+  (with its own CSS) only with that theme. The set picker plays an opening only
+  for a pick made just now, not for a returning visitor's saved pick.
+- Test switches: `?set=trk&intro` and `?set=trk&egg=warp|redalert|beam|vulcan`.
+
+**Checked** (dev build, headless Chrome driven over its debugging port, 1280 and
+375 wide)
+- Type-check and production build pass. The extras are separate lazy chunks:
+  about 5.3 kB (1.9 kB gzip) of script and 5.0 kB (1.6 kB gzip) of styles, loaded
+  only with the Star Trek theme. The main bundle is unchanged (+0.05 kB).
+- Real-time frames of the opening at both widths, and of each egg at 1280, looked
+  at: ship, streaks, flash, ring, and the new colors behind. The sampled timeline
+  showed the page changing just after the flash peaks and the cover gone about
+  0.5 s later. A first version ran its own timers and drifted out of step with the
+  animations (the page changed too early or too late when the page was busy); it
+  now runs from the flash's own animation event, with safety timers so a hidden
+  tab cannot leave the cover stuck.
+- Behavior, in the page: the cover appears within 26 ms of the pick while the
+  page is still the club's colors; the page changes about 1.4 s later; a press
+  skips (page changed at once, cover gone in 0.2 s); a key skips; picking Avatar
+  mid-opening ends it and leaves nothing behind; another set has no opening;
+  reset is clean. Under reduced motion there is no cover, the theme applies at
+  once and no egg plays even when one is requested.
+- A bad first look fixed: the Vulcan salute's gold words were unreadable on the
+  pale page; they now sit on a dark pill.
+
+**Not verified**
+- Real-time smoothness and frame rate (frames were captured in sequence, not
+  measured for dropped frames), a real phone, Safari, Firefox, a screen reader
+  (all the effects are aria-hidden; the picker already announces the change). The
+  Vulcan salute uses an emoji, which looks different on each system.
+- The eggs only fire every 45-110 s, so a visitor may not see them in a short
+  visit. Not yet tried while an officer is editing (they are meant to stay off).
+- The set themes are still unpushed and still need the club's answers (Reality
+  Fracture's line, The Zeta Set, naming crossover sets).
+
+**Next**
+- Approval of this look, then the next theme, one at a time. Both theme commits are
+  still local.
+
 ## 2026-11-22 (Sun) - Favorite-set themes (integrations, step 3 of 3)
 
 The third integration the club asked for: a visitor picks a favorite Magic set

@@ -95,6 +95,14 @@ obvious placeholders and list them under "Content still owed" below.
   cover. Their themes are colors and generic light effects only, and the set
   name appears as plain text in the picker. The club has been asked to confirm
   that naming them is acceptable.
+  Star Trek (club's request, 2026-11-22) goes further: an opening with a
+  starship and four small Easter eggs. The ship is our own drawing (an
+  arrowhead hull with twin engines), NOT the Enterprise, with no registry,
+  insignia or logo: the club asked for the Enterprise itself and we did not
+  draw it, because that design is Paramount's. The eggs use generic effects
+  and two short catchphrases ("Red alert", "Live long and prosper") plus the
+  Vulcan salute emoji. If the club wants the real ship, it needs Paramount's
+  permission first.
 - Stack: Vite + TypeScript, three.js, GSAP ScrollTrigger, Lenis. No UI framework.
 - Architecture rules learned in discovery: one persistent WebGL canvas behind
   the page; Lenis driven from gsap.ticker so scroll, ScrollTrigger and three.js
@@ -399,6 +407,27 @@ Bright and collectible. The card is the interface.
     in tokens.css are the club's own values; the refactor was checked
     against a before/after screenshot (largest difference 2 of 255 levels).
   - Not themed: the 3D deck's colors, the prize box photos, the table's wood.
+  - Theme extras. A theme can have an opening (plays only when the visitor
+    picks it, not for a returning visitor's saved pick) and Easter eggs, in
+    src/ui/extras/<code>.ts, registered in `extras` in src/ui/themes.ts and
+    loaded (with its own CSS) only with that theme. The module's default export
+    is `{ intro?, startEggs? }` (type Extras in themes.ts). Only Star Trek has
+    extras so far (src/ui/extras/trk.ts, src/styles/trek.css).
+  - Star Trek opening: a cover with stars; our starship glides in, hangs,
+    jumps to warp (stars stretch into streaks); a white-blue flash; the page
+    changes colors under the flash; a ring pops out and the cover fades. About
+    2 s. It is driven by its own animation events (the flash's animationstart),
+    not a separate clock, so it cannot drift; safety timers guarantee the page is
+    revealed and the cover removed even if animations never run (a hidden tab).
+    A press or any key skips it (the page still changes). Picking another set
+    mid-opening ends it. Skipped entirely under reduced motion.
+  - Star Trek eggs: warp streaks, red alert (edges pulse red three times), a
+    visible card beams away and back, and the Vulcan salute with "Live long and
+    prosper." One at a time, first after 30-55 s then every 45-110 s, never the
+    same twice in a row, only while the tab is visible, no cutscene is playing
+    and no officer is editing (.adm-bar). Never under reduced motion. Nothing
+    flashes more than three times a second. All are aria-hidden and ignore the
+    pointer. Stopped when another theme is chosen.
   - Returning visitors with a saved theme see the club colors for a moment
     before the theme loads (it loads after the page).
 - design/ - concept board, approved mockup, logo sources. Reference only.
@@ -480,7 +509,9 @@ Bright and collectible. The card is the interface.
   [data-offscreen] list; browsers throttle it when the tab is hidden.
 - Test switches, usable on any build: add `?reduce-motion` to force reduced
   motion, `?fps` for a frame-rate readout, `?set=fin` (any set code) to see a
-  theme without saving it, `?set=none` for the club colors.
+  theme without saving it, `?set=none` for the club colors, `?set=trk&intro`
+  to play a theme's opening on load, `?set=trk&egg=warp` (or redalert, beam,
+  vulcan) to see an Easter egg 1.5 s after the page loads.
 - Card links and buttons take their accessible name from their visible
   text. Extra words for screen readers go in the `label` option, which adds
   hidden text; do not use aria-label on cards.

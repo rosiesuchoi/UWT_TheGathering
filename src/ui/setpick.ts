@@ -48,18 +48,20 @@ function save(code: string | null): void {
 /** The pick shown right now. */
 let current: string | null = null;
 
-async function show(code: string | null): Promise<void> {
+async function show(code: string | null, intro = false): Promise<void> {
   current = code;
   const { applyTheme } = await import('./themes');
-  applyTheme(code);
+  await applyTheme(code, { intro });
 }
 
 /** Apply a saved pick, or a test pick from the address, as early as possible. */
 export function initTheme(): void {
-  const param = new URLSearchParams(window.location.search).get('set');
+  const params = new URLSearchParams(window.location.search);
+  const param = params.get('set');
   const code = param === null ? readSaved() : known(param) ? param : null;
   current = code;
-  if (code) void show(code);
+  // A returning visitor's theme just appears. Add ?intro to the test address to see a theme's opening.
+  if (code) void show(code, params.has('intro'));
 }
 
 /** The "Favorite set" drop-down in the join section. */
@@ -89,11 +91,12 @@ export function initSetPicker(): void {
   };
   const choose = (code: string | null): void => {
     save(code);
-    void show(code).then(() => {
-      sync();
-      const name = list.find((s) => s.code === code)?.name;
-      if (status) status.textContent = name ? `Colors changed to ${name}.` : 'Back to the club colors.';
-    });
+    current = code;
+    sync();
+    const name = list.find((s) => s.code === code)?.name;
+    if (status) status.textContent = name ? `Colors changed to ${name}.` : 'Back to the club colors.';
+    // A pick made just now plays the theme's opening, if it has one.
+    void show(code, code !== null);
   };
 
   select.addEventListener('change', () => choose(known(select.value) ? select.value : null));
