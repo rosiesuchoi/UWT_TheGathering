@@ -11,8 +11,10 @@
 // Which sets: released between FROM and TO (inclusive), in paper, and either a
 // full expansion or a masters-type set. Commander decks, Eternal sets, bonus
 // sheets, promos, tokens, art series and Alchemy ride with their parent set and
-// are not choices of their own. Secret Lair is one Scryfall set dated 2019 (its
-// drops are not separate sets), so it is added by name on purpose.
+// are not choices of their own. Secret Lair is parked for now (club decision,
+// 2026-11-22): it is one Scryfall set dated 2019 whose drops are not separate
+// sets, so it cannot be filtered by date. To bring it back, add `sld` to LINES
+// as 'secret-lair', include it in `picked` below, and give it a palette.
 //
 // Scryfall's set data does not say whether a set is Universes Beyond, so LINES
 // below is our own, written by hand. Check a new set there before it is listed.
@@ -44,12 +46,7 @@ const LINES = {
   msh: 'universes-beyond', // Marvel Super Heroes
   hob: 'universes-beyond', // The Hobbit
   trk: 'universes-beyond', // Star Trek
-  // Secret Lair: one set, by the club's decision (see above)
-  sld: 'secret-lair',
 };
-
-/** Where Scryfall's name is not what a visitor should read. */
-const NAMES = { sld: 'Secret Lair' };
 
 const body = process.env.SETS_FILE
   ? JSON.parse(await readFile(process.env.SETS_FILE, 'utf8'))
@@ -63,7 +60,7 @@ const body = process.env.SETS_FILE
 const inRange = body.filter(
   (s) => s.released_at && s.released_at >= FROM && s.released_at <= TO && !s.digital && (s.set_type === 'expansion' || s.set_type === 'masters'),
 );
-const picked = [...inRange, ...body.filter((s) => s.code === 'sld')];
+const picked = inRange;
 
 const unknown = picked.filter((s) => !LINES[s.code]);
 if (unknown.length > 0) {
@@ -73,7 +70,7 @@ if (unknown.length > 0) {
 
 const sets = picked
   .filter((s) => LINES[s.code])
-  .map((s) => ({ code: s.code, name: NAMES[s.code] ?? s.name, releasedAt: s.released_at, line: LINES[s.code] }))
+  .map((s) => ({ code: s.code, name: s.name, releasedAt: s.released_at, line: LINES[s.code] }))
   .sort((a, b) => a.releasedAt.localeCompare(b.releasedAt));
 
 // A set listed in LINES that Scryfall no longer returns would silently vanish.

@@ -380,9 +380,9 @@ Bright and collectible. The card is the interface.
   - Nothing here loops, so nothing was added to the [data-offscreen] list.
 - Favorite-set themes. A visitor picks a favorite Magic set in the join
   section and the whole site takes on its colors and a mood. Only sets
-  released 2024-11-21 to 2026-11-21 are offered (the club's rule): 14 sets plus
-  Secret Lair, which is one Scryfall set dated 2019 and is included by
-  decision. The pick is kept in this browser only (`mtguwt:set`); there are no
+  released 2024-11-21 to 2026-11-21 are offered (the club's rule): 14 sets.
+  Secret Lair is parked for now (club decision 2026-11-22; see fetch-sets.mjs
+  for how to bring it back). The pick is kept in this browser only (`mtguwt:set`); there are no
   accounts and nobody else sees it, and the page says so.
   - scripts/fetch-sets.mjs (`npm run sets`, one request to Scryfall's /sets;
     `SETS_FILE=path` reads a saved copy instead) writes src/content/sets.json:
@@ -390,7 +390,7 @@ Bright and collectible. The card is the interface.
     sets, bonus sheets, promos, tokens, art series and Alchemy ride with their
     parent set and are not choices. Scryfall's set data has no
     Universes Beyond flag, so the line of each set (in-universe,
-    universes-beyond, secret-lair) is written by hand in LINES in that script.
+    universes-beyond) is written by hand in LINES in that script.
     A new set is reported until it has a line and a palette.
   - src/content/set-themes.json: per set, six colors (paper, ink, purple,
     gold, felt, lamp), one motion (drift, shimmer, pulse, rain) and a foil hue.

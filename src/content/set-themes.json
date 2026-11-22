@@ -12,6 +12,5 @@
   "tmt": { "fx": "rain", "foilHue": 125, "palette": { "paper": "#f1f5ee", "ink": "#0f2014", "purple": "#1f5a2e", "gold": "#ff8a1f", "felt": "#173f22", "lamp": "#ffb44d" } },
   "msh": { "fx": "shimmer", "foilHue": 5, "palette": { "paper": "#faf1ee", "ink": "#240808", "purple": "#8a1c1c", "gold": "#ffc531", "felt": "#5a1010", "lamp": "#ffd45c" } },
   "hob": { "fx": "drift", "foilHue": 80, "palette": { "paper": "#f4f1e4", "ink": "#1c2412", "purple": "#3f5a2a", "gold": "#d9b64a", "felt": "#2f4420", "lamp": "#ffd98a" } },
-  "trk": { "fx": "pulse", "foilHue": 200, "palette": { "paper": "#eff3f8", "ink": "#0a1530", "purple": "#1b3a6b", "gold": "#f2b84b", "felt": "#122a52", "lamp": "#7fe0e6" } },
-  "sld": { "fx": "shimmer", "foilHue": 0, "palette": { "paper": "#f6f2fb", "ink": "#150a2a", "purple": "#3b1f6e", "gold": "#ffd34d", "felt": "#251048", "lamp": "#ff9bd0" } }
+  "trk": { "fx": "pulse", "foilHue": 200, "palette": { "paper": "#eff3f8", "ink": "#0a1530", "purple": "#1b3a6b", "gold": "#f2b84b", "felt": "#122a52", "lamp": "#7fe0e6" } }
 }

@@ -3,6 +3,19 @@
 Newest entry first. One entry per working session: what was done, what was
 decided, what is next.
 
+## 2026-11-22 (Sun) - Club decisions: Secret Lair parked, Jace stays
+
+**Decided** (the club, 2026-11-22)
+- The club will offer all the sets in the list except Secret Lair for now. Secret
+  Lair was removed from the picker, from sets.json and set-themes.json, and from the
+  fetch script (the script says how to bring it back). 14 sets remain, in two groups
+  (Magic sets, Universes Beyond). Every theme still passes the contrast check.
+- Jace Beleren stays in Reality Fracture as drawn (our own silhouette, named in
+  plain text). The club does not want more work on it.
+- Direction for the site as a whole: it should feel "Magic coded", so real Magic
+  players understand the references. Not started; a proposal is awaiting the
+  club's choices.
+
 ## 2026-11-22 (Sun) - The Hobbit: handmade look, round door, quiet eggs
 
 Next theme in reverse date order. The club asked to take a break after this one.

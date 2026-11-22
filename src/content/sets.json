@@ -1,11 +1,5 @@
 [
   {
-    "code": "sld",
-    "name": "Secret Lair",
-    "releasedAt": "2019-12-02",
-    "line": "secret-lair"
-  },
-  {
     "code": "inr",
     "name": "Innistrad Remastered",
     "releasedAt": "2025-01-24",

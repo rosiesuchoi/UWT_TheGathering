@@ -9,7 +9,7 @@
 // without saving it, or ?set=none for the club's own colors.
 import sets from '../content/sets.json';
 
-type Line = 'in-universe' | 'universes-beyond' | 'secret-lair';
+type Line = 'in-universe' | 'universes-beyond';
 interface SetInfo {
   code: string;
   name: string;
@@ -22,7 +22,6 @@ const list = sets as SetInfo[];
 const GROUPS: Array<[Line, string]> = [
   ['in-universe', 'Magic sets'],
   ['universes-beyond', 'Universes Beyond'],
-  ['secret-lair', 'Secret Lair'],
 ];
 
 const known = (code: string | null): code is string => code !== null && list.some((s) => s.code === code);
@@ -78,8 +77,7 @@ export function initSetPicker(): void {
     for (const set of list.filter((s) => s.line === line)) {
       const option = document.createElement('option');
       option.value = set.code;
-      // Secret Lair is one set across many years, so it has no single month.
-      option.textContent = line === 'secret-lair' ? set.name : `${set.name} (${month.format(new Date(`${set.releasedAt}T00:00:00`))})`;
+      option.textContent = `${set.name} (${month.format(new Date(`${set.releasedAt}T00:00:00`))})`;
       group.append(option);
     }
     select.append(group);
