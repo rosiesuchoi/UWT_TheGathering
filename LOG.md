@@ -3,6 +3,59 @@
 Newest entry first. One entry per working session: what was done, what was
 decided, what is next.
 
+## 2026-11-22 (Sun) - The Hobbit: handmade look, round door, quiet eggs
+
+Next theme in reverse date order. The club asked to take a break after this one.
+Built on top of the unpushed theme commits and committed locally; nothing is
+pushed.
+
+**Done**
+- A warm, handmade look: parchment pages with paper grain, sections with gently
+  rolling hill edges over deep green, hand-drawn wavy underlines under headings,
+  pill buttons, a rounder binder, and cards in a gold-and-brown wooden frame.
+- The opening: a round green door in a hillside swings open on warm light, the
+  scene zooms through the doorway, the light floods the screen, the theme changes
+  under it, and the light fades on the new page (about 3 s). A press or key skips
+  it. Nothing spins or transforms the real page, so phones get the same version.
+- Quiet eggs: fireflies, a dragon's glow (light and a ripple, no dragon), a card
+  catching the light, and a moonlit map of marks nobody can read. Hidden: the
+  Konami code starts a shower of gold; the club mark pressed three times opens a
+  small round door.
+- All of it is our own drawing and generic (no names, quotes, real script or lore
+  text); the club chose this over named characters. Recorded in CLAUDE.md.
+
+**Checked** (dev build, headless Chrome driven over its debugging port, 1280 and
+375 wide)
+- Type-check and production build pass. The extras are lazy chunks: 5.2 kB
+  (2.2 kB gzip) of script and 9.7 kB (3.2 kB gzip) of styles, loaded only with
+  this theme.
+- Real frames of the look on six sections, the whole opening (closed door, door
+  opening, zoom through, light) at 1280 and 375, and every egg. Two eggs were too
+  faint on a pale page (the dragon's glow used a blend mode that disappears on
+  light backgrounds; the fireflies were small); both were strengthened and
+  re-checked.
+- Behavior, in the page: the cover appears within 26 ms of the pick while the page
+  is still the club's colors; the theme changes about 2.4 s later; the cover is
+  gone about 0.6 s after that. A press or key skips it; picking another set
+  mid-opening ends it cleanly. After every path no class or transform is left, no
+  egg, and the scroll position has not moved. Both hidden triggers work; leaving
+  the theme stops everything; every egg is aria-hidden and ignores the pointer.
+- Reduced motion: no door, the theme and the new look apply at once, and no egg
+  plays even when one is requested.
+
+**Not verified**
+- Real-time smoothness and frame rate (frames were captured in sequence), Safari,
+  Firefox, a real phone, a screen reader (all effects are aria-hidden).
+- The eggs are rare by design, so a short visit may not show one.
+- Nothing from this theme, Reality Fracture or Star Trek is pushed. The club's
+  other open questions stand (Reality Fracture's line, The Zeta Set, naming the
+  crossover sets and a named character such as Jace), and the Friday flyer still
+  shows the old venue address.
+
+**Next**
+- A break. Then, if wanted, the next theme back in time (Marvel Super Heroes), or
+  pushing everything built so far.
+
 ## 2026-11-22 (Sun) - Reality Fracture: new look, portal, rifts, Jace
 
 Next theme in reverse date order (Star Trek, then Reality Fracture, then The

@@ -39,6 +39,7 @@ const themes = themeData as Record<string, Theme>;
 const extras: Record<string, () => Promise<Extras>> = {
   trk: () => import('./extras/trk').then((m) => m.default),
   fra: () => import('./extras/fra').then((m) => m.default),
+  hob: () => import('./extras/hob').then((m) => m.default),
 };
 
 /** Where the tokens apply. #themeFx is the ambient light layer, which sits outside <main>. */

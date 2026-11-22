@@ -1,0 +1,112 @@
+/* The Hobbit: a warm, handmade look (not only new colors), a round-door opening,
+   and a few quiet eggs. Loaded only together with the Hobbit theme (see
+   src/ui/extras/hob.ts).
+
+   Everything is our own drawing and generic: a round door, hills, a map with
+   made-up marks. No names, quoted lines, script or lore from the books or
+   films. The look is scoped to `html[data-set="hob"]` and to the nav, the page
+   and the footer, so the officer panel is untouched. Layering rules kept: no
+   transform, opacity, filter, clip-path or z-index on .sec or .hero; clip-path
+   only cuts their ::before backgrounds. Decorative layers are aria-hidden and
+   ignore the pointer. */
+
+/* ---- The Hobbit look --------------------------------------------------------- */
+/* Behind the sections is deep green, so their rolling edges read as hills. */
+html[data-set="hob"]:root { background: radial-gradient(90% 50% at 50% 0%, #3c5a2a 0%, #1c2412 80%) fixed; }
+
+html[data-set="hob"] main > section::before,
+html[data-set="hob"] .foot::before { clip-path: polygon(0% 2.24%, 4% 2.88%, 8% 3.25%, 12% 3.26%, 16% 2.91%, 20% 2.28%, 24% 1.54%, 28% 0.86%, 32% 0.41%, 36% 0.31%, 40% 0.57%, 44% 1.14%, 48% 1.87%, 52% 2.59%, 56% 3.10%, 60% 3.30%, 64% 3.12%, 68% 2.62%, 72% 1.92%, 76% 1.18%, 80% 0.60%, 84% 0.31%, 88% 0.40%, 92% 0.83%, 96% 1.50%, 100% 2.24%, 100% 99.45%, 96% 98.84%, 92% 97.98%, 88% 97.21%, 84% 96.82%, 80% 96.95%, 76% 97.56%, 72% 98.42%, 68% 99.19%, 64% 99.58%, 60% 99.45%, 56% 98.84%, 52% 97.98%, 48% 97.21%, 44% 96.82%, 40% 96.95%, 36% 97.56%, 32% 98.42%, 28% 99.19%, 24% 99.58%, 20% 99.45%, 16% 98.84%, 12% 97.98%, 8% 97.21%, 4% 96.82%, 0% 96.95%); }
+html[data-set="hob"] main > section:nth-of-type(even)::before { clip-path: polygon(0% 2.93%, 4% 2.31%, 8% 1.52%, 12% 0.82%, 16% 0.44%, 20% 0.48%, 24% 0.95%, 28% 1.68%, 32% 2.45%, 36% 3.02%, 40% 3.20%, 44% 2.93%, 48% 2.31%, 52% 1.52%, 56% 0.82%, 60% 0.44%, 64% 0.48%, 68% 0.95%, 72% 1.68%, 76% 2.45%, 80% 3.02%, 84% 3.20%, 88% 2.93%, 92% 2.31%, 96% 1.52%, 100% 0.82%, 100% 99.42%, 96% 99.68%, 92% 99.64%, 88% 99.33%, 84% 98.78%, 80% 98.13%, 76% 97.48%, 72% 96.98%, 68% 96.72%, 64% 96.76%, 60% 97.07%, 56% 97.62%, 52% 98.27%, 48% 98.92%, 44% 99.42%, 40% 99.68%, 36% 99.64%, 32% 99.33%, 28% 98.78%, 24% 98.13%, 20% 97.48%, 16% 96.98%, 12% 96.72%, 8% 96.76%, 4% 97.07%, 0% 97.62%); }
+
+/* Paper grain over the whole page, so everything looks printed on parchment. */
+html[data-set="hob"] #themeFx { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .15 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* Headings get a hand-drawn wavy underline in the accent color, and a soft shadow. */
+html[data-set="hob"] main :is(h1, h2) { text-shadow: 0 2px 0 color-mix(in srgb, var(--ink) 14%, transparent); }
+html[data-set="hob"] main h2::after { content: ""; display: block; width: 7.5rem; height: 12px; margin-top: 14px; background: var(--gold);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='12'%3E%3Cpath d='M0 6 Q10 0 20 6 T40 6' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x left center / 40px 12px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='12'%3E%3Cpath d='M0 6 Q10 0 20 6 T40 6' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x left center / 40px 12px; }
+html[data-set="hob"] main .label::before { content: "\2726  "; color: var(--gold); }
+
+/* Soft, round shapes: pill buttons, a rounder binder, dotted "owed" boxes. */
+html[data-set="hob"] :is(main, .nav) .btn { border-radius: 999px; box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--paper) 35%, transparent), 0 4px 0 color-mix(in srgb, var(--ink) 25%, transparent); }
+html[data-set="hob"] main .binder { border-radius: 30px; }
+html[data-set="hob"] main .owed { border-radius: 14px; border-style: dotted; }
+html[data-set="hob"] .nav { border-bottom: 3px solid color-mix(in srgb, var(--gold) 60%, #5a3b16); border-radius: 0 0 22px 22px; }
+
+/* Cards in a wooden frame: gold, then dark brown. */
+html[data-set="hob"] main .face { box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 70%, #5a3b16), 0 0 0 5px color-mix(in srgb, #3a2410 70%, transparent), 0 5cqw 11cqw rgba(15, 6, 36, .32); }
+
+/* ---- The round door ------------------------------------------------------------ */
+.hob-intro { position: fixed; inset: 0; z-index: 120; overflow: hidden; cursor: pointer; animation: hob-in .3s ease-out both; }
+.hob-intro.is-out { animation: hob-out .6s ease-in both; pointer-events: none; }
+@keyframes hob-in { from { opacity: 0; } }
+@keyframes hob-out { to { opacity: 0; } }
+
+/* Everything but the light is one scene, so walking through the door is one zoom. */
+.hob-scene { position: absolute; inset: 0; transform-origin: 50% 60%; animation: hob-walk .9s cubic-bezier(.6, 0, .9, .4) 1.45s both; }
+@keyframes hob-walk { from { transform: scale(1); } to { transform: scale(10); } }
+.hob-sky { position: absolute; inset: 0; background: linear-gradient(180deg, #223a52 0%, #6a8fa8 42%, #f1c981 76%); }
+.hob-hill { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.hob-frame { --d: min(34vmin, 300px); position: absolute; left: 50%; top: 60%; width: var(--d); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; perspective: 900px;
+  background: radial-gradient(circle, #fff0bd 0%, #ffbd62 55%, #c96f1c 100%);
+  box-shadow: 0 0 0 clamp(10px, 2vmin, 18px) #7a4f22, 0 0 0 clamp(14px, 2.8vmin, 26px) #4a2f12, 0 14px 44px rgba(0, 0, 0, .5); }
+.hob-door { position: absolute; inset: 0; overflow: hidden; border-radius: 50%; transform-origin: 0 50%; animation: hob-open .9s cubic-bezier(.4, 0, .2, 1) .5s both;
+  background: radial-gradient(circle at 40% 35%, #58ac62, #2f7a3f 60%, #1f5a2c); box-shadow: inset 0 0 0 4px rgba(0, 0, 0, .18); }
+.hob-door::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 15%, rgba(0, 0, 0, .2) 15% 16%); }
+.hob-door::after { content: ""; position: absolute; left: 0; top: 46%; width: 100%; height: 8%; background: linear-gradient(180deg, rgba(0, 0, 0, .0), rgba(0, 0, 0, .22), rgba(0, 0, 0, 0)); }
+.hob-knob { position: absolute; left: 50%; top: 50%; width: 14%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff1b0, #d9b64a 55%, #7a5a14); box-shadow: 0 2px 6px rgba(0, 0, 0, .5); }
+@keyframes hob-open { from { transform: rotateY(0); } to { transform: rotateY(-105deg); } }
+
+/* The light floods the whole screen as we step through. The page changes under it. */
+.hob-light { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 50% 60%, #fff6d8 0%, #ffd98a 42%, rgba(255, 184, 77, 0) 88%); animation: hob-flood .55s ease-in 1.95s both; }
+@keyframes hob-flood { to { opacity: 1; } }
+@media (max-width: 700px) { .hob-frame { --d: 56vmin; } }
+
+/* ---- Eggs ---------------------------------------------------------------------- */
+/* Fireflies: soft lights drift up and fade. */
+.hob-flies { position: fixed; inset: 0; z-index: 110; pointer-events: none; overflow: hidden; }
+.hob-flies i { position: absolute; left: var(--x); top: var(--y); width: var(--s); aspect-ratio: 1; border-radius: 50%; opacity: 0; background: radial-gradient(circle, #fff3a0 0, #ffc21a 38%, rgba(255, 170, 0, 0) 72%); box-shadow: 0 0 14px 6px rgba(255, 170, 0, .7); animation: hob-fly var(--t) ease-in-out var(--d) both; }
+@keyframes hob-fly { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: 1; } 50% { transform: translate(var(--dx), -18vh); } 85% { opacity: 1; } 100% { opacity: 0; transform: translate(calc(var(--dx) * -1), -36vh); } }
+
+/* A dragon's glow: a slow red-gold light washes in from an edge, with a ripple. No dragon. */
+.hob-ember { position: fixed; inset: 0; z-index: 110; pointer-events: none; overflow: hidden;
+  background: radial-gradient(90% 55% at var(--ox, 50%) var(--oy, 118%), rgba(255, 84, 20, .6), rgba(255, 150, 40, .32) 45%, transparent 72%); animation: hob-ember 4s ease-in-out both; }
+.hob-ember::before { content: ""; position: absolute; left: var(--ox, 50%); top: var(--oy, 118%); width: 120vmax; aspect-ratio: 1; border-radius: 50%; translate: -50% -50%; border: 3px solid rgba(255, 160, 60, .55); animation: hob-ripple 3.6s ease-out both; }
+@keyframes hob-ember { 0% { opacity: 0; } 25% { opacity: 1; } 70% { opacity: .8; } 100% { opacity: 0; } }
+@keyframes hob-ripple { from { transform: scale(.05); opacity: .9; } to { transform: scale(1); opacity: 0; } }
+
+/* Treasure glints: a card catches the light. */
+.card.hob-glint .face::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2; mix-blend-mode: screen;
+  background: radial-gradient(circle at 18% 22%, #fff 0 2px, transparent 3px), radial-gradient(circle at 78% 30%, #fff6b0 0 2px, transparent 3px), radial-gradient(circle at 60% 78%, #fff 0 2px, transparent 3px), radial-gradient(circle at 30% 70%, #ffe27a 0 2px, transparent 3px), linear-gradient(115deg, transparent 40%, rgba(255, 240, 170, .6) 50%, transparent 60%);
+  background-size: auto, auto, auto, auto, 250% 100%; background-position: 0 0, 0 0, 0 0, 0 0, 120% 0; animation: hob-twinkle 2.6s ease-in-out both; }
+@keyframes hob-twinkle { 0% { opacity: 0; background-position: 0 0, 0 0, 0 0, 0 0, 120% 0; } 20% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; background-position: 0 0, 0 0, 0 0, 0 0, -20% 0; } }
+
+/* A moonlit map: marks nobody can read appear slowly, then fade. */
+.hob-map { position: fixed; left: 50%; bottom: 9vh; z-index: 110; width: min(320px, 82vw); pointer-events: none; translate: -50% 0; rotate: -2deg; filter: drop-shadow(0 18px 30px rgba(0, 0, 0, .45)); animation: hob-map 7s ease-in-out both; }
+.hob-map-sheet { position: relative; padding: 22px 22px 26px; background: linear-gradient(135deg, #f3e6bf, #dcc58a); clip-path: polygon(2% 3%, 12% 0, 24% 3%, 38% 1%, 52% 4%, 66% 0, 80% 3%, 94% 1%, 100% 8%, 98% 30%, 100% 52%, 97% 74%, 100% 94%, 86% 100%, 70% 97%, 54% 100%, 38% 97%, 22% 100%, 8% 97%, 0 90%, 3% 66%, 0 44%, 3% 22%); }
+.hob-map-moon { position: absolute; right: 16px; top: 10px; width: 26px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fffdf0, #dfe9ff); box-shadow: 0 0 18px 6px rgba(190, 215, 255, .8); }
+.hob-map svg { display: block; width: 100%; height: auto; }
+.hob-map path { fill: none; stroke: #5a3b16; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: hob-ink 1.1s ease-out forwards; animation-delay: var(--d); }
+.hob-map-note { margin-top: 8px; text-align: center; font: 600 22px/1 var(--f-h); color: #5a3b16; opacity: 0; animation: hob-note .8s ease-out 3.6s forwards; }
+@keyframes hob-map { 0% { opacity: 0; transform: translateY(24px); } 9%, 86% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-12px); } }
+@keyframes hob-ink { to { stroke-dashoffset: 0; } }
+@keyframes hob-note { to { opacity: 1; } }
+
+/* Hidden: a small round door opens in the middle of the screen. */
+.hob-mini { position: fixed; inset: 0; z-index: 110; pointer-events: none; display: grid; place-items: center; animation: hob-mini 3.6s ease-in-out both; }
+.hob-mini .hob-frame { position: relative; left: auto; top: auto; translate: none; --d: clamp(130px, 22vmin, 200px); }
+.hob-mini .hob-door { animation-delay: .35s; animation-duration: .8s; }
+.hob-mini .hob-say { position: absolute; top: calc(50% + var(--dm, 110px)); left: 50%; translate: -50% 0; padding: 10px 18px; border-radius: 999px; background: rgba(28, 36, 18, .9); color: #fff3c4; font: 600 20px/1 var(--f-h); box-shadow: 0 0 0 1px rgba(217, 182, 74, .6); white-space: nowrap; opacity: 0; animation: hob-note .6s ease-out 1.2s forwards; }
+@keyframes hob-mini { 0% { opacity: 0; transform: scale(.4); } 14% { opacity: 1; transform: scale(1); } 84% { opacity: 1; } 100% { opacity: 0; transform: scale(.9); } }
+
+/* Hidden: a shower of gold. */
+.hob-coins { position: fixed; inset: 0; z-index: 110; pointer-events: none; overflow: hidden; }
+.hob-coins i { position: absolute; left: var(--x); top: -30px; width: 22px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff1b0, #d9b64a 55%, #8a6a14); box-shadow: 0 0 10px rgba(255, 210, 74, .55); animation: hob-coin var(--t) linear var(--d) both; }
+@keyframes hob-coin { from { transform: translateY(0) rotateY(0); } to { transform: translateY(calc(100vh + 60px)) rotateY(900deg); } }
+.hob-toast { position: fixed; left: 50%; top: 18vh; z-index: 125; pointer-events: none; translate: -50% 0; padding: 12px 22px; border-radius: 999px; background: rgba(28, 36, 18, .92); color: #fff3c4; font: 600 22px/1 var(--f-h); box-shadow: 0 0 0 1px rgba(217, 182, 74, .6); animation: hob-mini 3.2s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hob-intro, .hob-egg { display: none; }
+}

@@ -109,6 +109,11 @@ obvious placeholders and list them under "Content still owed" below.
   official art (the Scryfall art exception covers member pictures only). The
   Fan Content Policy has not been read in full; the footer notice stays. The
   club's line for this set (Magic-only or not) is still unconfirmed.
+  The Hobbit (club's request, 2026-11-22) has a warm handmade look, a
+  round-door opening and quiet eggs, all our own drawings and generic motifs.
+  It is a licensed Tolkien property, so: no names, quoted lines, real script or
+  lore text. The map egg's marks are random strokes, not any real alphabet. The
+  club chose generic motifs over named characters.
 - Stack: Vite + TypeScript, three.js, GSAP ScrollTrigger, Lenis. No UI framework.
 - Architecture rules learned in discovery: one persistent WebGL canvas behind
   the page; Lenis driven from gsap.ticker so scroll, ScrollTrigger and three.js
@@ -469,6 +474,26 @@ Bright and collectible. The card is the interface.
     conditions as the Star Trek ones and never overlap.
   - Test: `?set=fra&intro`, `?set=fra&egg=rift` (or jace, alt, mirror); in dev,
     `window.__fraEgg('rift')`.
+  - The Hobbit (src/ui/extras/hob.ts, src/styles/hob.css; lazy chunk with the
+    theme, about 2.2 kB + 3.2 kB gzip). A new look scoped to `html[data-set="hob"]`
+    and the nav, page and footer: sections with gently rolling hill edges
+    (clip-path on the ::before layers only, over deep green on <html>), paper
+    grain over the whole page (on #themeFx), a wavy accent underline under h2s,
+    "\2726" before labels, pill buttons, a rounder binder, dotted owed boxes, and
+    cards in a gold-and-brown wooden frame.
+  - The opening: a round green door in a hillside (CSS shapes and a little SVG)
+    swings open on warm light, the whole scene zooms through the doorway, the
+    light floods the screen, the theme changes under it, and the light fades on
+    the new page (about 3 s). Nothing spins or transforms the real page, so it is
+    light enough for phones too. Driven by the animations' own events with a 6.5 s
+    safety skip; a press or any key skips it.
+  - Eggs (same rules as the others): fireflies drift up, a dragon's glow (a
+    red-gold light and ripple from an edge, no dragon), a card catches the light,
+    and a moonlit map whose marks nobody can read. Hidden: the Konami code
+    starts a shower of gold; the club mark in the nav pressed three times opens
+    a small round door that says "Welcome. Mind the step."
+  - Test: `?set=hob&intro`, `?set=hob&egg=fireflies` (or ember, glint, map,
+    door, coins); in dev, `window.__hobEgg('map')`.
   - Returning visitors with a saved theme see the club colors for a moment
     before the theme loads (it loads after the page).
 - design/ - concept board, approved mockup, logo sources. Reference only.
@@ -557,7 +582,8 @@ Bright and collectible. The card is the interface.
   theme without saving it, `?set=none` for the club colors, `?set=trk&intro`
   to play a theme's opening on load, `?set=trk&egg=warp` (or redalert, beam,
   vulcan) to see an Easter egg 1.5 s after the page loads, and for Reality
-  Fracture `?set=fra&egg=rift` (or jace, alt, mirror).
+  Fracture `?set=fra&egg=rift` (or jace, alt, mirror), and for The Hobbit
+  `?set=hob&egg=fireflies` (or ember, glint, map, door, coins).
 - Card links and buttons take their accessible name from their visible
   text. Extra words for screen readers go in the `label` option, which adds
   hidden text; do not use aria-label on cards.
