@@ -6,7 +6,10 @@ decided, what is next.
 ## 2026-11-22 (Sun) - The Watch section (integrations, step 2 of 3)
 
 The second of the three integrations the club asked for: replays, intros and
-live streams. Built and committed locally, not pushed (a push goes live).
+live streams. Approved and pushed (8efd62d, with the Phase 1 log commit). No remote commits
+had arrived, so no rebase. Live after about 50 s: the page serves
+index-CWZ3yF21.js, the nav has "Watch", the section shows its owed note, no
+request to YouTube or Google, no console errors.
 
 **Done**
 - A new "Watch" section after Events, with a nav link: one big player and the
