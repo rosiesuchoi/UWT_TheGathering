@@ -3,6 +3,73 @@
 Newest entry first. One entry per working session: what was done, what was
 decided, what is next.
 
+## 2026-11-22 (Sun) - Favorite-set themes (integrations, step 3 of 3)
+
+The third integration the club asked for: a visitor picks a favorite Magic set
+and the site takes on its colors and mood. Built and committed locally, not
+pushed (a push goes live).
+
+**Done**
+- A "Your favorite set" drop-down in the join section, grouped Magic sets /
+  Universes Beyond / Secret Lair, with a reset button. The pick is kept in this
+  browser only (`mtguwt:set`) and the page says so. Fifteen themes: the 14 paper
+  sets released 2024-11-21 to 2026-11-21 (7 in-universe, 7 crossovers) plus
+  Secret Lair, included by decision (it is one 2019 Scryfall set whose drops
+  cannot be date-filtered). Commander decks and Eternal sets ride with their
+  parent set. Foundations (2024-11-15) falls just outside the range.
+- Each theme is six colors and one of four motions (drift, shimmer, pulse,
+  rain); everything else is derived (src/ui/themecolors.ts). A theme recolors
+  the nav, the page and the footer, a fixed ambient light layer behind the
+  text, the cards' foil hue and a hover glow. The officer panel keeps its own
+  colors, the 3D deck, prize photos and the table's wood are not themed.
+- `npm run sets` (one Scryfall /sets request, or a saved copy) writes
+  sets.json; the line of each set is hand-written in the script because
+  Scryfall has no Universes Beyond flag. `npm run contrast` checks WCAG AA.
+  `?set=fin` previews a theme without saving it; `?set=none` the club colors.
+- To make themes possible, brand colors that were written as hex and rgba in
+  nine style files became tokens (new: --felt-hi, --felt-lo, --art-a, --art-b,
+  --line, --line-2, --gold-lite). The default look was kept.
+- CLAUDE.md (constraints, code map, rules, owed items) and README updated.
+
+**Checked** (dev build; Chrome pane and headless Chrome, 1280 and 375 wide)
+- Type-check and production build pass. Main bundle 188.4 -> 191.3 kB (69.0 ->
+  70.0 kB gzip); styles 40.2 -> 44.6 kB (12.0 -> 12.7 gzip); the theme code is a
+  separate 3.4 kB (1.4 kB gzip) chunk loaded only when a theme is shown.
+- The default look after the token refactor against a screenshot from before:
+  1.3% of pixels differ, none by more than 2 of 255 levels (color-mix rounding
+  in shadows). The first comparison caught a real mistake of mine (the table's
+  dashed ring had been mapped to the wrong gold); fixed with its own token and
+  re-compared.
+- Contrast: all 15 themes pass AA on 13 pairs each (lowest margin 5.79, the
+  Ninja Turtles labels on the violet section; the club's own colors 7.47).
+- Screenshots of every theme at 1280 x 900 and 375 x 812 for the hero, table,
+  nights, members, events and join sections, looked at as contact sheets: all
+  distinct, readable and cohesive. No sideways scroll in any theme at either
+  width.
+- Picker: choosing saves and applies; a reload restores it; reset clears it and
+  returns focus to the drop-down; junk or unknown values in storage are ignored;
+  the Down arrow on the focused drop-down picks and announces a set. A visitor
+  who never picks downloads no theme code and the light layer stays hidden.
+- Officer panel colors are identical with and without a theme.
+- Motion: the effect runs normally (two looping animations), has none running
+  under ?reduce-motion, and none on a 375-wide screen (still frame).
+
+**Not verified**
+- Frame rate in real time (the test pane is hidden; ?fps was not read) and
+  Lighthouse (not re-run). The animations were confirmed to run through their
+  computed styles, but I did not watch them move.
+- Safari, Firefox, a real phone, a screen reader. The tints use CSS color-mix(),
+  which current browsers support; an old browser would lose them.
+- Returning visitors with a saved theme see the club colors for a moment
+  before it loads (it loads after the page).
+- The club has not confirmed: that Reality Fracture is a Magic-only set (its
+  line is my guess; the set is newer than what I know), whether The Zeta Set
+  belongs, or that naming the crossover sets in the picker is acceptable.
+- The Friday flyer (and its Canva copy) still show the old venue address.
+
+**Next**
+- Approval to push step 3. Local-only commits waiting: the Phase 2 log entry.
+
 ## 2026-11-22 (Sun) - The Watch section (integrations, step 2 of 3)
 
 The second of the three integrations the club asked for: replays, intros and

@@ -8,7 +8,9 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --port 4174 --strictPort",
     "typecheck": "tsc --noEmit",
-    "art": "node scripts/fetch-commander-art.mjs"
+    "art": "node scripts/fetch-commander-art.mjs",
+    "sets": "node scripts/fetch-sets.mjs",
+    "contrast": "node scripts/check-contrast.mjs"
   },
   "devDependencies": {
     "@types/three": "^0.187.0",

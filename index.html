@@ -183,6 +183,16 @@
             <p class="signup-note" id="signNote" aria-live="polite">Your name is saved in this browser only. To be added to the binder for everyone, say hello on Discord.</p>
             <button class="linkbtn" id="signClear" type="button" hidden>Take my name off</button>
           </form>
+          <!-- Picks a favorite set and recolors the site. Kept in this browser only; see src/ui/setpick.ts. -->
+          <div class="signup setpick" data-rv>
+            <label for="setPick" data-edit="join-setlabel" data-edit-in="panel">Your favorite set</label>
+            <div class="signup-row">
+              <select id="setPick" name="set"><option value="">Club colors (default)</option></select>
+              <button class="linkbtn" id="setReset" type="button" hidden>Reset to club colors</button>
+            </div>
+            <p class="signup-note" data-edit="join-setnote">Pick a set and the site takes on its colors and mood. It is saved in this browser only, and nobody else sees it.</p>
+            <p class="sr-only" id="setStatus" role="status"></p>
+          </div>
           <div class="cta" data-rv><a class="btn btn-ink" data-discord href="#join" data-edit="join-cta" data-edit-in="panel">Join the Discord</a></div>
           <!-- Filled from club.json by src/sections/join.ts -->
           <dl class="recap" id="joinRecap" data-rv></dl>
@@ -208,6 +218,9 @@
 
   <!-- Counter beside the corner deck. Decorative, so hidden from screen readers. -->
   <div class="tally" id="tally" aria-hidden="true"><b id="tallyCount">0</b><span>/ <span id="tallyTotal">7</span> played</span></div>
+
+  <!-- Ambient light for the favorite-set themes. Empty and hidden until a theme is picked; see src/styles/themes.css. -->
+  <div id="themeFx" aria-hidden="true"></div>
 
   <!-- Shuffle cutscene overlay. The 3D deck flies above it. Click or Escape skips. -->
   <div class="cut" id="cut" hidden aria-hidden="true">

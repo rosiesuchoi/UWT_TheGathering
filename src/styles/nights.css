@@ -4,7 +4,7 @@
 .night-card { rotate: -3deg; }
 .night:nth-child(even) .night-card { rotate: 3deg; }
 /* The card frame is the same ink as this section, so give it a thin edge. */
-.night-card .face { box-shadow: 0 0 0 1px rgba(241, 237, 249, .22), 0 5cqw 11cqw rgba(0, 0, 0, .5); }
+.night-card .face { box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper) 22%, transparent), 0 5cqw 11cqw rgba(0, 0, 0, .5); }
 .night-info { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .day { font-family: var(--f-d); text-transform: uppercase; font-size: clamp(34px, 4.2vw, 56px); line-height: 1; color: var(--accent); }
 .time { font-family: var(--f-m); font-size: 15px; letter-spacing: .08em; }

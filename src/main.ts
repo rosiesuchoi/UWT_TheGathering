@@ -20,6 +20,7 @@ import './styles/events.css';
 import './styles/prizebox.css';
 import './styles/video.css';
 import './styles/join.css';
+import './styles/themes.css';
 
 import { fx } from './core/fx';
 import { ScrollTrigger, gsap, initScroll } from './core/scroll';
@@ -34,11 +35,13 @@ import { initWatch } from './sections/video';
 import { applyClubContent, initNav } from './ui/chrome';
 import { applyTextEdits } from './ui/edits';
 import { initDotsParallax, initOffscreenPause, initReveals } from './ui/motion';
+import { initSetPicker, initTheme } from './ui/setpick';
 import { initTracker } from './ui/tracker';
 
 // Words the officers have edited replace the text in index.html first.
 applyTextEdits();
 applyClubContent();
+initTheme();
 initNav();
 initScroll();
 initTable();
@@ -49,6 +52,7 @@ initMembers();
 initEvents();
 initWatch();
 initJoin();
+initSetPicker();
 // Reveals go last: they number the pieces each section has just built.
 initReveals();
 initDotsParallax();

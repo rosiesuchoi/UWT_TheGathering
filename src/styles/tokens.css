@@ -20,6 +20,18 @@
   --ember: #e2472f;
   --grove: #2f9e5b;
 
+  /* Worked out from a theme's six colors (src/ui/themecolors.ts) when a favorite set is picked.
+     These values are the club's own. */
+  --felt-hi: #4c2796;
+  --felt-lo: #2a1259;
+  --art-a: #6a3fc0;
+  --art-b: #2a0f5c;
+  --line: #d5cbe9;
+  --line-2: #b9add6;
+  --gold-lite: #d9b863;
+  --fx1: var(--gold);
+  --fx2: var(--lamp);
+
   /* Table scene */
   --espresso: #17100c;
   --felt: #3d1d7a;

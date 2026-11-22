@@ -61,6 +61,10 @@ obvious placeholders and list them under "Content still owed" below.
   (the Videos tab has a box for it), the venues allow filming (Iruda Cafe and
   Silver King Games & Hobby), any music in replays is cleared, and intros have
   captions. A club-owned account, not a personal one, should run the channel.
+- Favorite sets: the club should confirm that Reality Fracture is a Magic-only
+  (in-universe) set, say whether The Zeta Set (2026-09-02, Scryfall "box")
+  belongs in the list, and confirm that naming the crossover sets in the
+  picker is acceptable.
 
 ## Constraints
 - No official Magic card art, mana symbols, or Wizards of the Coast logos.
@@ -82,6 +86,15 @@ obvious placeholders and list them under "Content still owed" below.
   anyone's favorite commander. Crossover (Universes Beyond) cards are left
   out on purpose: they carry other companies' art and marks, which the Fan
   Content Policy does not cover. Everything else stays original.
+- Favorite-set themes (2026-11-22): original palettes and abstract motion
+  only. No official set symbols (Scryfall's icons are Wizards marks and its docs
+  say not to hotlink them), no card art as backgrounds, and no logos,
+  characters or typefaces from any set. Seven of the fifteen sets are other
+  companies' properties (crossovers: Square Enix, Marvel, Paramount and
+  Nickelodeon, the Tolkien licensees), which the Fan Content Policy does not
+  cover. Their themes are colors and generic light effects only, and the set
+  name appears as plain text in the picker. The club has been asked to confirm
+  that naming them is acceptable.
 - Stack: Vite + TypeScript, three.js, GSAP ScrollTrigger, Lenis. No UI framework.
 - Architecture rules learned in discovery: one persistent WebGL canvas behind
   the page; Lenis driven from gsap.ticker so scroll, ScrollTrigger and three.js
@@ -346,6 +359,48 @@ Bright and collectible. The card is the interface.
   - The Videos tab in the officer panel (panels.ts videosPanel) edits
     videos.json and the stream. videos.json is a doc in admin.ts.
   - Nothing here loops, so nothing was added to the [data-offscreen] list.
+- Favorite-set themes. A visitor picks a favorite Magic set in the join
+  section and the whole site takes on its colors and a mood. Only sets
+  released 2024-11-21 to 2026-11-21 are offered (the club's rule): 14 sets plus
+  Secret Lair, which is one Scryfall set dated 2019 and is included by
+  decision. The pick is kept in this browser only (`mtguwt:set`); there are no
+  accounts and nobody else sees it, and the page says so.
+  - scripts/fetch-sets.mjs (`npm run sets`, one request to Scryfall's /sets;
+    `SETS_FILE=path` reads a saved copy instead) writes src/content/sets.json:
+    paper sets of type expansion or masters in range. Commander decks, Eternal
+    sets, bonus sheets, promos, tokens, art series and Alchemy ride with their
+    parent set and are not choices. Scryfall's set data has no
+    Universes Beyond flag, so the line of each set (in-universe,
+    universes-beyond, secret-lair) is written by hand in LINES in that script.
+    A new set is reported until it has a line and a palette.
+  - src/content/set-themes.json: per set, six colors (paper, ink, purple,
+    gold, felt, lamp), one motion (drift, shimmer, pulse, rain) and a foil hue.
+    src/ui/themecolors.ts works out every other token from the six (the
+    tinted paper, foil gradient, felt shades, lines), so a theme cannot forget
+    one. `npm run contrast` checks WCAG AA for 13 text-on-background pairs per
+    theme with that same code; run it after editing any palette.
+  - src/ui/setpick.ts (always loaded, small) holds the picker and the saved
+    pick; src/ui/themes.ts and set-themes.json load only when a theme is
+    shown, so a visitor who never picks downloads none of it. The picker is a
+    native <select> grouped by line, with a reset button.
+  - A theme is one style rule, injected by themes.ts, that sets the tokens on
+    `.nav, main, .foot, .tally, #themeFx` under `html[data-set]`. The officer
+    panel is outside those, so it keeps the club's colors.
+  - src/styles/themes.css: the ambient layer `#themeFx` (fixed, last in the page,
+    at --z-bg, so it paints over the section backgrounds and under the canvas
+    and text; sections still create no stacking context), the four motions,
+    the card-hover glow and the foil hue. Transform and opacity only. Phones
+    (700px and under) get the still frame; reduced motion zeroes every
+    animation.
+  - Brand colors in the styles are tokens (--ink, --paper, --purple, --lamp,
+    --gold-pale and friends, plus --felt-hi, --felt-lo, --art-a, --art-b,
+    --line, --line-2, --gold-lite) so a theme recolors them. Keep new brand
+    colors as tokens; admin.css stays on fixed colors on purpose. The tokens
+    in tokens.css are the club's own values; the refactor was checked
+    against a before/after screenshot (largest difference 2 of 255 levels).
+  - Not themed: the 3D deck's colors, the prize box photos, the table's wood.
+  - Returning visitors with a saved theme see the club colors for a moment
+    before the theme loads (it loads after the page).
 - design/ - concept board, approved mockup, logo sources. Reference only.
 - .github/workflows/deploy.yml - builds the site and publishes it to GitHub
   Pages on every push to main. Every push to main goes live, so only push
@@ -419,8 +474,13 @@ Bright and collectible. The card is the interface.
 - Third-party content (YouTube) loads only after a press, never at page load,
   and no page address or typed text may reach an iframe except through the
   checked-id helpers in src/content/youtube.ts.
+- Never write a brand color into a stylesheet as a hex or rgba(); use the
+  token (or color-mix() of it), or a set theme cannot recolor it.
+- The theme layer #themeFx is always on screen, so it is not in the
+  [data-offscreen] list; browsers throttle it when the tab is hidden.
 - Test switches, usable on any build: add `?reduce-motion` to force reduced
-  motion, `?fps` for a frame-rate readout.
+  motion, `?fps` for a frame-rate readout, `?set=fin` (any set code) to see a
+  theme without saving it, `?set=none` for the club colors.
 - Card links and buttons take their accessible name from their visible
   text. Extra words for screen readers go in the `label` option, which adds
   hidden text; do not use aria-label on cards.
@@ -464,8 +524,8 @@ session.
      1. Scryfall stand-in art for member cards - built, awaiting approval.
      2. Video section (live stream, replays, short intros) - built, awaiting
         approval.
-     3. Favorite-set themes (sets released 2024-11-21 to 2026-11-21) - not
-        started.
+     3. Favorite-set themes (sets released 2024-11-21 to 2026-11-21) - built,
+        awaiting approval.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.

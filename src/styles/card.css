@@ -8,7 +8,7 @@ button.card { appearance: none; border: 0; padding: 0; background: none; font: i
 .c-name, .c-type { background: var(--paper); border-radius: 2cqw; display: flex; align-items: center; justify-content: space-between; gap: 2cqw; padding: 1.6cqw 3cqw; line-height: 1.2; min-width: 0; }
 .c-name { font-weight: 700; font-size: 6.4cqw; }
 .c-name > span, .c-type > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.c-pip { flex: none; width: 5cqw; height: 5cqw; border-radius: 50%; background: var(--pip, var(--gold)); border: 1px solid rgba(27, 16, 51, .35); }
+.c-pip { flex: none; width: 5cqw; height: 5cqw; border-radius: 50%; background: var(--pip, var(--gold)); border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent); }
 .c-type { font-weight: 500; font-size: 4.5cqw; }
 .c-art { border-radius: 2cqw; background: var(--art); color: var(--glyph, #fff); display: grid; place-items: center; min-height: 0; }
 .c-art > svg, .c-art > .mark { width: 46%; height: auto; }
@@ -17,7 +17,7 @@ button.card { appearance: none; border: 0; padding: 0; background: none; font: i
 .c-num { display: flex; justify-content: space-between; font-family: var(--f-m); font-size: 3.8cqw; letter-spacing: .08em; color: var(--gold-pale); }
 
 /* Tones: which colors a card takes. */
-.tone-gold { --pip: var(--gold); --art: linear-gradient(160deg, #6a3fc0, #2a0f5c); --glyph: #fff; }
+.tone-gold { --pip: var(--gold); --art: linear-gradient(160deg, var(--art-a), var(--art-b)); --glyph: #fff; }
 .tone-chalk { --pip: var(--chalk); --art: linear-gradient(160deg, #fffdf3, #e6d7a8); --glyph: var(--ink); }
 .tone-tide { --pip: var(--tide); --art: linear-gradient(160deg, #7dbbff, #1b4fa8); --glyph: #fff; }
 .tone-dusk { --pip: var(--dusk); --art: linear-gradient(160deg, #5b4690, #1b1033); --glyph: var(--gold-pale); }

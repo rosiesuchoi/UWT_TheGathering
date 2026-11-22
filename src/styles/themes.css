@@ -1,0 +1,47 @@
+/* Favorite-set themes. The colors come from src/ui/themes.ts (it sets the
+   tokens on the nav, the page and the footer). This file is the part that does
+   not change per theme: the ambient light layer and the card flourish.
+
+   Layering: #themeFx is fixed, last in the page, at the same level as the
+   section backgrounds (var(--z-bg)). Being later, it paints over them; the WebGL
+   canvas and all text sit above it. It never touches .sec or .hero, so they
+   still create no stacking context. It moves only with transform and opacity.
+
+   It is always on screen, so there is nothing to pause with [data-offscreen].
+   Phones get the still frame; reduced motion (the system setting or
+   ?reduce-motion) zeroes every animation, which leaves the still frame too. */
+#themeFx { position: fixed; inset: 0; z-index: var(--z-bg); pointer-events: none; overflow: hidden; display: none; opacity: .75; }
+html[data-fx] #themeFx { display: block; }
+#themeFx::before, #themeFx::after { content: ""; position: absolute; inset: -25%; will-change: transform, opacity; }
+
+/* drift: slow blobs of light that wander (wind, haze, forest). */
+html[data-fx="drift"] #themeFx::before { background: radial-gradient(38% 34% at 24% 28%, color-mix(in srgb, var(--fx1) 30%, transparent), transparent 70%), radial-gradient(34% 30% at 78% 70%, color-mix(in srgb, var(--fx2) 26%, transparent), transparent 70%); animation: fx-drift 46s ease-in-out infinite alternate; }
+html[data-fx="drift"] #themeFx::after { background: radial-gradient(30% 28% at 70% 24%, color-mix(in srgb, var(--fx2) 22%, transparent), transparent 70%); animation: fx-drift 61s ease-in-out -20s infinite alternate-reverse; }
+@keyframes fx-drift { from { transform: translate3d(-4%, -3%, 0) scale(1); } to { transform: translate3d(5%, 4%, 0) scale(1.12); } }
+
+/* shimmer: a band of light that sweeps across (crystal, foil, polish). */
+html[data-fx="shimmer"] #themeFx::before { inset: -10% -60%; background: linear-gradient(105deg, transparent 38%, color-mix(in srgb, var(--fx1) 20%, transparent) 46%, color-mix(in srgb, white 16%, transparent) 50%, color-mix(in srgb, var(--fx2) 18%, transparent) 54%, transparent 62%); animation: fx-sweep 16s ease-in-out infinite alternate; }
+html[data-fx="shimmer"] #themeFx::after { display: none; }
+@keyframes fx-sweep { from { transform: translate3d(-35%, 0, 0); } to { transform: translate3d(35%, 0, 0); } }
+
+/* pulse: a glow that breathes (candlelight, engines, warp). */
+html[data-fx="pulse"] #themeFx::before { inset: 0; background: radial-gradient(60% 55% at 50% 42%, color-mix(in srgb, var(--fx1) 26%, transparent), transparent 72%); animation: fx-pulse 9s ease-in-out infinite alternate; }
+html[data-fx="pulse"] #themeFx::after { inset: 0; background: radial-gradient(50% 40% at 50% 100%, color-mix(in srgb, var(--fx2) 24%, transparent), transparent 72%); animation: fx-pulse 13s ease-in-out -4s infinite alternate-reverse; }
+@keyframes fx-pulse { from { opacity: .35; transform: scale(.94); } to { opacity: .95; transform: scale(1.06); } }
+
+/* rain: thin streaks that slide down (speed, drips). */
+html[data-fx="rain"] #themeFx::before { inset: -20% 0; background: repeating-linear-gradient(100deg, transparent 0 46px, color-mix(in srgb, var(--fx1) 22%, transparent) 46px 47px, transparent 47px 112px); animation: fx-rain 8s ease-in-out infinite alternate; }
+html[data-fx="rain"] #themeFx::after { display: none; }
+@keyframes fx-rain { from { transform: translate3d(0, -9%, 0); } to { transform: translate3d(0, 9%, 0); } }
+
+/* Phones: the still frame only. */
+@media (max-width: 700px) {
+  #themeFx::before, #themeFx::after { animation: none !important; will-change: auto; }
+}
+
+/* The card flourish: the foil turns toward the set's hue, and a card lights up
+   in the set's accent when pointed at. Colors only; no extra motion. */
+html[data-set] .c-foil { filter: hue-rotate(var(--foil-hue, 0deg)); }
+html[data-set] .face { transition: transform .18s ease-out, box-shadow .25s ease-out; }
+html[data-set] .card:hover .face,
+html[data-set] .card:focus-visible .face { box-shadow: 0 0 0 2px color-mix(in srgb, var(--fx1) 75%, transparent), 0 5cqw 11cqw color-mix(in srgb, var(--fx1) 32%, transparent); }

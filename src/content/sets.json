@@ -1,0 +1,92 @@
+[
+  {
+    "code": "sld",
+    "name": "Secret Lair",
+    "releasedAt": "2019-12-02",
+    "line": "secret-lair"
+  },
+  {
+    "code": "inr",
+    "name": "Innistrad Remastered",
+    "releasedAt": "2025-01-24",
+    "line": "in-universe"
+  },
+  {
+    "code": "dft",
+    "name": "Aetherdrift",
+    "releasedAt": "2025-02-14",
+    "line": "in-universe"
+  },
+  {
+    "code": "tdm",
+    "name": "Tarkir: Dragonstorm",
+    "releasedAt": "2025-04-11",
+    "line": "in-universe"
+  },
+  {
+    "code": "fin",
+    "name": "Final Fantasy",
+    "releasedAt": "2025-06-13",
+    "line": "universes-beyond"
+  },
+  {
+    "code": "eoe",
+    "name": "Edge of Eternities",
+    "releasedAt": "2025-08-01",
+    "line": "in-universe"
+  },
+  {
+    "code": "spm",
+    "name": "Marvel's Spider-Man",
+    "releasedAt": "2025-09-26",
+    "line": "universes-beyond"
+  },
+  {
+    "code": "tla",
+    "name": "Avatar: The Last Airbender",
+    "releasedAt": "2025-11-21",
+    "line": "universes-beyond"
+  },
+  {
+    "code": "ecl",
+    "name": "Lorwyn Eclipsed",
+    "releasedAt": "2026-01-23",
+    "line": "in-universe"
+  },
+  {
+    "code": "tmt",
+    "name": "Teenage Mutant Ninja Turtles",
+    "releasedAt": "2026-03-06",
+    "line": "universes-beyond"
+  },
+  {
+    "code": "sos",
+    "name": "Secrets of Strixhaven",
+    "releasedAt": "2026-04-24",
+    "line": "in-universe"
+  },
+  {
+    "code": "msh",
+    "name": "Marvel Super Heroes",
+    "releasedAt": "2026-06-26",
+    "line": "universes-beyond"
+  },
+  {
+    "code": "hob",
+    "name": "The Hobbit",
+    "releasedAt": "2026-08-14",
+    "line": "universes-beyond"
+  },
+  {
+    "code": "fra",
+    "name": "Reality Fracture",
+    "releasedAt": "2026-10-02",
+    "line": "in-universe"
+  },
+  {
+    "code": "trk",
+    "name": "Star Trek",
+    "releasedAt": "2026-11-13",
+    "line": "universes-beyond"
+  }
+]

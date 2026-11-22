@@ -33,6 +33,9 @@ site updates everywhere that content appears.
 - `cards.json`: the words on the club, members and visitor cards.
 - `videos.json`: replays and intros (YouTube ids only; the videos stay on
   YouTube). `club.json` also holds the club's YouTube channel and "next stream".
+- `sets.json` and `set-themes.json`: the Magic sets a visitor can pick as a
+  favorite, and the six colors and motion each one gives the site. Refresh the
+  list with `npm run sets`, and check a new palette with `npm run contrast`.
 - `text.json`: edited headings and paragraphs (written by the officer panel).
 - Member photos go in `public/members/`. A member without a photo wears
   stand-in card art from Scryfall (`commander-art.json`, refreshed by

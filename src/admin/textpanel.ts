@@ -18,6 +18,7 @@ const LABELS: Record<string, [group: string, what: string]> = {
   'table-seat': ['The table', 'Handwritten word at the open seat'],
   'table-seatbtn': ['The table', 'Button at the open seat'],
   'join-signlabel': ['Last section', 'Words above the name box'],
+  'join-setlabel': ['Last section', 'Words above the favorite-set picker'],
   'join-cta': ['Last section', 'Discord button'],
   'foot-discord': ['Footer', 'Discord link'],
   'foot-members': ['Footer', 'Members link'],

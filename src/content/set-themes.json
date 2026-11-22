@@ -1,0 +1,17 @@
+{
+  "inr": { "fx": "pulse", "foilHue": 335, "palette": { "paper": "#f5eff1", "ink": "#1e0f17", "purple": "#5a1f3a", "gold": "#e0b86e", "felt": "#3d1228", "lamp": "#ffb877" } },
+  "dft": { "fx": "rain", "foilHue": 165, "palette": { "paper": "#eef6f7", "ink": "#0a2127", "purple": "#0b4f5c", "gold": "#ff9f2e", "felt": "#0a3a45", "lamp": "#ffd166" } },
+  "tdm": { "fx": "drift", "foilHue": 215, "palette": { "paper": "#f1f3f8", "ink": "#0f1828", "purple": "#1f3a5f", "gold": "#e6a63f", "felt": "#1b2f4d", "lamp": "#ffc983" } },
+  "eoe": { "fx": "drift", "foilHue": 195, "palette": { "paper": "#eff1fb", "ink": "#0d0e2a", "purple": "#2b2d6e", "gold": "#5fd3e6", "felt": "#1b1c4d", "lamp": "#8aeaff" } },
+  "ecl": { "fx": "drift", "foilHue": 100, "palette": { "paper": "#f2f4ee", "ink": "#14231d", "purple": "#2f5a4a", "gold": "#e9b8e2", "felt": "#173d33", "lamp": "#f5cdea" } },
+  "sos": { "fx": "shimmer", "foilHue": 235, "palette": { "paper": "#f4f1ea", "ink": "#151a33", "purple": "#23356b", "gold": "#e2b54a", "felt": "#1c2a58", "lamp": "#ffd681" } },
+  "fra": { "fx": "shimmer", "foilHue": 285, "palette": { "paper": "#f6effa", "ink": "#1a0b27", "purple": "#5b1f7a", "gold": "#3be0d0", "felt": "#2c0f4a", "lamp": "#ff86de" } },
+  "fin": { "fx": "shimmer", "foilHue": 215, "palette": { "paper": "#eef4fc", "ink": "#0b1633", "purple": "#1d3f8f", "gold": "#bfe3ff", "felt": "#16306e", "lamp": "#dff3ff" } },
+  "spm": { "fx": "pulse", "foilHue": 350, "palette": { "paper": "#f3f4fa", "ink": "#0c1230", "purple": "#1b2f6b", "gold": "#ff5a5f", "felt": "#14224f", "lamp": "#ff9a9e" } },
+  "tla": { "fx": "drift", "foilHue": 190, "palette": { "paper": "#f3f1ea", "ink": "#10222b", "purple": "#164e63", "gold": "#f0a830", "felt": "#123b4a", "lamp": "#ffd783" } },
+  "tmt": { "fx": "rain", "foilHue": 125, "palette": { "paper": "#f1f5ee", "ink": "#0f2014", "purple": "#1f5a2e", "gold": "#ff8a1f", "felt": "#173f22", "lamp": "#ffb44d" } },
+  "msh": { "fx": "shimmer", "foilHue": 5, "palette": { "paper": "#faf1ee", "ink": "#240808", "purple": "#8a1c1c", "gold": "#ffc531", "felt": "#5a1010", "lamp": "#ffd45c" } },
+  "hob": { "fx": "drift", "foilHue": 80, "palette": { "paper": "#f4f1e4", "ink": "#1c2412", "purple": "#3f5a2a", "gold": "#d9b64a", "felt": "#2f4420", "lamp": "#ffd98a" } },
+  "trk": { "fx": "pulse", "foilHue": 200, "palette": { "paper": "#eff3f8", "ink": "#0a1530", "purple": "#1b3a6b", "gold": "#f2b84b", "felt": "#122a52", "lamp": "#7fe0e6" } },
+  "sld": { "fx": "shimmer", "foilHue": 0, "palette": { "paper": "#f6f2fb", "ink": "#150a2a", "purple": "#3b1f6e", "gold": "#ffd34d", "felt": "#251048", "lamp": "#ff9bd0" } }
+}

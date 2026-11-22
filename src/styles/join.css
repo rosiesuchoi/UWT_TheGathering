@@ -5,7 +5,7 @@
 .signup label { font-weight: 700; }
 .signup-row { display: flex; flex-wrap: wrap; gap: 10px; width: 100%; }
 .signup input { flex: 1 1 12rem; min-width: 0; font: inherit; color: var(--ink); background: var(--white); border: 2px solid var(--ink); border-radius: 10px; padding: 12px 14px; }
-.signup input::placeholder { color: #6a5f85; }
+.signup input::placeholder { color: color-mix(in srgb, var(--ink) 62%, var(--paper)); }
 .signup-note { font-size: 14.5px; line-height: 1.45; }
 .linkbtn { font: inherit; font-size: 14.5px; color: var(--purple); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
 .recap { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 6px 32px; font-size: 15.5px; }
@@ -18,3 +18,7 @@
   .recap { grid-template-columns: minmax(0, 1fr); }
   .recap dd { margin-bottom: 8px; }
 }
+
+/* The favorite-set picker sits under the name box and looks like it. */
+.signup select { flex: 1 1 14rem; min-width: 0; font: inherit; color: var(--ink); background: var(--white); border: 2px solid var(--ink); border-radius: 10px; padding: 12px 14px; }
+.setpick { margin-top: 18px; }
