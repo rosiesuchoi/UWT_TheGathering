@@ -103,6 +103,12 @@ obvious placeholders and list them under "Content still owed" below.
   and two short catchphrases ("Red alert", "Live long and prosper") plus the
   Vulcan salute emoji. If the club wants the real ship, it needs Paramount's
   permission first.
+  Reality Fracture (club's request, 2026-11-22) has a new look, a portal
+  opening, rifts and Jace Beleren. Jace is a Wizards of the Coast character:
+  he is drawn as our own hooded silhouette and named in plain text, never from
+  official art (the Scryfall art exception covers member pictures only). The
+  Fan Content Policy has not been read in full; the footer notice stays. The
+  club's line for this set (Magic-only or not) is still unconfirmed.
 - Stack: Vite + TypeScript, three.js, GSAP ScrollTrigger, Lenis. No UI framework.
 - Architecture rules learned in discovery: one persistent WebGL canvas behind
   the page; Lenis driven from gsap.ticker so scroll, ScrollTrigger and three.js
@@ -428,6 +434,41 @@ Bright and collectible. The card is the interface.
     and no officer is editing (.adm-bar). Never under reduced motion. Nothing
     flashes more than three times a second. All are aria-hidden and ignore the
     pointer. Stopped when another theme is chosen.
+  - Reality Fracture (src/ui/extras/fra.ts, src/styles/fra.css; lazy chunk with
+    the theme, about 3.4 kB + 2.9 kB gzip). It is a new look, not only new
+    colors, all scoped to `html[data-set="fra"]` and to the nav, page and footer:
+    section backgrounds with jagged broken edges (clip-path on the ::before
+    layers only, over a dark void on <html>), headings split into two ghost
+    colors (text-shadow only, so the reveal still works), "// " before labels,
+    cut-corner buttons (whole again on focus, so the ring shows), cracks across
+    card faces, hairline fractures instead of dots, a faint crack network on
+    #themeFx::after.
+  - The portal opening: a fractured, spinning portal opens over the real page;
+    on wide screens main, the nav and the footer are spun into it (a transform
+    that exists only while the classes `fra-suck` / `fra-push` are on <html>; the
+    pivot is the middle of the screen, set per piece as --oy), the theme changes
+    while the page is gone, and the page is pushed back out in the new design.
+    About 3.3 s. Phones (700px and under) skip the spinning page. It is driven by
+    the animations' own events; a 7 s safety skip always reveals and cleans up.
+    A press or any key skips it. After it, no transform, class or --oy is left
+    (checked), and the scroll position does not move.
+  - Rifts: every 35-80 s (first after 20-35 s) a jagged window opens in a visible
+    section and shows a copy of that section in the CLUB'S ORIGINAL look, then
+    stitches itself shut (about 4.2 s). The copy is a clone of the section,
+    placed over it at the same page position, outside <main>, so none of the
+    theme's rules reach it. KEEP IT THAT WAY: any rule of a theme's look must be
+    scoped to `:is(main, .nav, .foot)` or the rifts will leak the new design.
+    The clone keeps ids (their CSS needs them; the original comes first in the
+    page so lookups still find it), and is aria-hidden, inert and ignores the
+    pointer. Clip-path polygons with the same number of points are animated.
+  - Jace Beleren pops in at a screen edge with a short line, then out. Alt
+    headings: a heading flickers into an alternate-reality line (not facts about
+    the club; the originals are never changed, a pseudo-element draws the line).
+    Hidden: the Konami code turns the colors inside out for a moment; pressing
+    the club mark in the nav three times calls Jace. The eggs obey the same
+    conditions as the Star Trek ones and never overlap.
+  - Test: `?set=fra&intro`, `?set=fra&egg=rift` (or jace, alt, mirror); in dev,
+    `window.__fraEgg('rift')`.
   - Returning visitors with a saved theme see the club colors for a moment
     before the theme loads (it loads after the page).
 - design/ - concept board, approved mockup, logo sources. Reference only.
@@ -507,11 +548,16 @@ Bright and collectible. The card is the interface.
   token (or color-mix() of it), or a set theme cannot recolor it.
 - The theme layer #themeFx is always on screen, so it is not in the
   [data-offscreen] list; browsers throttle it when the tab is hidden.
+- A theme's look (shapes, edges, overlays) must be scoped to
+  `html[data-set="<code>"] :is(main, .nav, .foot)`, never to html alone: the
+  Reality Fracture rifts show a copy of the page outside those, and the
+  officer panel must keep its own look.
 - Test switches, usable on any build: add `?reduce-motion` to force reduced
   motion, `?fps` for a frame-rate readout, `?set=fin` (any set code) to see a
   theme without saving it, `?set=none` for the club colors, `?set=trk&intro`
   to play a theme's opening on load, `?set=trk&egg=warp` (or redalert, beam,
-  vulcan) to see an Easter egg 1.5 s after the page loads.
+  vulcan) to see an Easter egg 1.5 s after the page loads, and for Reality
+  Fracture `?set=fra&egg=rift` (or jace, alt, mirror).
 - Card links and buttons take their accessible name from their visible
   text. Extra words for screen readers go in the `label` option, which adds
   hidden text; do not use aria-label on cards.

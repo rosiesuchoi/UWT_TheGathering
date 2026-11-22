@@ -41,7 +41,7 @@ html[data-fx="rain"] #themeFx::after { display: none; }
 
 /* The card flourish: the foil turns toward the set's hue, and a card lights up
    in the set's accent when pointed at. Colors only; no extra motion. */
-html[data-set] .c-foil { filter: hue-rotate(var(--foil-hue, 0deg)); }
-html[data-set] .face { transition: transform .18s ease-out, box-shadow .25s ease-out; }
-html[data-set] .card:hover .face,
-html[data-set] .card:focus-visible .face { box-shadow: 0 0 0 2px color-mix(in srgb, var(--fx1) 75%, transparent), 0 5cqw 11cqw color-mix(in srgb, var(--fx1) 32%, transparent); }
+html[data-set] :is(main, .nav, .foot) .c-foil { filter: hue-rotate(var(--foil-hue, 0deg)); }
+html[data-set] :is(main, .nav, .foot) .face { transition: transform .18s ease-out, box-shadow .25s ease-out; }
+html[data-set] :is(main, .nav, .foot) .card:hover .face,
+html[data-set] :is(main, .nav, .foot) .card:focus-visible .face { box-shadow: 0 0 0 2px color-mix(in srgb, var(--fx1) 75%, transparent), 0 5cqw 11cqw color-mix(in srgb, var(--fx1) 32%, transparent); }

@@ -1,0 +1,126 @@
+/* Reality Fracture: a new look (not only new colors), the portal opening, and
+   the occasional rifts, visitor and hidden eggs. Loaded only together with the
+   Reality Fracture theme (see src/ui/extras/fra.ts).
+
+   Layering rules kept: nothing here puts a transform, opacity, filter, clip-path
+   or z-index on .sec or .hero. Their backgrounds are the ::before layers, and
+   clip-path on those only cuts the background. The look is scoped to
+   `html[data-set="fra"]` and to the nav, the page and the footer, so the officer
+   panel is untouched, and so a rift (a copy of the page placed outside those)
+   shows the club's original look. Everything decorative is aria-hidden and
+   ignores the pointer. Jace Beleren is a Wizards of the Coast character; he is
+   drawn here as our own hooded silhouette, never from official art. */
+
+/* ---- The Fractured look ----------------------------------------------------- */
+/* Behind the sections is a dark void, so the cracks between them show. */
+html[data-set="fra"]:root { background: radial-gradient(90% 60% at 50% 0%, #2c0f4a 0%, #0c0418 72%) fixed; }
+
+/* Sections have broken, jagged edges. */
+html[data-set="fra"] main > section::before,
+html[data-set="fra"] .foot::before { clip-path: polygon(0 1.4%, 7% 0, 15% 2.4%, 26% .3%, 38% 2.8%, 49% 0, 61% 2.2%, 73% .4%, 84% 2.6%, 93% 0, 100% 1.6%, 100% 98.4%, 91% 100%, 80% 97.6%, 68% 99.7%, 57% 97.4%, 45% 100%, 34% 97.8%, 22% 99.6%, 11% 97.2%, 0 98.8%); }
+html[data-set="fra"] main > section:nth-of-type(even)::before { clip-path: polygon(0 .4%, 9% 2.6%, 19% 0, 31% 2.2%, 43% .2%, 52% 2.9%, 64% 0, 77% 2.4%, 88% .3%, 100% 2.2%, 100% 99.6%, 90% 97.4%, 78% 100%, 66% 97.8%, 54% 99.9%, 41% 97.2%, 29% 100%, 16% 97.6%, 6% 99.8%, 0 97.8%); }
+
+/* The dotted paper becomes hairline fractures. */
+html[data-set="fra"] .dots::before { background-image: radial-gradient(color-mix(in srgb, var(--ink) 13%, transparent) 1px, transparent 1.3px), repeating-linear-gradient(115deg, transparent 0 64px, color-mix(in srgb, var(--purple) 12%, transparent) 64px 65px); background-size: 22px 22px, auto; }
+
+/* Headings split into two ghost colors, like a screen losing sync. Colors only: no transform, so the reveal still works. */
+html[data-set="fra"] main :is(h1, h2) { text-shadow: 3px 0 color-mix(in srgb, #ff3bd0 55%, transparent), -3px 0 color-mix(in srgb, var(--gold) 60%, transparent); }
+html[data-set="fra"] main .label::before { content: "// "; opacity: .65; }
+
+/* Cards crack: thin light lines across the face. */
+html[data-set="fra"] main .face::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: soft-light; opacity: .75;
+  background: linear-gradient(115deg, transparent 46.8%, rgba(255, 255, 255, .85) 47%, transparent 47.4%), linear-gradient(62deg, transparent 63.6%, rgba(255, 255, 255, .55) 63.8%, transparent 64.1%), linear-gradient(158deg, transparent 22.8%, rgba(255, 255, 255, .5) 23%, transparent 23.3%); }
+html[data-set="fra"] main .face { box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 55%, transparent), 0 5cqw 11cqw rgba(15, 6, 36, .38); }
+
+/* Buttons have cut corners. The focus ring would be cut too, so a focused button is whole. */
+html[data-set="fra"] :is(main, .nav) .btn { border-radius: 0; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); }
+html[data-set="fra"] :is(main, .nav) .btn:focus-visible { clip-path: none; }
+
+html[data-set="fra"] .nav { border-bottom-color: color-mix(in srgb, var(--gold) 70%, transparent); box-shadow: 0 1px 24px color-mix(in srgb, var(--gold) 35%, transparent); }
+
+/* A faint network of cracks stays on the page, over the section colors and under the text. */
+html[data-set="fra"][data-fx] #themeFx::after { display: block; inset: 0; opacity: .6; animation: none; will-change: auto;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 600' preserveAspectRatio='none'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M120 0 L150 90 L110 170 L190 260 L160 340 L240 430 L210 600' stroke='%233be0d0' stroke-opacity='.32' stroke-width='1.5'/%3E%3Cpath d='M860 0 L820 110 L880 200 L800 300 L850 410 L780 500 L820 600' stroke='%23ff86de' stroke-opacity='.3' stroke-width='1.5'/%3E%3Cpath d='M0 380 L110 350 L180 410 L300 380 L380 450 L500 420' stroke='%23ffffff' stroke-opacity='.18'/%3E%3Cpath d='M1000 140 L880 170 L820 120 L700 160' stroke='%233be0d0' stroke-opacity='.25'/%3E%3C/g%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+
+/* ---- The portal ------------------------------------------------------------- */
+/* The cover has no background: the real page stays visible while it is pulled in. */
+.fra-intro { position: fixed; inset: 0; z-index: 120; overflow: hidden; cursor: pointer; }
+.fra-intro.is-out { animation: fra-out .25s ease-in both; pointer-events: none; }
+@keyframes fra-out { to { opacity: 0; } }
+
+.fra-portal { position: absolute; left: 50%; top: 50%; width: min(78vmin, 700px); aspect-ratio: 1; translate: -50% -50%; animation: fra-open .75s cubic-bezier(.2, 1.2, .3, 1) both; }
+.fra-intro.is-pulling .fra-portal { animation: fra-pull .45s ease-in-out infinite alternate; }
+.fra-intro.is-closing .fra-portal { animation: fra-close .95s cubic-bezier(.6, 0, .9, .4) both; }
+@keyframes fra-open { from { transform: scale(.04) rotate(-90deg); opacity: 0; } 60% { opacity: 1; } to { transform: scale(1) rotate(0); opacity: 1; } }
+@keyframes fra-pull { from { transform: scale(1); } to { transform: scale(1.08); } }
+@keyframes fra-close { from { transform: scale(1); opacity: 1; } 40% { transform: scale(1.14); opacity: 1; } to { transform: scale(.05) rotate(120deg); opacity: 0; } }
+
+/* The fractured ring: a spinning band of color whose outline is broken. */
+.fra-ring { position: absolute; inset: 0; animation: fra-spin 2.2s linear infinite; filter: drop-shadow(0 0 18px #3be0d0) drop-shadow(0 0 40px #ff86de);
+  background: conic-gradient(from 0deg, #3be0d0, #ff86de, #7b2fd0, #ffffff, #3be0d0);
+  -webkit-mask: radial-gradient(circle, transparent 50%, #000 52%, #000 66%, transparent 70%); mask: radial-gradient(circle, transparent 50%, #000 52%, #000 66%, transparent 70%);
+  clip-path: polygon(50% 0, 58% 4%, 66% 1%, 74% 7%, 84% 6%, 90% 16%, 99% 22%, 96% 33%, 100% 44%, 97% 55%, 100% 66%, 92% 72%, 91% 83%, 81% 86%, 74% 95%, 63% 93%, 55% 100%, 45% 96%, 36% 100%, 28% 92%, 17% 92%, 12% 82%, 3% 76%, 6% 65%, 0 54%, 5% 44%, 1% 33%, 9% 26%, 10% 15%, 20% 12%, 26% 4%, 38% 6%); }
+.fra-ring.r2 { inset: 7%; animation-duration: 3.4s; animation-direction: reverse; opacity: .8; }
+@keyframes fra-spin { to { transform: rotate(360deg); } }
+.fra-core { position: absolute; inset: 14%; border-radius: 50%; background: radial-gradient(circle, #000 0 55%, #12062a 76%, transparent 79%); box-shadow: 0 0 90px 34px rgba(8, 0, 24, .92); }
+/* Cracks of light run out of the portal. */
+.fra-cracks { position: absolute; inset: -34%; pointer-events: none; animation: fra-cracks .9s ease-out both;
+  background: repeating-conic-gradient(from 7deg, transparent 0 5deg, rgba(255, 255, 255, .9) 5deg 5.25deg, transparent 5.25deg 11deg), repeating-conic-gradient(from 0deg, transparent 0 8deg, rgba(59, 224, 208, .8) 8deg 8.2deg, transparent 8.2deg 17deg);
+  -webkit-mask: radial-gradient(circle, transparent 22%, #000 40%, transparent 72%); mask: radial-gradient(circle, transparent 22%, #000 40%, transparent 72%); }
+@keyframes fra-cracks { from { transform: scale(.2); opacity: 0; } 40% { opacity: 1; } to { transform: scale(1); opacity: .85; } }
+
+/* One bright flash as the new reality arrives. */
+.fra-flash { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 50% 50%, #fff 0%, rgba(255, 134, 222, .75) 35%, rgba(59, 224, 208, 0) 80%); }
+.fra-intro.is-closing .fra-flash { animation: fra-flash .6s ease-out both; }
+@keyframes fra-flash { 0% { opacity: 0; } 30% { opacity: .9; } 100% { opacity: 0; } }
+
+/* The page is pulled into the portal, then pushed back out as the new design. The
+   origin is the middle of the screen, set from script per piece of the page. This
+   only lasts while it plays, so no transform stays on the page afterwards. */
+html.fra-suck, html.fra-push { overflow-x: clip; }
+html.fra-suck :is(main, .nav, .foot) { transform-origin: 50% var(--oy, 50%); animation: fra-suck 1.05s cubic-bezier(.55, 0, 1, .45) both; }
+html.fra-push :is(main, .nav, .foot) { transform-origin: 50% var(--oy, 50%); animation: fra-push .95s cubic-bezier(.2, 1.25, .35, 1) both; }
+@keyframes fra-suck { from { transform: scale(1) rotate(0); opacity: 1; } 75% { opacity: 1; } to { transform: scale(.02) rotate(150deg); opacity: 0; } }
+@keyframes fra-push { from { transform: scale(.02) rotate(-150deg); opacity: 0; } 25% { opacity: 1; } to { transform: scale(1) rotate(0); opacity: 1; } }
+
+/* ---- Jace Beleren ------------------------------------------------------------ */
+.fra-jace { position: fixed; bottom: 0; z-index: 110; width: clamp(110px, 14vw, 170px); pointer-events: none; animation: fra-jace 4.6s ease-in-out both; }
+.fra-jace.left { left: 12px; }
+.fra-jace.right { right: 12px; }
+.fra-jace svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 0 16px rgba(120, 190, 255, .7)); }
+.fra-say { position: absolute; bottom: calc(100% + 4px); width: max-content; max-width: min(230px, 60vw); padding: 10px 14px 12px; border-radius: 12px; background: rgba(8, 10, 40, .88); color: #e7f1ff; font: 500 14px/1.35 var(--f-t); box-shadow: 0 0 0 1px rgba(127, 224, 230, .45), 0 10px 30px rgba(0, 0, 0, .4); animation: fra-say 4.6s ease-in-out both; }
+.fra-jace.left .fra-say { left: 0; }
+.fra-jace.right .fra-say { right: 0; }
+.fra-say b { display: block; margin-bottom: 4px; font: 500 11px/1 var(--f-m); letter-spacing: .16em; text-transform: uppercase; color: #7fe0e6; }
+@keyframes fra-jace {
+  0% { opacity: 0; transform: translateY(40%) scale(.85); filter: blur(6px); }
+  9% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  11% { transform: translateX(-5px); filter: hue-rotate(60deg); }
+  13% { transform: translateX(4px); filter: none; }
+  15% { transform: none; }
+  86% { opacity: 1; transform: none; filter: blur(0); }
+  100% { opacity: 0; transform: translateY(30%) scale(.9); filter: blur(8px); }
+}
+@keyframes fra-say { 0%, 14% { opacity: 0; transform: translateY(6px); } 22%, 80% { opacity: 1; transform: none; } 90%, 100% { opacity: 0; } }
+
+/* ---- Rifts: a window onto the original site that heals shut ------------------- */
+.fra-rift { position: absolute; left: 0; top: 0; width: 100%; height: 0; z-index: 40; pointer-events: none; }
+.fra-rift-rim, .fra-rift-view { position: absolute; }
+.fra-rift-rim { background: conic-gradient(from 20deg, #3be0d0, #ff86de, #fff, #7b2fd0, #3be0d0); filter: drop-shadow(0 0 14px #ff86de); }
+.fra-rift-view { overflow: hidden; }
+.fra-rift-copy { position: absolute; left: 0; top: 0; margin: 0; }
+
+/* ---- Alternate-reality headings and the other side --------------------------- */
+html[data-set="fra"] .fra-alt { position: relative; }
+html[data-set="fra"] .fra-alt, html[data-set="fra"] .fra-alt em { color: transparent !important; text-shadow: none !important; }
+html[data-set="fra"] .fra-alt::after { content: attr(data-alt); position: absolute; left: 0; top: 0; width: 100%; color: var(--alt-color, currentColor); text-shadow: 3px 0 #ff3bd0, -3px 0 #3be0d0; animation: fra-alt 1.7s steps(1, end) both; }
+@keyframes fra-alt { 0% { opacity: 0; } 8% { opacity: 1; } 30% { opacity: .35; } 34% { opacity: 1; } 82% { opacity: 1; } 88% { opacity: .3; } 92% { opacity: 1; } 100% { opacity: 0; } }
+
+.fra-toast { position: fixed; left: 50%; top: 18vh; z-index: 125; pointer-events: none; translate: -50% 0; padding: 12px 20px; border-radius: 10px; background: rgba(8, 10, 40, .9); color: #e7f1ff; font: 500 13px/1 var(--f-m); letter-spacing: .2em; text-transform: uppercase; box-shadow: 0 0 0 1px rgba(255, 134, 222, .6), 0 0 40px rgba(255, 134, 222, .35); animation: fra-toast 3.2s ease-out both; }
+@keyframes fra-toast { 0% { opacity: 0; transform: translateY(-12px); } 12%, 80% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+/* The other side: the colors turn inside out for a moment. */
+html.fra-mirror :is(main, .nav, .foot) { filter: invert(.92) hue-rotate(160deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fra-intro, .fra-egg { display: none; }
+}

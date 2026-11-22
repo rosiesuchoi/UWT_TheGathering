@@ -3,6 +3,76 @@
 Newest entry first. One entry per working session: what was done, what was
 decided, what is next.
 
+## 2026-11-22 (Sun) - Reality Fracture: new look, portal, rifts, Jace
+
+Next theme in reverse date order (Star Trek, then Reality Fracture, then The
+Hobbit, and so on back in time). Built on top of the unpushed theme commits and
+committed locally; nothing is pushed.
+
+**Done**
+- A new look, not only new colors: sections with jagged broken edges over a dark
+  void, headings split into two ghost colors, "//" before labels, cut-corner
+  buttons, cracks across card faces, hairline fractures instead of dots, and a
+  faint network of cracks over the page.
+- The opening: a fractured, spinning portal opens, the real page is spun into
+  it, the theme changes while the page is gone, and the new design is pushed
+  out (about 3.3 s; phones get the portal without the spinning page). A press or
+  key skips it.
+- Rifts: now and then a jagged window opens in a section and shows the ORIGINAL
+  club design inside it, then heals itself shut and the new design is whole
+  again. Done by placing a copy of the section, outside the themed page, over the
+  section and animating a clip-path.
+- Jace Beleren pops in and out at a screen edge with a short line. He is our own
+  hooded silhouette, not official art (a Wizards character; see CLAUDE.md).
+- Hidden eggs: headings flicker into alternate-reality lines now and then; the
+  Konami code turns the colors inside out; pressing the club mark in the nav
+  three times calls Jace.
+- Shared theme rules (foil hue, card glow) are now scoped to the themed parts of
+  the page, so a rift's copy is not touched by them. Recorded as a rule.
+
+**Checked** (dev build, headless Chrome driven over its debugging port, 1280 and
+375 wide)
+- Type-check and production build pass. The extras are lazy chunks: 8.3 kB
+  (3.4 kB gzip) of script and 8.5 kB (2.9 kB gzip) of styles, loaded only with
+  this theme. Every theme still passes the contrast check; Star Trek's behavior
+  test gives the same results as before.
+- Real frames of the whole opening, the rift (opening, holding, stitching shut)
+  on two sections, Jace, an alternate heading and the mirror, and the new look on
+  six sections; at phone width the opening, a rift and Jace.
+- Behavior, in the page: the portal appears within 26 ms of the pick; the theme
+  changes about 1.8 s later; the cover is gone about 1.3 s after that. A press or
+  key skips it; picking another set mid-spin ends it cleanly. After every path
+  there is no transform on the page, no leftover class or pivot variable, no
+  egg, and the scroll position has not moved. Leaving the theme stops the eggs
+  and the Konami code. A rift's copy is aria-hidden, inert and ignores the
+  pointer, shows the club's own purple (#4b2e83) rather than the theme's, and
+  is removed afterwards. The brand-mark trigger calls Jace.
+- Reduced motion: no portal, the new look applies at once as a still design, and
+  no egg plays even when one is requested.
+- My first look at the opening was confusing because my own test scrolled past
+  the Table section and started the site's once-per-tab card-dealing cutscene
+  underneath; the second and third captures disabled that and are the real ones.
+  A test that seemed to show the Konami code failing was a flaw in the test (it
+  typed during the opening, where any key skips it), not in the site.
+
+**Not verified**
+- Real-time smoothness. The page-spin transforms a very tall element; the frames
+  look right and the timeline is as designed, but I did not measure frame rate or
+  dropped frames, and an older phone or laptop could stutter (the skip, and the
+  phone variant without the spin, are the mitigations). Safari, Firefox, a real
+  phone, a screen reader (all effects are aria-hidden or inert).
+- The Fan Content Policy and Wizards' terms on using a character's name were not
+  read in full. Reality Fracture's story is newer than what I know, so the look
+  is based on the set's name only, and its line (Magic-only or not) is still
+  unconfirmed.
+- The rifts and Jace are rare by design, so a short visit may not show them.
+- Nothing from this theme or Star Trek is pushed yet; the club's other open
+  questions (The Zeta Set, naming the crossover sets) stand, and the Friday flyer
+  still shows the old venue address.
+
+**Next**
+- Approval of this look, then The Hobbit.
+
 ## 2026-11-22 (Sun) - Star Trek opening and Easter eggs
 
 The club held back the push of the set themes ("not yet") to work on them one at
