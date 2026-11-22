@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MTG at UWT | Commander in Tacoma</title>
+  <meta name="description" content="A new Magic: The Gathering club at the University of Washington Tacoma. Commander every Thursday and Friday at 6 PM.">
+  <!-- The club's official address. The same site is also served from a
+       second host; this tells search engines which one to list. Update it
+       if the repository is ever renamed. -->
+  <link rel="canonical" href="https://rosiesuchoi.github.io/UWT_TheGathering/">
+  <meta name="theme-color" content="#32096b">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <!-- The headline and text fonts are fetched straight away, not after the
+       stylesheet has been read, so the headline settles sooner. -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="./assets/anton-latin-400-normal-Byf51wtH.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="./assets/hanken-grotesk-latin-wght-normal-CaVRRdDk.woff2">
+  <!-- Marks that scripts run, so entrance animations may hide their start state. -->
+  <script>document.documentElement.classList.add('js');</script>
+  <script type="module" crossorigin src="./assets/index-D4cxe26F.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-nI8bRe0V.css">
+</head>
+<body>
+  <a class="skip" href="#top">Skip to content</a>
+
+  <!-- One WebGL canvas for the whole page. It sits above section backgrounds
+       and below all text. See src/core/stage.ts and src/styles/layout.css. -->
+  <canvas id="stage" aria-hidden="true"></canvas>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#top"><span class="badge"><span class="mark"></span></span><span class="brand-name" data-club-name>MTG at UWT</span></a>
+    <nav class="links" id="links" aria-label="Sections">
+      <a href="#table" data-edit="nav-table" data-edit-in="panel">Table</a>
+      <a href="#club" data-edit="nav-club" data-edit-in="panel">Club</a>
+      <a href="#nights" data-edit="nav-nights" data-edit-in="panel">Nights</a>
+      <a href="#members" data-edit="nav-members" data-edit-in="panel">Members</a>
+      <a href="#events" data-edit="nav-events" data-edit-in="panel">Events</a>
+      <a href="#watch" data-edit="nav-watch" data-edit-in="panel">Watch</a>
+    </nav>
+    <a class="btn btn-ink" data-discord href="#join" data-edit="nav-join" data-edit-in="panel">Join the Discord</a>
+    <button class="menu" type="button" id="menuBtn" aria-expanded="false" aria-controls="links">Menu</button>
+  </header>
+
+  <main>
+    <section class="hero dots" id="top">
+      <div class="hero-in">
+        <div class="hero-copy">
+          <p class="label" data-club-name>MTG at UWT</p>
+          <h1 data-edit="hero-title">Shuffle up. <em>Draw seven.</em></h1>
+          <p class="sub" data-edit="hero-sub">Commander every Thursday and Friday, 6 PM.</p>
+        </div>
+        <div class="fan" id="heroFan">
+          <div class="cardback b1"><span class="mark"></span></div>
+          <div class="cardback b2"><span class="mark"></span></div>
+          <!-- The foil card is added here by src/sections/hero.ts -->
+        </div>
+        <p class="deal-hint label" data-edit="hero-hint">Click the card to shuffle up</p>
+      </div>
+    </section>
+
+    <section class="sec tablesec" id="table" tabindex="-1">
+      <div class="lamp" aria-hidden="true"></div>
+      <div class="in tgrid">
+        <div class="body">
+          <p class="label" data-edit="table-label">The table</p>
+          <h2 data-edit="table-title">Pull up a chair. <em>We start at six.</em></h2>
+          <p data-edit="table-text">Seven cards are on the table. Six of them tell you about the club. The open seat is yours.</p>
+          <div class="cta"><a class="btn btn-gold" data-discord href="#join" data-edit="table-cta" data-edit-in="panel">Take your seat on Discord</a></div>
+          <button class="replay" type="button" id="replayBtn" data-edit="table-replay" data-edit-in="panel">Replay the shuffle</button>
+        </div>
+        <!-- Cards are dealt into the [data-card] slots by src/sections/table.ts,
+             from src/content/cards.ts. -->
+        <div class="tbl" id="tbl">
+          <span class="mark felt-mark" aria-hidden="true"></span>
+          <div class="mat t"><div class="slot" data-card="club"></div><div class="slot" data-card="members"></div></div>
+          <div class="mat l"><div class="slot" data-card="night-0"></div><span class="life" aria-hidden="true">40</span></div>
+          <div class="mat r"><div class="slot" data-card="night-1"></div><span class="life" aria-hidden="true">40</span></div>
+          <div class="prizes">
+            <div class="pslot p1" data-card="event-0"></div>
+            <div class="pslot p2" data-card="event-1"></div>
+            <span class="scrib" aria-hidden="true" data-edit="table-prizes" data-edit-in="panel">prizes</span>
+          </div>
+          <svg class="d20" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,3 91,26 91,74 50,97 9,74 9,26" fill="#ffb84d"/><path d="M50 22 78 68H22ZM50 3v19M91 26 78 68M9 26l13 42M50 97 22 68M50 97l28-29M9 74l13-6M91 74l-13-6M9 26l41-4M91 26l-41-4" fill="none" stroke="#7a4a0c" stroke-width="3" stroke-linejoin="round"/></svg>
+          <div class="mat o">
+            <div class="slot" data-card="you"></div>
+            <div class="seat"><span class="scrib" data-edit="table-seat" data-edit-in="panel">your seat</span><a class="btn btn-gold seatbtn" data-discord href="#join" data-edit="table-seatbtn" data-edit-in="panel">Take your seat</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec dots" id="club" data-reveal>
+      <div class="in split">
+        <!-- The club card is added here by src/sections/club.ts -->
+        <div class="played" id="clubCard" data-rv="card"></div>
+        <div class="body">
+          <p class="label" data-rv data-edit="club-label">Card 1 of 7</p>
+          <h2 data-rv data-edit="club-title">A new Commander club <em>at UW Tacoma.</em></h2>
+          <p data-rv data-edit="club-text">We are a brand new club at the University of Washington Tacoma. We play Commander twice a week, run a raffle every week, and give away a deck at the end of the quarter.</p>
+          <!-- Replaced by club.json "blurb" once the officers write it. -->
+          <p class="owed" id="clubBlurb" data-rv><span class="tbd">Owed</span> Two or three sentences from the officers, in your own words: why the club started and who it is for.</p>
+          <div data-rv>
+            <p class="label" data-edit="club-glance">Commander at a glance</p>
+            <div class="glance" id="clubGlance">
+              <div><b data-count="100">100</b><span data-edit="glance-1">cards in a deck</span></div>
+              <div><b data-count="1">1</b><span data-edit="glance-2">commander leads it</span></div>
+              <div><b data-count="4">4</b><span data-edit="glance-3">players in a pod</span></div>
+              <div><b data-count="40">40</b><span data-edit="glance-4">starting life</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec dark" id="nights" data-reveal>
+      <div class="in">
+        <div class="body">
+          <p class="label" data-rv data-edit="nights-label">Cards 2 and 3 of 7</p>
+          <h2 data-rv data-edit="nights-title">Two nights a week. <em>Both at 6 PM.</em></h2>
+        </div>
+        <!-- One block per night, built from club.json by src/sections/nights.ts -->
+        <div class="nights" id="nightsList"></div>
+      </div>
+    </section>
+
+    <section class="sec tint" id="members" data-reveal>
+      <div class="in members">
+        <div class="body">
+          <p class="label" data-rv data-edit="members-label">Card 4 of 7</p>
+          <h2 data-rv data-edit="members-title">Who is <em>at the table.</em></h2>
+          <p data-rv data-edit="members-text">Every member gets a card in the binder. Each card takes the colors of that member's favorite commander.</p>
+          <!-- Removed by src/sections/members.ts once members.json has entries. -->
+          <p id="membersNote" data-rv><span class="tbd">Placeholder cards</span> The member list comes later.</p>
+        </div>
+        <!-- One pocket per member, built from members.json by src/sections/members.ts -->
+        <div class="binder" id="binder" data-rv></div>
+      </div>
+    </section>
+
+    <section class="sec violet" id="events" data-reveal>
+      <div class="in events">
+        <!-- Cards and entries are built from events.json by src/sections/events.ts -->
+        <div class="pile" id="eventPile"></div>
+        <div>
+          <div class="body">
+            <p class="label" data-rv data-edit="events-label">Cards 5 and 6 of 7</p>
+            <h2 data-rv data-edit="events-title">Two ways <em>to win.</em></h2>
+          </div>
+          <div class="event-list" id="eventList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec dark" id="watch" data-reveal>
+      <div class="in">
+        <div class="body">
+          <p class="label" data-rv data-edit="watch-label">Watch</p>
+          <h2 data-rv data-edit="watch-title">See the club <em>in action.</em></h2>
+          <p data-rv data-edit="watch-text">Replays of our game nights, short videos about the club, and live streams when we have them.</p>
+        </div>
+        <!-- The player and the cards are built from videos.json and club.json by src/sections/video.ts.
+             Nothing from YouTube loads until a visitor presses play. -->
+        <div class="vstage" id="watchPlayer" data-rv></div>
+        <div class="reel" id="watchReel" data-rv></div>
+        <p class="watch-note" data-rv>Videos load from YouTube only when you press play.</p>
+      </div>
+    </section>
+
+    <section class="sec join dots" id="join" data-reveal>
+      <div class="in split">
+        <!-- The visitor's card is added here by src/sections/join.ts -->
+        <div class="played r" id="joinCard" data-rv="card"></div>
+        <div class="body">
+          <p class="label" data-rv data-edit="join-label">Card 7 of 7</p>
+          <h2 data-rv data-edit="join-title">The last card <em>is you.</em></h2>
+          <p class="lede" data-rv data-edit="join-lede">Come to a Thursday or Friday night, or say hello on Discord first.</p>
+          <!-- Signs the visitor's own card. The name is kept in their browser
+               only; see src/ui/visitor.ts and src/sections/join.ts. -->
+          <form class="signup" id="signForm" data-rv>
+            <label for="signName" data-edit="join-signlabel" data-edit-in="panel">Put your name on the last card</label>
+            <div class="signup-row">
+              <input id="signName" name="name" type="text" maxlength="24" autocomplete="nickname" placeholder="Your name">
+              <button class="btn btn-gold" id="signBtn" type="submit">Sign my card</button>
+            </div>
+            <p class="signup-note" id="signNote" aria-live="polite">Your name is saved in this browser only. To be added to the binder for everyone, say hello on Discord.</p>
+            <button class="linkbtn" id="signClear" type="button" hidden>Take my name off</button>
+          </form>
+          <!-- Picks a favorite set and recolors the site. Kept in this browser only; see src/ui/setpick.ts. -->
+          <div class="signup setpick" data-rv>
+            <label for="setPick" data-edit="join-setlabel" data-edit-in="panel">Your favorite set</label>
+            <div class="signup-row">
+              <select id="setPick" name="set"><option value="">Club colors (default)</option></select>
+              <button class="linkbtn" id="setReset" type="button" hidden>Reset to club colors</button>
+            </div>
+            <p class="signup-note" data-edit="join-setnote">Pick a set and the site takes on its colors and mood. It is saved in this browser only, and nobody else sees it.</p>
+            <p class="sr-only" id="setStatus" role="status"></p>
+          </div>
+          <div class="cta" data-rv><a class="btn btn-ink" data-discord href="#join" data-edit="join-cta" data-edit-in="panel">Join the Discord</a></div>
+          <!-- Filled from club.json by src/sections/join.ts -->
+          <dl class="recap" id="joinRecap" data-rv></dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sec foot" id="foot">
+    <div class="in">
+      <div class="foot-top">
+        <a class="brand" href="#top"><span class="badge"><span class="mark"></span></span><span class="brand-name" data-club-name>MTG at UWT</span></a>
+        <div><span class="label" data-edit="foot-play">Play</span><ul id="footNights"></ul></div>
+        <div><span class="label" data-edit="foot-find">Find us</span><ul><li><a data-discord href="#join" data-edit="foot-discord" data-edit-in="panel">Discord</a></li><li><a href="#members" data-edit="foot-members" data-edit-in="panel">Members</a></li><li><a href="#events" data-edit="foot-events" data-edit-in="panel">Events</a></li><li><button class="linkbtn" type="button" data-admin-open>Officer sign-in</button></li></ul></div>
+      </div>
+      <details class="credits" id="artCredits" hidden>
+        <summary>Card art credits</summary>
+        <ul id="artCreditList"></ul>
+      </details>
+      <p class="legal"><span data-club-name>MTG at UWT</span> is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &copy;Wizards of the Coast LLC. Magic: The Gathering is a trademark of Wizards of the Coast. Card art in the members binder is shown through Scryfall, and each artist is credited above. Fallout and related logos are trademarks of Bethesda Softworks LLC. The prize photos show the product as sold; the club is not affiliated with or endorsed by either company.</p>
+    </div>
+  </footer>
+
+  <!-- Counter beside the corner deck. Decorative, so hidden from screen readers. -->
+  <div class="phases" id="phases" aria-hidden="true"><span class="ph-turn">Turn 1</span><b id="phaseName">Untap</b><span class="ph-track" id="phaseTrack"></span></div>
+  <div class="tally" id="tally" aria-hidden="true"><b id="tallyCount">0</b><span>/ <span id="tallyTotal">7</span> played</span></div>
+
+  <!-- Ambient light for the favorite-set themes. Empty and hidden until a theme is picked; see src/styles/themes.css. -->
+  <div id="themeFx" aria-hidden="true"></div>
+
+  <!-- Shuffle cutscene overlay. The 3D deck flies above it. Click or Escape skips. -->
+  <div class="cut" id="cut" hidden aria-hidden="true">
+    <div class="cut-bg"><p class="cut-cap">shuffling up...<small>Click or press Escape to skip</small></p></div>
+  </div>
+
+</body>
+</html>
