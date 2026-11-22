@@ -1,5 +1,5 @@
 {
-  "club": { "label": "the club", "name": "The Club", "type": "Club · Tacoma", "text": "A new Commander club at UW Tacoma." },
-  "members": { "label": "members", "name": "Members", "type": "People · UW Tacoma", "text": "Who is at the table." },
-  "you": { "type": "Member · Commander", "text": "This card is yours." }
+  "club": { "label": "the club", "name": "The Club", "type": "Legendary Enchantment — Club", "text": "A new Commander club at UW Tacoma.", "flavor": "Come for the Commander. Stay for the raffle." },
+  "members": { "label": "members", "name": "Members", "type": "Creature — Human", "text": "Who is at the table.", "flavor": "Every pod has one open seat." },
+  "you": { "type": "Legendary Creature — You", "text": "This card is yours.", "flavor": "Your legend starts with a first draw." }
 }

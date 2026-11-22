@@ -14,7 +14,19 @@ button.card { appearance: none; border: 0; padding: 0; background: none; font: i
 .c-art > svg, .c-art > .mark { width: 46%; height: auto; }
 .c-art > img { width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: inherit; }
 .c-text { display: block; background: var(--paper); border-radius: 2cqw; padding: 3cqw; font-size: 4.8cqw; line-height: 1.35; min-height: 23cqw; }
-.c-num { display: flex; justify-content: space-between; font-family: var(--f-m); font-size: 3.8cqw; letter-spacing: .08em; color: var(--gold-pale); }
+.c-num { display: flex; justify-content: space-between; gap: 2cqw; font-family: var(--f-m); font-size: 3.8cqw; letter-spacing: .08em; color: var(--gold-pale); }
+.c-num > :first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.c-num > :last-child { flex: none; }
+
+/* Real-card details that only fit on a larger card: the flavor text under the
+   rules, and the "Illus." credit. On the small table cards they stay hidden. */
+.c-flavor, .c-illus { display: none; }
+@container (min-width: 190px) {
+  .c-flavor { display: block; margin-top: 2cqw; padding-top: 2cqw; border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); font-style: italic; font-size: 4.3cqw; line-height: 1.3; color: color-mix(in srgb, var(--ink) 82%, var(--paper)); }
+}
+@container (min-width: 140px) {
+  .c-illus { display: inline; }
+}
 
 /* Tones: which colors a card takes. */
 .tone-gold { --pip: var(--gold); --art: linear-gradient(160deg, var(--art-a), var(--art-b)); --glyph: #fff; }

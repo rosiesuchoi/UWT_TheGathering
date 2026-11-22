@@ -21,7 +21,8 @@
       "address": "4916 Center St, Tacoma",
       "addressConfirmed": true,
       "tone": "ember",
-      "glyph": "cup"
+      "glyph": "cup",
+      "flavor": "Never miss a land drop."
     },
     {
       "id": "fri",
@@ -32,7 +33,8 @@
       "address": "5316 Orchard St W, University Place, WA 98467",
       "addressConfirmed": true,
       "tone": "tide",
-      "glyph": "d20"
+      "glyph": "d20",
+      "flavor": "One more game before the weekend."
     }
   ]
 }

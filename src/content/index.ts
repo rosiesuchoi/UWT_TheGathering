@@ -24,6 +24,8 @@ export interface Night {
   addressConfirmed: boolean;
   tone: CardColor;
   glyph: CardGlyph;
+  /** Optional italic line on the night's card, like a real card's flavor text. */
+  flavor?: string;
 }
 
 /** The club's YouTube channel, for live streams. Both parts stay null until the club has one. */
@@ -78,6 +80,10 @@ export interface ClubEvent {
   text: string;
   /** Short text for the card's text box. */
   cardText: string;
+  /** The card's type before the dash, like "Sorcery" or "Artifact". Leave out for "Event". */
+  cardType?: string;
+  /** Optional italic line under the card text. */
+  flavor?: string;
   date: string | null;
   /** Details the club still owes. Shown as placeholders until empty. */
   owed: string[];
@@ -142,13 +148,15 @@ export interface CardWords {
   name: string;
   type: string;
   text: string;
+  /** Optional italic line under the card text. */
+  flavor?: string;
 }
 
 /** Words for the cards that are not built from a night or an event. */
 export interface CardTexts {
   club: CardWords;
   members: CardWords;
-  you: { type: string; text: string };
+  you: { type: string; text: string; flavor?: string };
 }
 
 export const club = clubData as Club;

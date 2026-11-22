@@ -8,7 +8,7 @@
 // of swinging like a door. This file only sets numbers as CSS variables
 // (--a on a fold, --sh on a strip, --under on the stage); members.css decides
 // what they do.
-import { members, type CardColor, type Member } from '../content';
+import { cardTexts, members, type CardColor, type Member } from '../content';
 import { artName, memberArt } from '../content/art';
 import { gsap, reducedMotion } from '../core/scroll';
 import { createCard, type CardData, type CardTone } from '../ui/card';
@@ -75,13 +75,14 @@ function memberCard(member: Member, index: number): CardData {
   const art = photo ? null : memberArt(member, members);
   return {
     name: member.name,
-    type: member.role,
+    type: `Legendary Creature — ${member.role}`,
     text: member.commander ? `Favorite commander: ${member.commander}` : 'Favorite commander: to be announced.',
     number: number(index),
     tone,
     glyph: 'person',
     image: photo ?? art?.art,
     imageAlt: photo ? `Photo of ${member.name}` : art ? `Art of ${artName(art)} by ${art.artist}` : undefined,
+    illus: art?.artist,
     foil: true,
   };
 }
@@ -89,7 +90,7 @@ function memberCard(member: Member, index: number): CardData {
 function placeholderCard(index: number): CardData {
   return {
     name: 'Member name',
-    type: 'Role',
+    type: 'Legendary Creature — Role',
     text: 'Favorite commander goes here.',
     number: number(index),
     tone: CYCLE[index % CYCLE.length]!,
@@ -120,8 +121,9 @@ function pocket(data: CardData, colors: CardColor[] = []): HTMLElement {
 function visitorPocket(name: string): HTMLElement {
   const wrap = pocket({
     name,
-    type: 'Member',
+    type: cardTexts.you.type,
     text: 'New at the table.',
+    flavor: cardTexts.you.flavor,
     number: '100/100',
     tone: 'foil',
     glyph: 'person',

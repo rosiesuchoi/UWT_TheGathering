@@ -10,6 +10,10 @@ export interface CardData {
   /** The type line, e.g. "Night · Iruda Cafe". */
   type: string;
   text: string;
+  /** Optional italic line under the text, like a real card's flavor text. Shown on larger cards. */
+  flavor?: string;
+  /** The artist, for the "Illus." line. Set only when the picture is someone's card art. */
+  illus?: string;
   /** Collector number, e.g. "001/100". */
   number: string;
   /** Set code shown bottom left. Pass '' to leave it empty. */
@@ -86,15 +90,26 @@ export function createCard(data: CardData, options: CardOptions = {}): HTMLEleme
     drawGlyph();
   }
 
+  const rules = span('c-text');
+  rules.append(span('c-rules', data.text));
+  if (data.flavor) {
+    // A joke for people who look closely; screen readers get the real text only.
+    const flavor = span('c-flavor', data.flavor);
+    flavor.setAttribute('aria-hidden', 'true');
+    rules.append(flavor);
+  }
+
   const type = span('c-type');
   type.append(span('', data.type));
 
   // The collector line is decoration; reading "UWT 001/100" aloud helps no one.
   const num = span('c-num');
   num.setAttribute('aria-hidden', 'true');
-  num.append(span('', data.set ?? 'UWT'), span('', data.number));
+  const where = span('', data.set ?? 'UWT');
+  if (data.illus) where.append(span('c-illus', ` · Illus. ${data.illus}`));
+  num.append(where, span('', data.number));
 
-  face.append(name, art, type, span('c-text', data.text), num);
+  face.append(name, art, type, rules, num);
   if (data.foil) face.append(span('c-foil'), span('c-glare'));
   card.append(face);
   if (options.label) card.append(span('sr-only', `. ${options.label}`));

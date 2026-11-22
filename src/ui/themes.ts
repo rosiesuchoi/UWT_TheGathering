@@ -43,7 +43,7 @@ const extras: Record<string, () => Promise<Extras>> = {
 };
 
 /** Where the tokens apply. #themeFx is the ambient light layer, which sits outside <main>. */
-const SCOPE = ':is(.nav, main, .foot, .tally, #themeFx)';
+const SCOPE = ':is(.nav, main, .foot, .tally, .phases, #themeFx)';
 const STYLE_ID = 'setTheme';
 
 /** Set the colors, or clear them for the club's own. */

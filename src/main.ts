@@ -37,6 +37,7 @@ import { applyTextEdits } from './ui/edits';
 import { initDotsParallax, initOffscreenPause, initReveals } from './ui/motion';
 import { initSetPicker, initTheme } from './ui/setpick';
 import { initTracker } from './ui/tracker';
+import { initPhases } from './ui/phases';
 
 // Words the officers have edited replace the text in index.html first.
 applyTextEdits();
@@ -58,6 +59,7 @@ initReveals();
 initDotsParallax();
 initOffscreenPause();
 initTracker();
+initPhases();
 
 // three.js is the heaviest part of the site, so it loads in its own chunk
 // and never blocks the text. Until it is ready, a click on the hero card

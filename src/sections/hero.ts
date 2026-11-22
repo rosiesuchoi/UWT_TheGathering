@@ -18,6 +18,7 @@ export function initHero(): void {
     {
       name: 'Your name here',
       type: cardTexts.you.type,
+      flavor: cardTexts.you.flavor,
       text: [days, time, club.city].filter(Boolean).join(', ') + '.',
       number: '100/100',
       set: '',

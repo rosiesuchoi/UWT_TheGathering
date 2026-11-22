@@ -16,6 +16,44 @@ decided, what is next.
   players understand the references. Not started; a proposal is awaiting the
   club's choices.
 
+## 2026-11-22 (Sun) - Magic-coded: turn tracker and real-card details
+
+The club asked for the site to feel "very magic coded" for real players. Step one
+of that (the turn tracker and the card anatomy). Committed locally; not pushed.
+
+**Done**
+- A turn tracker, bottom left: "Turn 1", the current phase and eight pips. As you
+  scroll the phase advances (Untap at the top, Upkeep at the table, Draw, Main
+  phase 1 for the nights, Combat for the binder, Main phase 2 for events and
+  Watch, End step at join, Cleanup at the footer). Themes recolor it; it hides
+  during the shuffle and on its own is decoration (aria-hidden).
+- Cards read like real cards: type lines such as "Land — Iruda Cafe",
+  "Sorcery — Weekly", "Artifact — End of quarter", "Legendary Creature — President",
+  "Legendary Enchantment — Club". Optional flavor text under the rules text
+  and an "Illus. {artist}" credit on cards wearing Scryfall art, both only on
+  cards wide enough to hold them.
+- New optional data fields (`cardType`, `flavor`) added to events.json and club.json
+  without touching the officers' wording; the Cards, Events and Club panels have
+  fields for them. Flavor lines I wrote are jokes ("Never miss a land drop."), not
+  club facts, and the club can change them in the panel.
+
+**Checked** (dev server, headless Chrome and the browser pane)
+- Type-check and production build pass.
+- Frames at 1280 and 375 wide: tracker on every section, type lines, flavor and the
+  credit on the right cards, nothing overflowing sideways; Reality Fracture and
+  The Hobbit recolor the tracker. The shuffle still plays, hides the tracker and
+  brings it back.
+
+**Not verified**
+- The new panel fields were type-checked but not opened with a (pretend) sign-in.
+- Real-time smoothness, Safari, Firefox, a real phone, a screen reader.
+- The type-line wording is mine; the club may want other card types.
+
+**Next** (each shown for approval first)
+- A Magic-vocabulary pass over the copy (before and after side by side), real-card
+  Easter eggs, and Magic references per set theme (needs the club's input).
+- Not pushed: this and the Secret Lair removal (8e9e42b).
+
 ## 2026-11-22 (Sun) - The Hobbit: handmade look, round door, quiet eggs
 
 Next theme in reverse date order. The club asked to take a break after this one.

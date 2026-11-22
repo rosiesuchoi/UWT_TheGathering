@@ -403,6 +403,15 @@ export function clubPanel(onChange: () => void): HTMLElement {
         n.addressConfirmed = on;
         onChange();
       }),
+      field('Card flavor text (optional)', {
+        value: n.flavor ?? '',
+        max: 70,
+        hint: FLAVOR_HINT,
+        onInput: (v) => {
+          n.flavor = v.trim() === '' ? undefined : v;
+          onChange();
+        },
+      }),
     );
     root.append(box);
   });
@@ -456,8 +465,15 @@ export function eventsPanel(onChange: () => void): HTMLElement {
       }),
       el('p', 'adm-sub', 'On its card'),
       field('Card name', { value: e.cardName, max: 20, onInput: set((v) => (e.cardName = v)) }),
-      field('Card type line', { value: e.cadenceShort, max: 24, hint: 'Shown after "Event ·" on the card.', onInput: set((v) => (e.cadenceShort = v)) }),
+      field('Card type', {
+        value: e.cardType ?? '',
+        max: 16,
+        hint: 'The word before the dash on the type line, like Sorcery or Artifact. Empty means Event.',
+        onInput: set((v) => (e.cardType = v.trim() === '' ? undefined : v)),
+      }),
+      field('Card type line, after the dash', { value: e.cadenceShort, max: 24, hint: 'For example Weekly.', onInput: set((v) => (e.cadenceShort = v)) }),
       field('Card text', { value: e.cardText, max: 80, onInput: set((v) => (e.cardText = v)) }),
+      field('Card flavor text (optional)', { value: e.flavor ?? '', max: 70, hint: FLAVOR_HINT, onInput: set((v) => (e.flavor = v.trim() === '' ? undefined : v)) }),
     );
     root.append(box);
   });
@@ -465,7 +481,9 @@ export function eventsPanel(onChange: () => void): HTMLElement {
   return root;
 }
 
-function wordsFor(legend: string, c: CardWords | { type: string; text: string }, onChange: () => void): HTMLElement {
+const FLAVOR_HINT = 'The italic line under the card text, like flavor text on a real card. It shows on larger cards only. Leave empty for none.';
+
+function wordsFor(legend: string, c: CardWords | { type: string; text: string; flavor?: string }, onChange: () => void): HTMLElement {
   const box = el('fieldset', 'adm-row');
   const set =
     (apply: (v: string) => void) =>
@@ -477,14 +495,16 @@ function wordsFor(legend: string, c: CardWords | { type: string; text: string },
   if ('name' in c) {
     box.append(
       field('Card name', { value: c.name, max: 20, onInput: set((v) => (c.name = v)) }),
-      field('Type line', { value: c.type, max: 34, onInput: set((v) => (c.type = v)) }),
+      field('Type line', { value: c.type, max: 34, hint: 'Written like a real card, for example Legendary Enchantment — Club.', onInput: set((v) => (c.type = v)) }),
       field('Card text', { value: c.text, max: 80, onInput: set((v) => (c.text = v)) }),
+      field('Flavor text (optional)', { value: c.flavor ?? '', max: 70, hint: FLAVOR_HINT, onInput: set((v) => (c.flavor = v.trim() === '' ? undefined : v)) }),
       field('Handwritten label on the table', { value: c.label, max: 20, onInput: set((v) => (c.label = v)) }),
     );
   } else {
     box.append(
       field('Type line', { value: c.type, max: 34, onInput: set((v) => (c.type = v)) }),
       field('Card text', { value: c.text, max: 80, onInput: set((v) => (c.text = v)) }),
+      field('Flavor text (optional)', { value: c.flavor ?? '', max: 70, hint: FLAVOR_HINT, onInput: set((v) => (c.flavor = v.trim() === '' ? undefined : v)) }),
     );
   }
   return box;

@@ -542,6 +542,24 @@ Bright and collectible. The card is the interface.
   flat while cards are dealt, because their landing spots are measured on
   it: `.cutscene .tbl { transform: none }`.
 - src/ui/tracker.ts - the "N / 7 played" counter under the corner deck.
+- Magic-coded layer (club request, 2026-11-22: "feel very magic coded for actual
+  magic players"). Original wording and layout only; no official art or symbols.
+  - Turn tracker (src/ui/phases.ts, `.phases` in layout.css, #phases in
+    index.html): bottom-left HUD, aria-hidden, "Turn 1" plus the current phase and
+    eight pips. Untap = hero, Upkeep = table, Draw = club, Main phase 1 = nights,
+    Combat = members, Main phase 2 = events and watch, End step = join, Cleanup =
+    footer. It is in the theme SCOPE (themes.ts) so sets recolor it, and hidden
+    during the cutscene.
+  - Real-card anatomy on every card: type lines are written like a real card's
+    ("Legendary Enchantment — Club", "Land — Iruda Cafe", "Sorcery — Weekly",
+    "Legendary Creature — President"). Events take an optional `cardType` (empty
+    means "Event"). Optional italic `flavor` under the card text (cards.json for the
+    club, members and visitor cards; `flavor` on a night in club.json and on an
+    event in events.json), and an "Illus. {artist}" credit on member cards that wear
+    Scryfall art. Flavor shows only when the card is 190px wide or more, the credit
+    at 140px or more (container queries), so small table cards stay clean. Flavor is
+    aria-hidden. All fields are editable in the officer panel. Flavor lines are
+    jokes, never new facts about the club.
 - Testing scroll logic in a hidden pane: `__st.update()` (dev only) forces
   ScrollTrigger to re-check after a scripted scroll.
 - Testing animation: in dev, `window.__gsap` is exposed. Pause with
