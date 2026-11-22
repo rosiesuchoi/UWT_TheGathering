@@ -6,7 +6,16 @@
     "colors": [
       "chalk"
     ],
-    "photo": null
+    "photo": null,
+    "art": {
+      "id": "93be6799-7b9d-44d4-84dc-2961692b5a85",
+      "name": "Lyra Dawnbringer",
+      "artist": "Chris Rahn",
+      "set": "dom",
+      "setName": "Dominaria",
+      "art": "https://cards.scryfall.io/art_crop/front/9/3/93be6799-7b9d-44d4-84dc-2961692b5a85.jpg?1783935042",
+      "page": "https://scryfall.com/card/dom/26/lyra-dawnbringer?utm_source=api"
+    }
   },
   {
     "name": "Jeremiah Celestra",
@@ -15,7 +24,16 @@
     "colors": [
       "tide"
     ],
-    "photo": null
+    "photo": null,
+    "art": {
+      "id": "1192f7a9-102e-4b3a-b154-18c8eb332217",
+      "name": "Ulamog, the Ceaseless Hunger",
+      "artist": "Michael Komarck",
+      "set": "bfz",
+      "setName": "Battle for Zendikar",
+      "art": "https://cards.scryfall.io/art_crop/front/1/1/1192f7a9-102e-4b3a-b154-18c8eb332217.jpg?1783938222",
+      "page": "https://scryfall.com/card/bfz/15/ulamog-the-ceaseless-hunger?utm_source=api"
+    }
   },
   {
     "name": "Jacob Caperon",
@@ -24,7 +42,16 @@
     "colors": [
       "dusk"
     ],
-    "photo": null
+    "photo": null,
+    "art": {
+      "id": "27427233-da58-45af-ade8-e0727929efaa",
+      "name": "Kruphix, God of Horizons",
+      "artist": "Daarken",
+      "set": "jou",
+      "setName": "Journey into Nyx",
+      "art": "https://cards.scryfall.io/art_crop/front/2/7/27427233-da58-45af-ade8-e0727929efaa.jpg?1783939404",
+      "page": "https://scryfall.com/card/jou/152/kruphix-god-of-horizons?utm_source=api"
+    }
   },
   {
     "name": "Emmet Meenk",
@@ -33,6 +60,15 @@
     "colors": [
       "grove"
     ],
-    "photo": null
+    "photo": null,
+    "art": {
+      "id": "3f7f2417-12de-4e57-9714-d878880a1208",
+      "name": "Nekusar, the Mindrazer",
+      "artist": "Mark Winters",
+      "set": "c13",
+      "setName": "Commander 2013",
+      "art": "https://cards.scryfall.io/art_crop/front/3/f/3f7f2417-12de-4e57-9714-d878880a1208.jpg?1783939648",
+      "page": "https://scryfall.com/card/c13/201/nekusar-the-mindrazer?utm_source=api"
+    }
   }
 ]

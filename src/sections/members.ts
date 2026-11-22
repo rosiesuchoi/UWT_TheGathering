@@ -9,6 +9,7 @@
 // (--a on a fold, --sh on a strip, --under on the stage); members.css decides
 // what they do.
 import { members, type CardColor, type Member } from '../content';
+import { artName, memberArt } from '../content/art';
 import { gsap, reducedMotion } from '../core/scroll';
 import { createCard, type CardData, type CardTone } from '../ui/card';
 import { photoPreviews } from '../ui/edits';
@@ -69,6 +70,9 @@ function memberCard(member: Member, index: number): CardData {
   // A card takes the first color of the member's favorite commander. With no
   // colors given it gets the club's gold.
   const tone: CardTone = member.colors[0] ?? 'gold';
+  // Their own photo wins. Without one, the card wears stand-in commander art.
+  const photo = member.photo ? (photoPreviews.get(member.photo) ?? `${import.meta.env.BASE_URL}members/${member.photo}`) : undefined;
+  const art = photo ? null : memberArt(member, members);
   return {
     name: member.name,
     type: member.role,
@@ -76,7 +80,8 @@ function memberCard(member: Member, index: number): CardData {
     number: number(index),
     tone,
     glyph: 'person',
-    image: member.photo ? (photoPreviews.get(member.photo) ?? `${import.meta.env.BASE_URL}members/${member.photo}`) : undefined,
+    image: photo ?? art?.art,
+    imageAlt: photo ? `Photo of ${member.name}` : art ? `Art of ${artName(art)} by ${art.artist}` : undefined,
     foil: true,
   };
 }
@@ -465,14 +470,22 @@ function updateMembersNote(): void {
   const note = document.getElementById('membersNote');
   if (!note) return;
   if (members.length === 0) return;
-  if (members.every((m) => m.commander)) {
+  const owed = !members.every((m) => m.commander);
+  const standIn = members.some((m) => !m.photo);
+  if (!owed && !standIn) {
     note.remove();
-  } else {
+    return;
+  }
+  const parts: Array<string | HTMLElement> = [];
+  if (owed) {
     const tag = document.createElement('span');
     tag.className = 'tbd';
     tag.textContent = 'Owed';
-    note.replaceChildren(tag, ' Favorite commanders and photos are still to come.');
+    parts.push(tag, ' Favorite commanders and photos are still to come.');
   }
+  // The pictures are famous commanders, not anyone's own pick. Say so.
+  if (standIn) parts.push(`${owed ? ' ' : ''}Until then, the pictures are stand-in commander art, not necessarily anyone's favorite.`);
+  note.replaceChildren(...parts);
 }
 
 export function initMembers(): void {

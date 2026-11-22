@@ -32,7 +32,9 @@ site updates everywhere that content appears.
   `owed` list once you have filled that detail in.
 - `cards.json`: the words on the club, members and visitor cards.
 - `text.json`: edited headings and paragraphs (written by the officer panel).
-- Member photos go in `public/members/`.
+- Member photos go in `public/members/`. A member without a photo wears
+  stand-in card art from Scryfall (`commander-art.json`, refreshed by
+  `npm run art`). The site does not call Scryfall itself.
 - `members.json`: one entry per member. While it is empty, the site shows
   placeholder cards.
 

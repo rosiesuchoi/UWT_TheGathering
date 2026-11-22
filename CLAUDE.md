@@ -66,6 +66,15 @@ obvious placeholders and list them under "Content still owed" below.
   Bethesda as the owner of the Fallout marks and says the club is not
   affiliated with either company. Note for the club: the Wizards Fan
   Content Policy does not cover Fallout, which belongs to Bethesda.
+- Second exception, by the club's decision on 2026-11-21: member cards in the
+  binder show Scryfall card art (the art crop of a famous mythic commander)
+  as a stand-in picture when the member has no photo. It applies to member
+  profile pictures only. Each artist is credited in a collapsed "Card art
+  credits" list in the footer; the legal notice names Wizards as the
+  trademark owner; the binder's note says the pictures are stand-ins and not
+  anyone's favorite commander. Crossover (Universes Beyond) cards are left
+  out on purpose: they carry other companies' art and marks, which the Fan
+  Content Policy does not cover. Everything else stays original.
 - Stack: Vite + TypeScript, three.js, GSAP ScrollTrigger, Lenis. No UI framework.
 - Architecture rules learned in discovery: one persistent WebGL canvas behind
   the page; Lenis driven from gsap.ticker so scroll, ScrollTrigger and three.js
@@ -278,6 +287,31 @@ Bright and collectible. The card is the interface.
   green); the first sets the card's look and several show as a split pip.
   `photo` is a file name inside public/members/, or null for the silhouette.
   Only add members who have agreed to appear on a public site.
+- Card art for members (Scryfall). The site never calls Scryfall: visitors'
+  browsers only load the pictures from Scryfall's image host.
+  - scripts/fetch-commander-art.mjs (run `npm run art` by hand) checks a
+    hand-picked list of famous commanders (CANDIDATES in the script) against
+    Scryfall and writes src/content/commander-art.json: 37 cards with id,
+    name, artist, set, art-crop address and Scryfall page. Scryfall's own
+    popularity rank was not used: it counts play in the 99, not as a
+    commander. To change the pool, edit CANDIDATES and run it again.
+  - Script rules from Scryfall's API docs: User-Agent naming the app plus the
+    club's contact address, an Accept header, 500 ms between requests, image
+    addresses taken from the response. A run that was too fast got HTTP 429
+    once (2026-11-21); the script stops on 429, so do not loop it. Never
+    hotlink Scryfall set icons (their docs say not to).
+  - src/content/art.ts picks stand-ins: the same name gives the same card
+    (FNV-1a hash), skipping cards another member wears.
+  - A member's `art` (members.json) stores the whole record, so a picture
+    never changes when the pool is refreshed. The panel's "Add a member"
+    picks a random free card; "Different picture" steps to the next free one.
+    Order of preference on a card: the member's photo, then `art`, then (no
+    `art` yet) a pick from the pool, then the silhouette.
+  - ui/card.ts shows the picture in the existing art box (no card CSS was
+    changed), with alt text "Art of {card} by {artist}", and falls back to the
+    card's drawing if the picture cannot load. Footer credits come from
+    ui/chrome.ts (applyArtCredits) and follow the panel's live preview.
+  - Cost: the pool is part of the main bundle (about +15 kB, +5 kB gzip).
 - design/ - concept board, approved mockup, logo sources. Reference only.
 - .github/workflows/deploy.yml - builds the site and publishes it to GitHub
   Pages on every push to main. Every push to main goes live, so only push
@@ -389,6 +423,11 @@ session.
      details and the two nights, and save as one commit that deploys by
      itself - built, approved and pushed 2026-11-15. First real save
      with a real token worked 2026-11-15 (two commits, both deployed).
+   - Integrations asked for 2026-11-21, each approved before it is pushed:
+     1. Scryfall stand-in art for member cards - built, awaiting approval.
+     2. Video section (live stream, replays, short intros) - not started.
+     3. Favorite-set themes (sets released 2024-11-21 to 2026-11-21) - not
+        started.
 
 Verify by running the site and looking at it. If something is not working or
 was skipped, say so plainly.

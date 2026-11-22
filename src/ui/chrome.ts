@@ -1,5 +1,6 @@
 // Nav, footer and the small content hooks shared by every section.
-import { club } from '../content';
+import { club, members } from '../content';
+import { artName, memberArt } from '../content/art';
 
 /** Fill in every element that shows the club name or links to Discord. */
 export function applyClubContent(): void {
@@ -12,6 +13,8 @@ export function applyClubContent(): void {
     a.rel = 'noopener';
   });
 
+  applyArtCredits();
+
   const list = document.getElementById('footNights');
   if (list) {
     list.replaceChildren(
@@ -22,6 +25,36 @@ export function applyClubContent(): void {
       }),
     );
   }
+}
+
+/** Credit for every piece of card art currently on a member card (Scryfall asks that artists stay credited). */
+function applyArtCredits(): void {
+  const box = document.getElementById('artCredits');
+  const list = document.getElementById('artCreditList');
+  if (!box || !list) return;
+  const seen = new Set<string>();
+  const items: HTMLLIElement[] = [];
+  for (const m of members) {
+    if (m.photo) continue; // a photo replaces the art
+    const art = memberArt(m, members);
+    if (seen.has(art.id)) continue;
+    seen.add(art.id);
+    const li = document.createElement('li');
+    if (art.page.startsWith('https://scryfall.com/')) {
+      const a = document.createElement('a');
+      a.href = art.page;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = artName(art);
+      li.append(a);
+    } else {
+      li.append(artName(art));
+    }
+    li.append(`, art by ${art.artist} (${art.setName})`);
+    items.push(li);
+  }
+  list.replaceChildren(...items);
+  box.hidden = items.length === 0;
 }
 
 /** Phone menu, plus marking the nav link of the section in view. */

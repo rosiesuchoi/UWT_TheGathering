@@ -4,6 +4,7 @@
 // shows the result straight away.
 import { cardTexts, club, events, members, type CardColor, type CardWords, type Member } from '../content';
 import { button, check, el, field } from './dom';
+import { artName, memberArt, nextStandIn, randomStandIn, takenBy } from '../content/art';
 import { addPhoto, photoSrc } from './photos';
 
 const COLORS: Array<{ id: CardColor; label: string; css: string }> = [
@@ -101,6 +102,30 @@ function photoControls(m: Member, onChange: () => void): HTMLElement {
   return box;
 }
 
+/** The stand-in card art a member wears until there is a photo, with a button to try another. */
+function artControls(m: Member, onChange: () => void): HTMLElement {
+  const box = el('div', 'adm-photo-side');
+  const line = el('p', 'adm-hint');
+  line.setAttribute('role', 'status');
+  const paint = (): void => {
+    const art = memberArt(m, members);
+    line.textContent = m.photo
+      ? `Stand-in card art (${artName(art)}) is hidden while a photo is set.`
+      : `Stand-in card art: ${artName(art)}, art by ${art.artist}. Not their favorite commander, just a picture.`;
+  };
+  const tools = el('div', 'adm-tools');
+  tools.append(
+    button('Different picture', 'adm-btn adm-small', () => {
+      m.art = nextStandIn(memberArt(m, members), takenBy(members, m));
+      paint();
+      onChange();
+    }),
+  );
+  box.append(line, tools);
+  paint();
+  return box;
+}
+
 function memberRow(m: Member, index: number, actions: { up: () => void; down: () => void; remove: () => void }, onChange: () => void): HTMLElement {
   const row = el('fieldset', 'adm-row');
   const legend = el('legend', '', m.name.trim() || 'New member');
@@ -157,7 +182,7 @@ function memberRow(m: Member, index: number, actions: { up: () => void; down: ()
     );
   });
   row.append(el('p', 'adm-sub', 'Commander colors'), colors);
-  row.append(photoControls(m, onChange));
+  row.append(photoControls(m, onChange), artControls(m, onChange));
 
   const tools = el('div', 'adm-tools');
   const up = button('Move earlier', 'adm-btn adm-small', actions.up);
@@ -240,7 +265,7 @@ export function membersPanel(onChange: () => void): HTMLElement {
   };
 
   const add = button('Add a member', 'adm-btn', () => {
-    members.push({ name: '', role: 'Member', commander: null, colors: [], photo: null });
+    members.push({ name: '', role: 'Member', commander: null, colors: [], photo: null, art: randomStandIn(takenBy(members)) });
     paint({ index: members.length - 1, act: 'name' });
     onChange();
   });

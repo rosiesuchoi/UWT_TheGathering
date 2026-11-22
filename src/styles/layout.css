@@ -76,3 +76,10 @@
      home link still has a name for screen readers. */
   .nav .brand-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
+
+/* Card art credits in the footer: collapsed, quiet, and still there. */
+.credits { font-size: 13px; line-height: 1.55; opacity: .85; max-width: 80ch; }
+.credits summary { cursor: pointer; width: max-content; color: var(--gold-pale); }
+.credits ul { margin-top: 10px; columns: 2 260px; column-gap: 32px; font-size: 13px; gap: 0; display: block; }
+.credits li { break-inside: avoid; padding-block: 2px; }
+.credits a { text-decoration: underline; text-underline-offset: 2px; }

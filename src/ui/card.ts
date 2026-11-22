@@ -18,6 +18,8 @@ export interface CardData {
   glyph: GlyphName;
   /** A photo for the art box. When set, it replaces the glyph. */
   image?: string;
+  /** What the picture shows, for screen readers. Leave out for a purely decorative picture. */
+  imageAlt?: string;
   /** Gold frame. */
   rare?: boolean;
   /** Holographic layer that follows the pointer. */
@@ -58,17 +60,30 @@ export function createCard(data: CardData, options: CardOptions = {}): HTMLEleme
   name.append(span('', data.name), span('c-pip'));
 
   const art = span('c-art');
+  const drawGlyph = (): void => {
+    if (data.glyph === 'mark') art.append(span('mark'));
+    else art.innerHTML = GLYPHS[data.glyph]; // static, trusted markup from glyphs.ts
+  };
   if (data.image) {
     const img = document.createElement('img');
     img.src = data.image;
-    img.alt = '';
+    img.alt = data.imageAlt ?? '';
     img.loading = 'lazy';
     img.decoding = 'async';
+    // Pictures can come from another site (Scryfall). Send no page address along.
+    img.referrerPolicy = 'no-referrer';
+    // If the picture cannot load, fall back to the card's own drawing.
+    img.addEventListener(
+      'error',
+      () => {
+        img.remove();
+        drawGlyph();
+      },
+      { once: true },
+    );
     art.append(img);
-  } else if (data.glyph === 'mark') {
-    art.append(span('mark'));
   } else {
-    art.innerHTML = GLYPHS[data.glyph]; // static, trusted markup from glyphs.ts
+    drawGlyph();
   }
 
   const type = span('c-type');

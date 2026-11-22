@@ -3,6 +3,71 @@
 Newest entry first. One entry per working session: what was done, what was
 decided, what is next.
 
+## 2026-11-21 (Sat) - Scryfall art for the binder (integrations, step 1 of 3)
+
+The club asked for three integrations: Scryfall art on the member cards, a
+video section, and favorite-set themes. This session was the first only.
+Built, committed locally, not pushed (a push goes live).
+
+**Done**
+- Member cards in the binder now wear stand-in commander art from Scryfall
+  when the member has no photo. The four officers have Lyra Dawnbringer,
+  Ulamog (the Ceaseless Hunger), Kruphix (God of Horizons) and Nekusar (the
+  Mindrazer). No card CSS was changed; the picture fills the existing art box.
+- `npm run art` (scripts/fetch-commander-art.mjs) builds
+  src/content/commander-art.json: 37 famous mythic legendary creatures, from a
+  hand-picked list that the script checks against Scryfall (legendary
+  creature, mythic in some printing, legal in Commander, in paper, earliest
+  non-promo, non-Secret-Lair printing). The club approved the list after
+  seeing every card at the real art-box shape; cards 31 (Mondrak, an abstract
+  pattern) and 32 (Elesh Norn, Mother of Machines, a grayscale sketch) were
+  dropped, and Rhys the Redeemed was dropped earlier because his only mythic
+  printing is from the Avatar crossover set.
+- Why a hand-picked list: Scryfall's EDHREC order counts play in the 99, not as
+  a commander, so it put Ragavan above Atraxa and surfaced obscure cards.
+- The site makes no Scryfall API calls. Visitors' browsers load only the
+  pictures (cards.scryfall.io). Each member's `art` record is stored in
+  members.json so a picture never changes by itself; a member without one gets
+  a stable pick from the pool (hash of the name).
+- Officer panel: each member shows their stand-in card with a "Different
+  picture" button; "Add a member" gives a random free card.
+- Footer: a collapsed "Card art credits" list (card, artist, set, link to its
+  Scryfall page) that follows the panel's live preview, and the legal notice now
+  names Wizards as the owner of the Magic trademark. The binder's note says the
+  pictures are stand-ins, not anyone's favorite.
+- CLAUDE.md records the second art exception (member profile pictures only, no
+  crossover cards), the code map entries and the script rules. README mentions
+  `npm run art`.
+
+**Checked** (dev build, Chrome pane, 1280 and 375 wide)
+- Type-check and production build pass. Main bundle 169.4 -> 184.7 kB (62.6 ->
+  67.6 kB gzip): the pool is about +5 kB gzip.
+- The page made 4 image requests to cards.scryfall.io and none to
+  api.scryfall.com. Layout shift 0. Art boxes are 163 x 131 px at 1280 wide.
+- A picture that fails to load falls back to the card's drawing (forced with an
+  error event). Alt text reads "Art of {card} by {artist}".
+- Panel (against a pretend GitHub, fake token): "Different picture" changed a
+  card and the footer credit; "Add a member" gave a new member a free card; the
+  art control fits at 375 wide. A real reload put everything back.
+- Binder page turn works, both under reduced motion and animated (the animated
+  turn needed extra frame captures because the pane is hidden). No console
+  errors. No sideways scroll at 375.
+
+**Not verified**
+- A real save from the panel with a changed `art` (the save path is the
+  existing members.json commit; not run this time), a real phone, Safari,
+  Firefox, a screen reader.
+- Scryfall's image terms and Wizards' Fan Content Policy were only checked
+  through search summaries, not read in full. The club should read both before
+  this goes live, in particular the rule about cropped art and artist credit
+  (we show a text credit) and the policy's position on card art.
+- An early run of the script hit HTTP 429 (too many requests in a short time).
+  It stopped as designed and was not retried; the pause is now 500 ms.
+
+**Next**
+- Approval to push step 1. Then step 2 (video section) and step 3 (favorite-set
+  themes), each with its own plan first.
+
 ## 2026-11-15 (Sun) - The table and the shuffle cutscene
 
 **Done**

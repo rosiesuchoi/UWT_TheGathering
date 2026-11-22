@@ -78,6 +78,21 @@ export interface ClubEvent {
   };
 }
 
+/**
+ * One card's art, as recorded from Scryfall by `npm run art` (see
+ * scripts/fetch-commander-art.mjs). `art` is the picture's address, taken from
+ * Scryfall's own response; `page` is the card's page, for the credit link.
+ */
+export interface ArtRecord {
+  id: string;
+  name: string;
+  artist: string;
+  set: string;
+  setName: string;
+  art: string;
+  page: string;
+}
+
 export interface Member {
   name: string;
   role: string;
@@ -87,6 +102,12 @@ export interface Member {
   colors: CardColor[];
   /** Path under public/members/, or null for the default silhouette. */
   photo: string | null;
+  /**
+   * Stand-in card art shown when there is no photo. Stored here so a member's
+   * picture never changes by itself. Missing means "pick one from the pool"
+   * (src/content/art.ts). A stand-in, not the member's favorite commander.
+   */
+  art?: ArtRecord | null;
 }
 
 /** The words on one of the table's cards. */

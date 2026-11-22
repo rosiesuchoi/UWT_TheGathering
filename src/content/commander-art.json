@@ -1,0 +1,335 @@
+[
+  {
+    "id": "c34ae834-775e-447a-a330-0270c227c667",
+    "name": "Atraxa, Praetors' Voice",
+    "artist": "Victor Adame Minguez",
+    "set": "c16",
+    "setName": "Commander 2016",
+    "art": "https://cards.scryfall.io/art_crop/front/c/3/c34ae834-775e-447a-a330-0270c227c667.jpg?1783937085",
+    "page": "https://scryfall.com/card/c16/28/atraxa-praetors-voice?utm_source=api"
+  },
+  {
+    "id": "8d94b8ec-ecda-43c8-a60e-1ba33e6a54a4",
+    "name": "Edgar Markov",
+    "artist": "Volkan Baǵa",
+    "set": "c17",
+    "setName": "Commander 2017",
+    "art": "https://cards.scryfall.io/art_crop/front/8/d/8d94b8ec-ecda-43c8-a60e-1ba33e6a54a4.jpg?1783935938",
+    "page": "https://scryfall.com/card/c17/36/edgar-markov?utm_source=api"
+  },
+  {
+    "id": "7e78b70b-0c67-4f14-8ad7-c9f8e3f59743",
+    "name": "The Ur-Dragon",
+    "artist": "Jaime Jones",
+    "set": "c17",
+    "setName": "Commander 2017",
+    "art": "https://cards.scryfall.io/art_crop/front/7/e/7e78b70b-0c67-4f14-8ad7-c9f8e3f59743.jpg?1783935933",
+    "page": "https://scryfall.com/card/c17/48/the-ur-dragon?utm_source=api"
+  },
+  {
+    "id": "92ea1575-eb64-43b5-b604-c6e23054f228",
+    "name": "Korvold, Fae-Cursed King",
+    "artist": "Wisnu Tan",
+    "set": "eld",
+    "setName": "Throne of Eldraine",
+    "art": "https://cards.scryfall.io/art_crop/front/9/2/92ea1575-eb64-43b5-b604-c6e23054f228.jpg?1783932546",
+    "page": "https://scryfall.com/card/eld/329/korvold-fae-cursed-king?utm_source=api"
+  },
+  {
+    "id": "c654737d-34ac-42ff-ae27-3a3bbb930fc1",
+    "name": "Muldrotha, the Gravetide",
+    "artist": "Jason Rainville",
+    "set": "dom",
+    "setName": "Dominaria",
+    "art": "https://cards.scryfall.io/art_crop/front/c/6/c654737d-34ac-42ff-ae27-3a3bbb930fc1.jpg?1783934966",
+    "page": "https://scryfall.com/card/dom/199/muldrotha-the-gravetide?utm_source=api"
+  },
+  {
+    "id": "95ebbb6d-04f8-42ec-a1b7-6ca67994b8d3",
+    "name": "Sheoldred, the Apocalypse",
+    "artist": "Chris Rahn",
+    "set": "dmu",
+    "setName": "Dominaria United",
+    "art": "https://cards.scryfall.io/art_crop/front/9/5/95ebbb6d-04f8-42ec-a1b7-6ca67994b8d3.jpg?1783921206",
+    "page": "https://scryfall.com/card/dmu/369/sheoldred-the-apocalypse?utm_source=api"
+  },
+  {
+    "id": "b66390d6-1649-4bfa-92d3-77664650d552",
+    "name": "Elesh Norn, Grand Cenobite",
+    "artist": "Igor Kieryluk",
+    "set": "nph",
+    "setName": "New Phyrexia",
+    "art": "https://cards.scryfall.io/art_crop/front/b/6/b66390d6-1649-4bfa-92d3-77664650d552.jpg?1783941327",
+    "page": "https://scryfall.com/card/nph/9/elesh-norn-grand-cenobite?utm_source=api"
+  },
+  {
+    "id": "9e7fb3c0-5159-4d1f-8490-ce4c9a60f567",
+    "name": "Urza, Lord High Artificer",
+    "artist": "Grzegorz Rutkowski",
+    "set": "mh1",
+    "setName": "Modern Horizons",
+    "art": "https://cards.scryfall.io/art_crop/front/9/e/9e7fb3c0-5159-4d1f-8490-ce4c9a60f567.jpg?1783933135",
+    "page": "https://scryfall.com/card/mh1/75/urza-lord-high-artificer?utm_source=api"
+  },
+  {
+    "id": "8690cbcc-f8fd-41f7-9e28-e61c12b04014",
+    "name": "Yawgmoth, Thran Physician",
+    "artist": "Mark Winters",
+    "set": "mh1",
+    "setName": "Modern Horizons",
+    "art": "https://cards.scryfall.io/art_crop/front/8/6/8690cbcc-f8fd-41f7-9e28-e61c12b04014.jpg?1783933118",
+    "page": "https://scryfall.com/card/mh1/116/yawgmoth-thran-physician?utm_source=api"
+  },
+  {
+    "id": "446f001c-2164-4c3e-8017-5f4ea33e5d08",
+    "name": "Avacyn, Angel of Hope",
+    "artist": "Jason Chan",
+    "set": "phel",
+    "setName": "Open the Helvault",
+    "art": "https://cards.scryfall.io/art_crop/front/4/4/446f001c-2164-4c3e-8017-5f4ea33e5d08.jpg?1783940755",
+    "page": "https://scryfall.com/card/phel/6/avacyn-angel-of-hope?utm_source=api"
+  },
+  {
+    "id": "5ed8b9c5-8b09-40a0-ae08-bc7a7a391256",
+    "name": "Kenrith, the Returned King",
+    "artist": "Aaron Miller",
+    "set": "mul",
+    "setName": "Multiverse Legends",
+    "art": "https://cards.scryfall.io/art_crop/front/5/e/5ed8b9c5-8b09-40a0-ae08-bc7a7a391256.jpg?1783916879",
+    "page": "https://scryfall.com/card/mul/4/kenrith-the-returned-king?utm_source=api"
+  },
+  {
+    "id": "4e4fb50c-a81f-44d3-93c5-fa9a0b37f617",
+    "name": "Omnath, Locus of Creation",
+    "artist": "Chris Rahn",
+    "set": "znr",
+    "setName": "Zendikar Rising",
+    "art": "https://cards.scryfall.io/art_crop/front/4/e/4e4fb50c-a81f-44d3-93c5-fa9a0b37f617.jpg?1783929320",
+    "page": "https://scryfall.com/card/znr/232/omnath-locus-of-creation?utm_source=api"
+  },
+  {
+    "id": "93be6799-7b9d-44d4-84dc-2961692b5a85",
+    "name": "Lyra Dawnbringer",
+    "artist": "Chris Rahn",
+    "set": "dom",
+    "setName": "Dominaria",
+    "art": "https://cards.scryfall.io/art_crop/front/9/3/93be6799-7b9d-44d4-84dc-2961692b5a85.jpg?1783935042",
+    "page": "https://scryfall.com/card/dom/26/lyra-dawnbringer?utm_source=api"
+  },
+  {
+    "id": "7b215968-93a6-4278-ac61-4e3e8c3c3943",
+    "name": "Nicol Bolas, the Ravager // Nicol Bolas, the Arisen",
+    "artist": "Svetlin Velinov",
+    "set": "m19",
+    "setName": "Core Set 2019",
+    "art": "https://cards.scryfall.io/art_crop/front/7/b/7b215968-93a6-4278-ac61-4e3e8c3c3943.jpg?1783934524",
+    "page": "https://scryfall.com/card/m19/218/nicol-bolas-the-ravager-nicol-bolas-the-arisen?utm_source=api"
+  },
+  {
+    "id": "27427233-da58-45af-ade8-e0727929efaa",
+    "name": "Kruphix, God of Horizons",
+    "artist": "Daarken",
+    "set": "jou",
+    "setName": "Journey into Nyx",
+    "art": "https://cards.scryfall.io/art_crop/front/2/7/27427233-da58-45af-ade8-e0727929efaa.jpg?1783939404",
+    "page": "https://scryfall.com/card/jou/152/kruphix-god-of-horizons?utm_source=api"
+  },
+  {
+    "id": "7bf6baf2-d20b-467d-8929-abefcf7dfa99",
+    "name": "Purphoros, God of the Forge",
+    "artist": "Eric Deschamps",
+    "set": "ths",
+    "setName": "Theros",
+    "art": "https://cards.scryfall.io/art_crop/front/7/b/7bf6baf2-d20b-467d-8929-abefcf7dfa99.jpg?1783939755",
+    "page": "https://scryfall.com/card/ths/135/purphoros-god-of-the-forge?utm_source=api"
+  },
+  {
+    "id": "01a8576e-cadc-4521-aadd-3a05f0bc4d20",
+    "name": "Heliod, Sun-Crowned",
+    "artist": "Lius Lasahido",
+    "set": "thb",
+    "setName": "Theros Beyond Death",
+    "art": "https://cards.scryfall.io/art_crop/front/0/1/01a8576e-cadc-4521-aadd-3a05f0bc4d20.jpg?1783931597",
+    "page": "https://scryfall.com/card/thb/18/heliod-sun-crowned?utm_source=api"
+  },
+  {
+    "id": "d0787e1f-0b75-44ab-a8fd-90358906a787",
+    "name": "Erebos, God of the Dead",
+    "artist": "Peter Mohrbacher",
+    "set": "ths",
+    "setName": "Theros",
+    "art": "https://cards.scryfall.io/art_crop/front/d/0/d0787e1f-0b75-44ab-a8fd-90358906a787.jpg?1783939779",
+    "page": "https://scryfall.com/card/ths/85/erebos-god-of-the-dead?utm_source=api"
+  },
+  {
+    "id": "2ffd66b5-08fe-416b-a680-2d98e9286b77",
+    "name": "Sliver Overlord",
+    "artist": "Tony Szczudlo",
+    "set": "h09",
+    "setName": "Premium Deck Series: Slivers",
+    "art": "https://cards.scryfall.io/art_crop/front/2/f/2ffd66b5-08fe-416b-a680-2d98e9286b77.jpg?1783942088",
+    "page": "https://scryfall.com/card/h09/24/sliver-overlord?utm_source=api"
+  },
+  {
+    "id": "3f7f2417-12de-4e57-9714-d878880a1208",
+    "name": "Nekusar, the Mindrazer",
+    "artist": "Mark Winters",
+    "set": "c13",
+    "setName": "Commander 2013",
+    "art": "https://cards.scryfall.io/art_crop/front/3/f/3f7f2417-12de-4e57-9714-d878880a1208.jpg?1783939648",
+    "page": "https://scryfall.com/card/c13/201/nekusar-the-mindrazer?utm_source=api"
+  },
+  {
+    "id": "0806adab-6a08-411b-b249-e1c58ade354b",
+    "name": "Vorinclex, Voice of Hunger",
+    "artist": "Karl Kopinski",
+    "set": "nph",
+    "setName": "New Phyrexia",
+    "art": "https://cards.scryfall.io/art_crop/front/0/8/0806adab-6a08-411b-b249-e1c58ade354b.jpg?1783941297",
+    "page": "https://scryfall.com/card/nph/127/vorinclex-voice-of-hunger?utm_source=api"
+  },
+  {
+    "id": "0d726f3f-2920-4de4-b531-5c42006e85af",
+    "name": "Ao, the Dawn Sky",
+    "artist": "Chris Rahn",
+    "set": "neo",
+    "setName": "Kamigawa: Neon Dynasty",
+    "art": "https://cards.scryfall.io/art_crop/front/0/d/0d726f3f-2920-4de4-b531-5c42006e85af.jpg?1783923753",
+    "page": "https://scryfall.com/card/neo/433/ao-the-dawn-sky?utm_source=api"
+  },
+  {
+    "id": "a0b6a71e-56cb-4d25-8f2b-7a4f1b60900d",
+    "name": "Uro, Titan of Nature's Wrath",
+    "artist": "Vincent Proce",
+    "set": "thb",
+    "setName": "Theros Beyond Death",
+    "art": "https://cards.scryfall.io/art_crop/front/a/0/a0b6a71e-56cb-4d25-8f2b-7a4f1b60900d.jpg?1783931516",
+    "page": "https://scryfall.com/card/thb/229/uro-titan-of-natures-wrath?utm_source=api"
+  },
+  {
+    "id": "bd46fc9f-5b92-44d7-8940-2f39b0962b8f",
+    "name": "Jin-Gitaxias, Core Augur",
+    "artist": "Eric Deschamps",
+    "set": "nph",
+    "setName": "New Phyrexia",
+    "art": "https://cards.scryfall.io/art_crop/front/b/d/bd46fc9f-5b92-44d7-8940-2f39b0962b8f.jpg?1783941319",
+    "page": "https://scryfall.com/card/nph/37/jin-gitaxias-core-augur?utm_source=api"
+  },
+  {
+    "id": "a52af49b-cfeb-47a8-9ce5-5d35bfa9eb75",
+    "name": "Elenda, the Dusk Rose",
+    "artist": "Chris Rahn",
+    "set": "rix",
+    "setName": "Rivals of Ixalan",
+    "art": "https://cards.scryfall.io/art_crop/front/a/5/a52af49b-cfeb-47a8-9ce5-5d35bfa9eb75.jpg?1783935277",
+    "page": "https://scryfall.com/card/rix/157/elenda-the-dusk-rose?utm_source=api"
+  },
+  {
+    "id": "3bb8347b-8663-40b8-bdfb-411236d2efc8",
+    "name": "Sheoldred, Whispering One",
+    "artist": "Jana Schirmer & Johannes Voss",
+    "set": "nph",
+    "setName": "New Phyrexia",
+    "art": "https://cards.scryfall.io/art_crop/front/3/b/3bb8347b-8663-40b8-bdfb-411236d2efc8.jpg?1783941310",
+    "page": "https://scryfall.com/card/nph/73/sheoldred-whispering-one?utm_source=api"
+  },
+  {
+    "id": "1192f7a9-102e-4b3a-b154-18c8eb332217",
+    "name": "Ulamog, the Ceaseless Hunger",
+    "artist": "Michael Komarck",
+    "set": "bfz",
+    "setName": "Battle for Zendikar",
+    "art": "https://cards.scryfall.io/art_crop/front/1/1/1192f7a9-102e-4b3a-b154-18c8eb332217.jpg?1783938222",
+    "page": "https://scryfall.com/card/bfz/15/ulamog-the-ceaseless-hunger?utm_source=api"
+  },
+  {
+    "id": "067fac91-2483-4678-b86a-2c54a3a480cf",
+    "name": "Kozilek, Butcher of Truth",
+    "artist": "Michael Komarck",
+    "set": "roe",
+    "setName": "Rise of the Eldrazi",
+    "art": "https://cards.scryfall.io/art_crop/front/0/6/067fac91-2483-4678-b86a-2c54a3a480cf.jpg?1783942013",
+    "page": "https://scryfall.com/card/roe/6/kozilek-butcher-of-truth?utm_source=api"
+  },
+  {
+    "id": "a8e9f4d2-bba5-4061-8ae7-a68b912f2c11",
+    "name": "Aurelia, Exemplar of Justice",
+    "artist": "Chris Rahn",
+    "set": "grn",
+    "setName": "Guilds of Ravnica",
+    "art": "https://cards.scryfall.io/art_crop/front/a/8/a8e9f4d2-bba5-4061-8ae7-a68b912f2c11.jpg?1783934144",
+    "page": "https://scryfall.com/card/grn/153/aurelia-exemplar-of-justice?utm_source=api"
+  },
+  {
+    "id": "a9738cda-adb1-47fb-9f4c-ecd930228c4d",
+    "name": "Ragavan, Nimble Pilferer",
+    "artist": "Simon Dominic",
+    "set": "mh2",
+    "setName": "Modern Horizons 2",
+    "art": "https://cards.scryfall.io/art_crop/front/a/9/a9738cda-adb1-47fb-9f4c-ecd930228c4d.jpg?1791803835",
+    "page": "https://scryfall.com/card/mh2/138/ragavan-nimble-pilferer?utm_source=api"
+  },
+  {
+    "id": "5d9951d1-3228-4d69-8e63-6e6f0a893a86",
+    "name": "Ghalta, Primal Hunger",
+    "artist": "Raph Lomotan",
+    "set": "fdc",
+    "setName": "Foundations Commander",
+    "art": "https://cards.scryfall.io/art_crop/front/5/d/5d9951d1-3228-4d69-8e63-6e6f0a893a86.jpg?1789752351",
+    "page": "https://scryfall.com/card/fdc/8/ghalta-primal-hunger?utm_source=api"
+  },
+  {
+    "id": "0153d1ad-c8ee-42ff-a059-b763c2cfb7be",
+    "name": "Toski, Bearer of Secrets",
+    "artist": "Lucas Graciano",
+    "set": "spg",
+    "setName": "Special Guests",
+    "art": "https://cards.scryfall.io/art_crop/front/0/1/0153d1ad-c8ee-42ff-a059-b763c2cfb7be.jpg?1783909912",
+    "page": "https://scryfall.com/card/spg/60/toski-bearer-of-secrets?utm_source=api"
+  },
+  {
+    "id": "99a3e619-fbdb-406c-9f21-eb582cb878c0",
+    "name": "Selvala, Heart of the Wilds",
+    "artist": "Tyler Jacobson",
+    "set": "cn2",
+    "setName": "Conspiracy: Take the Crown",
+    "art": "https://cards.scryfall.io/art_crop/front/9/9/99a3e619-fbdb-406c-9f21-eb582cb878c0.jpg?1783937342",
+    "page": "https://scryfall.com/card/cn2/70/selvala-heart-of-the-wilds?utm_source=api"
+  },
+  {
+    "id": "73cf8c6b-1322-4bc5-a604-6e372607fae4",
+    "name": "Jhoira, Weatherlight Captain",
+    "artist": "Brad Rigney",
+    "set": "dom",
+    "setName": "Dominaria",
+    "art": "https://cards.scryfall.io/art_crop/front/7/3/73cf8c6b-1322-4bc5-a604-6e372607fae4.jpg?1783934967",
+    "page": "https://scryfall.com/card/dom/197/jhoira-weatherlight-captain?utm_source=api"
+  },
+  {
+    "id": "69639b23-9975-4356-ab7d-0aa3387e02c7",
+    "name": "Sakashima of a Thousand Faces",
+    "artist": "Jason A. Engle",
+    "set": "cmr",
+    "setName": "Commander Legends",
+    "art": "https://cards.scryfall.io/art_crop/front/6/9/69639b23-9975-4356-ab7d-0aa3387e02c7.jpg?1783928652",
+    "page": "https://scryfall.com/card/cmr/561/sakashima-of-a-thousand-faces?utm_source=api"
+  },
+  {
+    "id": "fc411c52-3ee2-4fe4-983d-3fa43b516237",
+    "name": "Prossh, Skyraider of Kher",
+    "artist": "Todd Lockwood",
+    "set": "c13",
+    "setName": "Commander 2013",
+    "art": "https://cards.scryfall.io/art_crop/front/f/c/fc411c52-3ee2-4fe4-983d-3fa43b516237.jpg?1783939648",
+    "page": "https://scryfall.com/card/c13/204/prossh-skyraider-of-kher?utm_source=api"
+  },
+  {
+    "id": "5aa75f2b-53c5-47c5-96d2-ab796358a96f",
+    "name": "Zacama, Primal Calamity",
+    "artist": "Jaime Jones",
+    "set": "rix",
+    "setName": "Rivals of Ixalan",
+    "art": "https://cards.scryfall.io/art_crop/front/5/a/5aa75f2b-53c5-47c5-96d2-ab796358a96f.jpg?1783935269",
+    "page": "https://scryfall.com/card/rix/174/zacama-primal-calamity?utm_source=api"
+  }
+]
