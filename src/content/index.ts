@@ -4,12 +4,13 @@ import clubData from './club.json';
 import eventsData from './events.json';
 import cardsData from './cards.json';
 import membersData from './members.json';
+import videosData from './videos.json';
 
 /** One of the five accent colors a card can take. */
 export type CardColor = 'chalk' | 'tide' | 'dusk' | 'ember' | 'grove';
 
 /** Pictures available for a card's art box. See src/ui/glyphs.ts. */
-export type CardGlyph = 'mark' | 'cup' | 'd20' | 'people' | 'person' | 'ticket' | 'deck' | 'plus';
+export type CardGlyph = 'mark' | 'cup' | 'd20' | 'people' | 'person' | 'ticket' | 'deck' | 'plus' | 'play';
 
 export interface Night {
   id: string;
@@ -23,6 +24,14 @@ export interface Night {
   addressConfirmed: boolean;
   tone: CardColor;
   glyph: CardGlyph;
+}
+
+/** The club's YouTube channel, for live streams. Both parts stay null until the club has one. */
+export interface Stream {
+  /** The channel's id ("UC" and 22 characters). Empty text means "typed but not recognized". */
+  channelId: string | null;
+  /** When the next stream is, in the club's own words. */
+  next: string | null;
 }
 
 export interface Club {
@@ -40,7 +49,23 @@ export interface Club {
   branch: string;
   /** Officer-written intro. Null until provided. */
   blurb: string | null;
+  stream: Stream;
   nights: Night[];
+}
+
+/** A replay or an intro, played from YouTube when a visitor presses play. See src/sections/video.ts. */
+export interface Video {
+  title: string;
+  kind: 'replay' | 'intro';
+  /** The 11-character YouTube id. Never a full address. */
+  videoId: string;
+  date: string | null;
+  /** Short text for the card. */
+  description: string;
+  /** Captions are on and checked. Needed before an intro is posted. */
+  captions: boolean;
+  /** Everyone shown has agreed to appear on a public site. The site shows nothing until this is true. */
+  consent: boolean;
 }
 
 export interface ClubEvent {
@@ -130,3 +155,4 @@ export const club = clubData as Club;
 export const cardTexts = cardsData as CardTexts;
 export const events = eventsData as ClubEvent[];
 export const members = membersData as Member[];
+export const videos = videosData as Video[];

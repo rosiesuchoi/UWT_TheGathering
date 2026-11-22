@@ -44,6 +44,25 @@ export function field(label: string, o: FieldOptions): HTMLElement {
   return wrap;
 }
 
+/** A labelled drop-down list. */
+export function select(label: string, options: Array<[value: string, text: string]>, value: string, onChange: (value: string) => void): HTMLElement {
+  const id = `adm-f${++counter}`;
+  const wrap = el('div', 'adm-field');
+  const lab = el('label', '', label);
+  lab.htmlFor = id;
+  const input = el('select', 'adm-input');
+  input.id = id;
+  options.forEach(([v, text]) => {
+    const opt = el('option', '', text);
+    opt.value = v;
+    input.append(opt);
+  });
+  input.value = value;
+  input.addEventListener('change', () => onChange(input.value));
+  wrap.append(lab, input);
+  return wrap;
+}
+
 /** A labelled tick box. */
 export function check(label: string, checked: boolean, onChange: (checked: boolean) => void, dot?: string): HTMLElement {
   const lab = el('label', 'adm-check');

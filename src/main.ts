@@ -18,6 +18,7 @@ import './styles/nights.css';
 import './styles/members.css';
 import './styles/events.css';
 import './styles/prizebox.css';
+import './styles/video.css';
 import './styles/join.css';
 
 import { fx } from './core/fx';
@@ -29,6 +30,7 @@ import { initJoin } from './sections/join';
 import { initMembers } from './sections/members';
 import { initNights } from './sections/nights';
 import { initTable } from './sections/table';
+import { initWatch } from './sections/video';
 import { applyClubContent, initNav } from './ui/chrome';
 import { applyTextEdits } from './ui/edits';
 import { initDotsParallax, initOffscreenPause, initReveals } from './ui/motion';
@@ -45,6 +47,7 @@ initClub();
 initNights();
 initMembers();
 initEvents();
+initWatch();
 initJoin();
 // Reveals go last: they number the pieces each section has just built.
 initReveals();

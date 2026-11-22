@@ -31,6 +31,8 @@ site updates everywhere that content appears.
 - `events.json`: the raffle and the giveaway. Remove an item from an event's
   `owed` list once you have filled that detail in.
 - `cards.json`: the words on the club, members and visitor cards.
+- `videos.json`: replays and intros (YouTube ids only; the videos stay on
+  YouTube). `club.json` also holds the club's YouTube channel and "next stream".
 - `text.json`: edited headings and paragraphs (written by the officer panel).
 - Member photos go in `public/members/`. A member without a photo wears
   stand-in card art from Scryfall (`commander-art.json`, refreshed by
@@ -90,6 +92,9 @@ Then sign in:
   - **Events**: the raffle and the giveaway's words, the date once it is
     known, and the "still owed" list.
   - **Cards**: the words on the club, members and visitor cards.
+  - **Videos**: the club's YouTube channel for live streams, and each replay
+    or intro (paste its YouTube link). A video shows on the site only after you
+    tick that everyone in it has agreed to appear.
   - **Buttons and links**: the words on buttons, menu links and a few
     handwritten labels.
 - **Save changes** makes one commit on `main`, and the site republishes in

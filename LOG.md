@@ -3,6 +3,67 @@
 Newest entry first. One entry per working session: what was done, what was
 decided, what is next.
 
+## 2026-11-22 (Sun) - The Watch section (integrations, step 2 of 3)
+
+The second of the three integrations the club asked for: replays, intros and
+live streams. Built and committed locally, not pushed (a push goes live).
+
+**Done**
+- A new "Watch" section after Events, with a nav link: one big player and the
+  club's videos as 5:7 cards under it. Videos stay on YouTube; the site stores
+  only ids (videos.json) and the channel (club.json `stream`).
+- Nothing from YouTube loads until a visitor presses play. The posters are our
+  own drawing (no YouTube thumbnails, which would load from Google at page
+  load). The player is made on the press, from youtube-nocookie.com, with
+  referrerpolicy strict-origin-when-cross-origin (error 153 otherwise), and a
+  plain "Open on YouTube" link sits beneath it.
+- A video is hidden until its consent box is ticked. Web addresses are built
+  only from checked ids (src/content/youtube.ts); the panel reads an id out of
+  a pasted link and rejects anything else, and saving is blocked while a link
+  is not recognized.
+- Officer panel: a Videos tab (stream channel and next-stream words; add,
+  remove, reorder videos; title, link, kind, date, card text, consent and
+  captions boxes with plain warnings).
+- With no videos and no channel the section shows a dashed "owed" note and
+  fetches nothing from outside.
+- CLAUDE.md, README.md updated (code map, rules, what is still owed).
+
+**Checked** (dev build in the Chrome pane, 1280 and 375 wide)
+- Type-check and production build pass. Main bundle 184.7 -> 188.4 kB (67.6 ->
+  69.0 kB gzip); admin chunk 29.2 -> 33.4 kB; styles 38.2 -> 40.2 kB.
+- Empty state: owed note, "Watch" link in the nav, no request to YouTube or
+  Google (the only outside host is Scryfall's image host).
+- With test data (a public YouTube test video, since removed): the consent box
+  hides a video until ticked; an id is read from a youtu.be link with tracking
+  text, and from embed, shorts and bare-id forms; javascript: links, another
+  host, a short id and a quote-injection string are rejected; Save refuses with a
+  plain message and makes no GitHub call.
+- Pressing the poster (with the mouse, and with Enter on the focused button)
+  makes the iframe with the right address, title and referrer policy, moves
+  focus into it, and the real YouTube player played the video through the
+  privacy host. A format-valid test channel made the "Watch live" card lead
+  the row with its "Next stream" words and the live embed address.
+- 375 wide: no sideways scroll, two cards per row (fixed after a first look
+  showed one), poster fits.
+- A fresh tab's console shows only Vite's debug lines. Earlier failed-connection
+  lines in the long-lived test tab came from the YouTube player running inside
+  this sandbox, not from the page.
+
+**Not verified**
+- A real YouTube channel (the live embed may need the plain-link fallback), a
+  real panel save that includes videos, Lighthouse (not re-run; the page adds
+  about 1.4 kB gzip and no request at load), Safari, Firefox, a real phone, a
+  screen reader.
+- The club still has to confirm: everyone on camera agreed, the venues allow
+  filming, music in replays is cleared, intros are captioned, and a club-owned
+  account runs the channel. None of that can be done in code.
+- The Friday flyer (and its Canva copy) still show the old venue address; the
+  club changed it in the panel.
+
+**Next**
+- Approval to push step 2. Then step 3 (favorite-set themes), with its own plan
+  first. Local-only commits waiting: the Phase 1 log entry.
+
 ## 2026-11-21 (Sat) - Scryfall art for the binder (integrations, step 1 of 3)
 
 The club asked for three integrations: Scryfall art on the member cards, a

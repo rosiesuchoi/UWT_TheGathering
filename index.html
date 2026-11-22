@@ -33,6 +33,7 @@
       <a href="#nights" data-edit="nav-nights" data-edit-in="panel">Nights</a>
       <a href="#members" data-edit="nav-members" data-edit-in="panel">Members</a>
       <a href="#events" data-edit="nav-events" data-edit-in="panel">Events</a>
+      <a href="#watch" data-edit="nav-watch" data-edit-in="panel">Watch</a>
     </nav>
     <a class="btn btn-ink" data-discord href="#join" data-edit="nav-join" data-edit-in="panel">Join the Discord</a>
     <button class="menu" type="button" id="menuBtn" aria-expanded="false" aria-controls="links">Menu</button>
@@ -145,6 +146,21 @@
           </div>
           <div class="event-list" id="eventList"></div>
         </div>
+      </div>
+    </section>
+
+    <section class="sec dark" id="watch" data-reveal>
+      <div class="in">
+        <div class="body">
+          <p class="label" data-rv data-edit="watch-label">Watch</p>
+          <h2 data-rv data-edit="watch-title">See the club <em>in action.</em></h2>
+          <p data-rv data-edit="watch-text">Replays of our game nights, short videos about the club, and live streams when we have them.</p>
+        </div>
+        <!-- The player and the cards are built from videos.json and club.json by src/sections/video.ts.
+             Nothing from YouTube loads until a visitor presses play. -->
+        <div class="vstage" id="watchPlayer" data-rv></div>
+        <div class="reel" id="watchReel" data-rv></div>
+        <p class="watch-note" data-rv>Videos load from YouTube only when you press play.</p>
       </div>
     </section>
 

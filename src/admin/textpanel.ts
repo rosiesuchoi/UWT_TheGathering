@@ -10,6 +10,7 @@ const LABELS: Record<string, [group: string, what: string]> = {
   'nav-nights': ['Menu bar', 'Link to the nights'],
   'nav-members': ['Menu bar', 'Link to the members'],
   'nav-events': ['Menu bar', 'Link to the events'],
+  'nav-watch': ['Menu bar', 'Link to the videos'],
   'nav-join': ['Menu bar', 'Discord button'],
   'table-cta': ['The table', 'Discord button'],
   'table-replay': ['The table', 'Replay button'],

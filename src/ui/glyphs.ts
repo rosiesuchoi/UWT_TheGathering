@@ -10,6 +10,7 @@ export const GLYPHS = {
   ticket: '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M10 30h80v13a8 8 0 0 0 0 16v13H10V59a8 8 0 0 0 0-16z" fill="currentColor"/><path d="M64 35v32" stroke="rgba(255,255,255,.75)" stroke-width="3" stroke-dasharray="5 5"/></svg>',
   deck: '<svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><rect x="20" y="12" width="46" height="64" rx="6" opacity=".4"/><rect x="27" y="19" width="46" height="64" rx="6" opacity=".7"/><rect x="34" y="26" width="46" height="64" rx="6"/></svg>',
   plus: '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" aria-hidden="true"><rect x="16" y="16" width="68" height="68" rx="12" stroke-dasharray="10 10"/><path d="M50 34v32M34 50h32"/></svg>',
+  play: '<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="currentColor"/><polygon points="42,32 70,50 42,68" fill="rgba(0,0,0,.5)"/></svg>',
 } as const;
 
 /** 'mark' is the club logo, drawn with a CSS mask instead of inline SVG. */

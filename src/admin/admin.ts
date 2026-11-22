@@ -7,18 +7,19 @@
 // the token, and a token without write access to the repository cannot save.
 // Styles are in src/styles/admin.css.
 import '../styles/admin.css';
-import { cardTexts, club, events, members } from '../content';
+import { cardTexts, club, events, members, videos } from '../content';
 import { rebuildSiteCards } from '../content/cards';
 import { refreshEvents } from '../sections/events';
 import { refreshJoinRecap } from '../sections/join';
 import { refreshMembers } from '../sections/members';
 import { refreshNights } from '../sections/nights';
+import { refreshWatch } from '../sections/video';
 import { applyClubContent } from '../ui/chrome';
 import { cleanHtml, MAX_TEXT, textDefaults, textOverrides } from '../ui/edits';
 import { button, el } from './dom';
 import { ConflictError, GitHubError, commitFiles, verifyToken, type FileChange } from './github';
 import { PHOTO_DIR, markSaved, takePending } from './photos';
-import { cardsPanel, clubPanel, eventsPanel, membersPanel, validateContent } from './panels';
+import { cardsPanel, clubPanel, eventsPanel, membersPanel, validateContent, videosPanel } from './panels';
 import { wordsPanel } from './textpanel';
 
 const TOKEN_KEY = 'mtguwt:admin-token';
@@ -86,6 +87,7 @@ const docs: Doc[] = [
   membersDoc,
   doc('src/content/events.json', 'events', events),
   doc('src/content/cards.json', 'cards', cardTexts),
+  doc('src/content/videos.json', 'videos', videos),
 ];
 
 /** Every edited text box as { key: html }, including saved edits that are still in place. */
@@ -198,6 +200,7 @@ function changed(): void {
     refreshBlurb();
     refreshMembers();
     refreshEvents();
+    refreshWatch();
     document.title = club.pageTitle;
   }, 150);
 }
@@ -316,6 +319,7 @@ const TABS: Array<{ id: string; label: string; build: (onChange: () => void) => 
   { id: 'club', label: 'Club and nights', build: clubPanel },
   { id: 'events', label: 'Events', build: eventsPanel },
   { id: 'cards', label: 'Cards', build: cardsPanel },
+  { id: 'videos', label: 'Videos', build: videosPanel },
   { id: 'words', label: 'Buttons and links', build: wordsPanel },
 ];
 let lastTab = 'members';

@@ -2,8 +2,9 @@
 // the words on the table's cards. They change the same objects the site reads
 // (club, members, events, cardTexts), in place, and call onChange so the page
 // shows the result straight away.
-import { cardTexts, club, events, members, type CardColor, type CardWords, type Member } from '../content';
-import { button, check, el, field } from './dom';
+import { cardTexts, club, events, members, videos, type CardColor, type CardWords, type Member, type Video } from '../content';
+import { CHANNEL_ID, VIDEO_ID, parseChannelId, parseVideoId, watchLink } from '../content/youtube';
+import { button, check, el, field, select } from './dom';
 import { artName, memberArt, nextStandIn, randomStandIn, takenBy } from '../content/art';
 import { addPhoto, photoSrc } from './photos';
 
@@ -44,6 +45,14 @@ export function validateContent(): string | null {
     if (!c.label.trim() || !c.name.trim() || !c.type.trim() || !c.text.trim()) return `The ${name} card has an empty field.`;
   }
   if (!cardTexts.you.type.trim() || !cardTexts.you.text.trim()) return 'The visitor card has an empty field.';
+  const channel = club.stream.channelId;
+  if (channel !== null && !CHANNEL_ID.test(channel)) {
+    return 'The YouTube channel link is not recognized. Use the channel page link (youtube.com/channel/UC...) or the channel ID, or leave it empty.';
+  }
+  for (const [i, v] of videos.entries()) {
+    if (!v.title.trim()) return `Video ${i + 1} has no title.`;
+    if (!VIDEO_ID.test(v.videoId)) return `"${v.title.trim()}" needs a YouTube link the site recognizes (a watch, youtu.be, embed or shorts link, or the 11-character ID).`;
+  }
   return null;
 }
 
@@ -494,5 +503,184 @@ export function cardsPanel(onChange: () => void): HTMLElement {
     wordsFor('The members card', cardTexts.members, onChange),
     wordsFor("The visitor's card (100/100)", cardTexts.you, onChange),
   );
+  return root;
+}
+
+/** What a pasted YouTube link was read as, in words. */
+function idNote(note: HTMLElement, text: string, id: string | null, what: string): void {
+  note.textContent = text.trim() === '' ? '' : id ? `Recognized ${what}: ${id}` : `Not recognized as a ${what}. Nothing will show, and saving is blocked until this is fixed.`;
+}
+
+const MAX_VIDEO_TITLE = 60;
+const MAX_VIDEO_TEXT = 80;
+
+function videoRow(v: Video, index: number, actions: { up: () => void; down: () => void; remove: () => void }, onChange: () => void): HTMLElement {
+  const row = el('fieldset', 'adm-row');
+  const legend = el('legend', '', v.title.trim() || 'New video');
+  row.append(legend);
+  const set =
+    (apply: (value: string) => void) =>
+    (value: string): void => {
+      apply(value);
+      onChange();
+    };
+
+  const linkNote = el('p', 'adm-hint');
+  linkNote.setAttribute('role', 'status');
+  const warn = el('p', 'adm-hint');
+  const paintWarn = (): void => {
+    const lines: string[] = [];
+    if (!v.consent) lines.push('Hidden on the site until the consent box below is ticked.');
+    if (v.kind === 'intro' && !v.captions) lines.push('An intro needs captions before it is posted.');
+    warn.textContent = lines.join(' ');
+  };
+  const link = field('YouTube link or ID', {
+    value: v.videoId ? watchLink(v.videoId) : '',
+    max: 200,
+    hint: 'Paste the video link from the address bar or the Share button. The video itself stays on YouTube.',
+    onInput: (value) => {
+      const id = parseVideoId(value);
+      v.videoId = id ?? '';
+      idNote(linkNote, value, id, 'video');
+      onChange();
+    },
+  });
+
+  row.append(
+    field('Title', {
+      value: v.title,
+      max: MAX_VIDEO_TITLE,
+      onInput: (value) => {
+        v.title = value;
+        legend.textContent = value.trim() || 'New video';
+        onChange();
+      },
+    }),
+    link,
+    linkNote,
+    select(
+      'Kind',
+      [
+        ['replay', 'Replay of a game night'],
+        ['intro', 'Intro: a short video about the club'],
+      ],
+      v.kind,
+      (value) => {
+        v.kind = value === 'intro' ? 'intro' : 'replay';
+        paintWarn();
+        onChange();
+      },
+    ),
+    field('Date', { value: v.date ?? '', max: 24, hint: 'Optional. For example Nov 14.', onInput: set((value) => (v.date = value.trim() === '' ? null : value)) }),
+    field('Short text for the card', { value: v.description, max: MAX_VIDEO_TEXT, onInput: set((value) => (v.description = value)) }),
+    check('Everyone shown in this video has agreed to appear on a public site', v.consent, (on) => {
+      v.consent = on;
+      paintWarn();
+      onChange();
+    }),
+    check('Captions are on and checked', v.captions, (on) => {
+      v.captions = on;
+      paintWarn();
+      onChange();
+    }),
+    warn,
+  );
+  paintWarn();
+
+  const tools = el('div', 'adm-tools');
+  const up = button('Move earlier', 'adm-btn adm-small', actions.up);
+  up.disabled = index === 0;
+  const down = button('Move later', 'adm-btn adm-small', actions.down);
+  down.disabled = index === videos.length - 1;
+  tools.append(up, down, button('Remove', 'adm-btn adm-small adm-danger', actions.remove));
+  row.append(tools);
+  return row;
+}
+
+/** Videos: the club's YouTube channel for live streams, and the replays and intros. */
+export function videosPanel(onChange: () => void): HTMLElement {
+  const root = el('div', 'adm-body');
+  root.append(
+    el(
+      'p',
+      'adm-note',
+      'Videos stay on YouTube. The site shows a poster for each, and the video loads from YouTube only when a visitor presses play. A video appears on the site only after you tick that everyone in it has agreed.',
+    ),
+  );
+
+  const stream = el('fieldset', 'adm-row');
+  stream.append(el('legend', '', 'Live streams'));
+  const channelNote = el('p', 'adm-hint');
+  channelNote.setAttribute('role', 'status');
+  stream.append(
+    field('YouTube channel link or ID', {
+      value: club.stream.channelId ?? '',
+      max: 200,
+      hint: 'The channel page link (youtube.com/channel/UC...) or the channel ID. A link with an @name does not contain it. In YouTube Studio it is under Settings, Channel, Advanced settings. Leave empty until the club has a channel.',
+      onInput: (value) => {
+        if (value.trim() === '') {
+          club.stream.channelId = null;
+        } else {
+          // A typed value that is not an id is kept as '' so saving is blocked until it is fixed.
+          club.stream.channelId = parseChannelId(value) ?? '';
+        }
+        idNote(channelNote, value, club.stream.channelId || null, 'channel');
+        onChange();
+      },
+    }),
+    channelNote,
+    field('Next stream', {
+      value: club.stream.next ?? '',
+      max: 60,
+      hint: 'Shown on the "Watch live" card, for example "Friday, 6 PM". Optional.',
+      onInput: (value) => {
+        club.stream.next = value.trim() === '' ? null : value;
+        onChange();
+      },
+    }),
+  );
+  root.append(stream);
+
+  const list = el('div', 'adm-list');
+  const paint = (): void => {
+    list.replaceChildren(
+      ...videos.map((v, i) =>
+        videoRow(
+          v,
+          i,
+          {
+            up: () => {
+              if (i === 0) return;
+              [videos[i - 1], videos[i]] = [videos[i]!, videos[i - 1]!];
+              paint();
+              onChange();
+            },
+            down: () => {
+              if (i === videos.length - 1) return;
+              [videos[i + 1], videos[i]] = [videos[i]!, videos[i + 1]!];
+              paint();
+              onChange();
+            },
+            remove: () => {
+              videos.splice(i, 1);
+              paint();
+              onChange();
+            },
+          },
+          onChange,
+        ),
+      ),
+    );
+    if (videos.length === 0) list.append(el('p', 'adm-hint', 'No videos yet. The section shows an "owed" note until there is one.'));
+  };
+  paint();
+
+  const add = button('Add a video', 'adm-btn', () => {
+    videos.push({ title: '', kind: 'replay', videoId: '', date: null, description: '', captions: false, consent: false });
+    paint();
+    list.lastElementChild?.querySelector('input')?.focus();
+    onChange();
+  });
+  root.append(list, add);
   return root;
 }

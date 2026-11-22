@@ -10,6 +10,7 @@
   "repo": "rosiesuchoi/UWT_TheGathering",
   "branch": "main",
   "blurb": "We created this space for everyone to be able to express your play style and enjoy your time with friends and making new friends! Not only that but doing our best to making sure you have the best magic experience for uwt.",
+  "stream": { "channelId": null, "next": null },
   "nights": [
     {
       "id": "thu",

@@ -54,6 +54,13 @@ obvious placeholders and list them under "Content still owed" below.
   announced".
 - Whether there is a vector (SVG/AI) version of the logo.
 - Event photos, once the club has some.
+- The club's YouTube channel (its channel id goes in the Videos tab), the
+  stream schedule, and the first videos. Until then the Watch section shows
+  an "owed" note and loads nothing from outside.
+- Before any video goes up, the club must confirm: everyone on camera agreed
+  (the Videos tab has a box for it), the venues allow filming (Iruda Cafe and
+  Silver King Games & Hobby), any music in replays is cleared, and intros have
+  captions. A club-owned account, not a personal one, should run the channel.
 
 ## Constraints
 - No official Magic card art, mana symbols, or Wizards of the Coast logos.
@@ -312,6 +319,33 @@ Bright and collectible. The card is the interface.
     card's drawing if the picture cannot load. Footer credits come from
     ui/chrome.ts (applyArtCredits) and follow the panel's live preview.
   - Cost: the pool is part of the main bundle (about +15 kB, +5 kB gzip).
+- Watch section (src/sections/video.ts, src/styles/video.css, #watch in
+  index.html, nav link "Watch"). One 16:9 player and the club's videos as
+  5:7 cards beneath it. Built from src/content/videos.json (replays and
+  intros) and the `stream` in club.json (the club's YouTube channel for live
+  streams, and the "next stream" words).
+  - Nothing from YouTube loads until a visitor presses play. The posters are
+    our own drawing; YouTube thumbnails are not used because they would load
+    from Google when the page opens. The player is an iframe made on the press,
+    from youtube-nocookie.com, with referrerpolicy strict-origin-when-cross-origin
+    (YouTube refuses to play with no referrer: error 153). A plain "Open on
+    YouTube" link sits under it in case an embed is blocked. Pressing a card
+    plays that video in the player and scrolls to it.
+  - A video is shown only if `consent` is true (everyone in it agreed) and its
+    id is valid. `captions` only warns in the panel (an intro needs them).
+  - Web addresses are built only from ids that passed src/content/youtube.ts
+    (VIDEO_ID, CHANNEL_ID, parseVideoId, parseChannelId). The panel accepts a
+    pasted watch, youtu.be, embed or shorts link, or a bare id, and stores just
+    the id. A typed channel that is not an id is stored as "" so saving is
+    blocked. Never put typed text into an iframe address any other way.
+  - No live detection (no backend, and a save takes about a minute to deploy).
+    Once a channel id is set a "Watch live" card leads the row and embeds the
+    channel's live player; the featured slot still starts on the newest video.
+    Not yet tested with a real channel: if the channel-live embed fails, fall
+    back to the plain `channelLiveLink`.
+  - The Videos tab in the officer panel (panels.ts videosPanel) edits
+    videos.json and the stream. videos.json is a doc in admin.ts.
+  - Nothing here loops, so nothing was added to the [data-offscreen] list.
 - design/ - concept board, approved mockup, logo sources. Reference only.
 - .github/workflows/deploy.yml - builds the site and publishes it to GitHub
   Pages on every push to main. Every push to main goes live, so only push
@@ -382,6 +416,9 @@ Bright and collectible. The card is the interface.
   Put end-of-timeline work in a `.call()` step, never in the timeline's own
   onComplete (this once left the deck stuck after a full shuffle).
 - Reduced motion zeroes animation delays as well as durations.
+- Third-party content (YouTube) loads only after a press, never at page load,
+  and no page address or typed text may reach an iframe except through the
+  checked-id helpers in src/content/youtube.ts.
 - Test switches, usable on any build: add `?reduce-motion` to force reduced
   motion, `?fps` for a frame-rate readout.
 - Card links and buttons take their accessible name from their visible
@@ -425,7 +462,8 @@ session.
      with a real token worked 2026-11-15 (two commits, both deployed).
    - Integrations asked for 2026-11-21, each approved before it is pushed:
      1. Scryfall stand-in art for member cards - built, awaiting approval.
-     2. Video section (live stream, replays, short intros) - not started.
+     2. Video section (live stream, replays, short intros) - built, awaiting
+        approval.
      3. Favorite-set themes (sets released 2024-11-21 to 2026-11-21) - not
         started.
 
