@@ -7,7 +7,15 @@ decided, what is next.
 
 The club asked for three integrations: Scryfall art on the member cards, a
 video section, and favorite-set themes. This session was the first only.
-Built, committed locally, not pushed (a push goes live).
+Approved and pushed (b94def5). The first push was refused because two officer-panel
+saves (events, 2026-11-15; club and nights, 2026-11-17) were on GitHub; they
+touched other files, so the local commits were rebased onto them without a
+conflict, rebuilt, and pushed with no force. Deploy took about 40 s; the live
+page serves index-CbP2Zt30.js, the four officer cards load their art and
+credits, 0 requests to api.scryfall.com, no console errors.
+Found while rebasing: the club changed the Friday venue address in the panel
+(now 5316 Orchard St W, University Place, WA 98467). The Friday flyer and its
+Canva copy still show the old address; waiting on the club to confirm.
 
 **Done**
 - Member cards in the binder now wear stand-in commander art from Scryfall
