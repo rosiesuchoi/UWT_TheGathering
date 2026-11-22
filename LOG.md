@@ -6,8 +6,8 @@ decided, what is next.
 ## 2026-11-22 (Sun) - The Hobbit: handmade look, round door, quiet eggs
 
 Next theme in reverse date order. The club asked to take a break after this one.
-Built on top of the unpushed theme commits and committed locally; nothing is
-pushed.
+Built on top of the Reality Fracture commit, and pushed together with it (the set
+picker and Star Trek had already been pushed).
 
 **Done**
 - A warm, handmade look: parchment pages with paper grain, sections with gently
@@ -47,7 +47,8 @@ pushed.
 - Real-time smoothness and frame rate (frames were captured in sequence), Safari,
   Firefox, a real phone, a screen reader (all effects are aria-hidden).
 - The eggs are rare by design, so a short visit may not show one.
-- Nothing from this theme, Reality Fracture or Star Trek is pushed. The club's
+- This theme and Reality Fracture were pushed together, after this was written
+  (the set picker and Star Trek were already live). The club's
   other open questions stand (Reality Fracture's line, The Zeta Set, naming the
   crossover sets and a named character such as Jace), and the Friday flyer still
   shows the old venue address.
@@ -59,8 +60,8 @@ pushed.
 ## 2026-11-22 (Sun) - Reality Fracture: new look, portal, rifts, Jace
 
 Next theme in reverse date order (Star Trek, then Reality Fracture, then The
-Hobbit, and so on back in time). Built on top of the unpushed theme commits and
-committed locally; nothing is pushed.
+Hobbit, and so on back in time). Built on top of the set-theme and Star Trek
+commits (already pushed); pushed together with The Hobbit.
 
 **Done**
 - A new look, not only new colors: sections with jagged broken edges over a dark
@@ -119,7 +120,8 @@ committed locally; nothing is pushed.
   is based on the set's name only, and its line (Magic-only or not) is still
   unconfirmed.
 - The rifts and Jace are rare by design, so a short visit may not show them.
-- Nothing from this theme or Star Trek is pushed yet; the club's other open
+- This theme was pushed together with The Hobbit (the set picker and Star Trek
+  were already live); the club's other open
   questions (The Zeta Set, naming the crossover sets) stand, and the Friday flyer
   still shows the old venue address.
 
@@ -129,8 +131,8 @@ committed locally; nothing is pushed.
 ## 2026-11-22 (Sun) - Star Trek opening and Easter eggs
 
 The club held back the push of the set themes ("not yet") to work on them one at
-a time, starting with Star Trek. Built on top of the unpushed theme commit and
-committed locally; nothing is pushed.
+a time, starting with Star Trek. Built on top of the set-theme commit and pushed
+with it (4015e02) when the club asked to save progress.
 
 **Done**
 - When a visitor picks Star Trek, an opening plays: a starship glides in, jumps
@@ -178,7 +180,8 @@ committed locally; nothing is pushed.
   Vulcan salute uses an emoji, which looks different on each system.
 - The eggs only fire every 45-110 s, so a visitor may not see them in a short
   visit. Not yet tried while an officer is editing (they are meant to stay off).
-- The set themes are still unpushed and still need the club's answers (Reality
+- The set themes were pushed later (4015e02) at the club's request, while they
+  still needed the club's answers (Reality
   Fracture's line, The Zeta Set, naming crossover sets).
 
 **Next**
